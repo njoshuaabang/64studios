@@ -1,0 +1,202 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  background-color: #f2efe9;
+  color: #1c1c1a;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background-color: #22302a;
+  color: #f2efe9;
+}
+
+/* Focus is brass everywhere, and never the browser default blue. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 1px solid #9a7b4f;
+  outline-offset: 4px;
+  border-radius: 1px;
+}
+
+/* Applied by the threshold page only, for the duration it is mounted. */
+html.threshold-lock,
+body.threshold-lock {
+  height: 100dvh;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+/*
+ * The only page transition on the site. Content is opaque by default, so a
+ * reader with animation turned off — or with JS unavailable — sees it at once.
+ */
+@keyframes page-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.page-fade {
+  animation: page-fade 300ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-fade {
+    animation: none;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────────────
+   Shared gutter. The nav, the footer and the copy rail on /the-house all
+   hang off this one value, so their left edges line up down the page.
+   ────────────────────────────────────────────────────────────────────── */
+:root {
+  --gutter: 24px;
+
+  /* The only two vertical spacing values on /the-house. */
+  --space-section: 96px;
+  --space-copy-image: 24px;
+}
+
+@media (min-width: 900px) {
+  :root {
+    --gutter: 48px;
+  }
+}
+
+@media (min-width: 1200px) {
+  :root {
+    --gutter: 64px;
+  }
+}
+
+@media (min-width: 1440px) {
+  :root {
+    --gutter: 80px;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────────────
+   /the-house. One table of measurements; every rule below reads from it.
+   Bleeds are percentages of the document, not vw: `100vw` includes the
+   vertical scrollbar and would push the right edge into overflow.
+   ────────────────────────────────────────────────────────────────────── */
+.house {
+  --rail: 100%;
+  --rail-gap: 24px;
+  --image-h: 62vh;
+  --detail-h: 50vh;
+  --detail-w: 80%;
+  --detail-offset: 20%;
+}
+
+@media (min-width: 900px) {
+  .house {
+    --rail: 240px;
+    --rail-gap: 48px;
+    --image-h: 76vh;
+    --detail-h: 68vh;
+    --detail-w: 48%;
+    --detail-offset: 52%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .house {
+    --rail: 280px;
+    --rail-gap: 64px;
+    --image-h: 84vh;
+  }
+}
+
+@media (min-width: 1440px) {
+  .house {
+    --rail: 320px;
+    --rail-gap: 80px;
+    --image-h: 84vh;
+  }
+}
+
+/* Primary sections: rail on the left, image running off the right edge. */
+.house-plate {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-copy-image);
+}
+
+.house-rail {
+  padding-inline: var(--gutter);
+}
+
+.house-figure {
+  position: relative;
+  width: 100%;
+  height: var(--image-h);
+  overflow: hidden;
+}
+
+@media (min-width: 900px) {
+  .house-plate {
+    flex-direction: row;
+    gap: var(--rail-gap);
+    /* Rail copy sits at the top of its image, not centred against it. */
+    align-items: flex-start;
+  }
+
+  .house-rail {
+    flex: 0 0 var(--rail);
+    width: var(--rail);
+    margin-left: var(--gutter);
+    padding-inline: 0;
+  }
+
+  /* Takes whatever is left — the gutter, rail and gap subtracted from the
+     document width. Same result as calc(100vw - offset), minus the hazard. */
+  .house-figure {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+  }
+}
+
+/* Detail shots: no rail, hanging off one edge. */
+.house-detail {
+  width: var(--detail-w);
+}
+
+.house-detail-right {
+  margin-left: var(--detail-offset);
+}
+
+.house-detail-figure {
+  position: relative;
+  width: 100%;
+  height: var(--detail-h);
+  overflow: hidden;
+}
+
+/* Rail copy wraps on its own now, so let the browser even out the rag and
+   keep a last line from stranding a word or two. */
+.house-copy {
+  text-wrap: pretty;
+}

@@ -1,0 +1,56 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "halden-dev",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": [
+        "-c",
+        "cd halden && npm run dev"
+      ],
+      "port": 3100
+    },
+    {
+      "name": "64studios-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev"
+      ],
+      "port": 3000,
+      "autoPort": true
+    },
+    {
+      "name": "64studios-attach",
+      "url": "http://localhost:3000",
+      "port": 3000
+    },
+    {
+      "name": "aldern-voss-dev",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": [
+        "-c",
+        "cd /Users/joshuaabang/Downloads/aldern-voss && npm run dev -- --port 5199 --strictPort"
+      ],
+      "port": 5199
+    },
+    {
+      "name": "aldern-voss-2-dev",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": [
+        "-c",
+        "cd '/Users/joshuaabang/Downloads/aldern-voss 2' && npm run dev -- --port 5200 --strictPort"
+      ],
+      "port": 5200
+    },
+    {
+      "name": "aldern-voss-2-preview",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": [
+        "-c",
+        "cd '/Users/joshuaabang/Downloads/aldern-voss 2' && npm run preview -- --port 5201 --strictPort"
+      ],
+      "port": 5201
+    }
+  ]
+}

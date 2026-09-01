@@ -1,0 +1,328 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  background-color: #fdfcfb;
+  color: #454545;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background-color: #e3e0d4;
+  color: #454545;
+}
+
+/* In-brand focus states: charcoal outline, never browser blue, never bone-only */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 1px solid #454545;
+  outline-offset: 4px;
+}
+
+html.homepage-lock,
+body.homepage-lock {
+  height: 100dvh;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+
+/* ══════════════════════════════════════════════════════════════════════
+   HALDEN — served at /halden. Every rule below is scoped to the `.halden`
+   wrapper set in app/(halden)/halden/layout.tsx, so this brand's palette,
+   gutters, selection and focus ring cannot reach a 64 Studios page.
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* Painted on the element rather than html/body, with :has() covering the
+   overscroll area behind it so the ground does not flash 64's white. */
+body:has(.halden) {
+  background-color: #f2efe9;
+}
+
+.halden ::selection {
+  background-color: #22302a;
+  color: #f2efe9;
+}
+
+/* Focus is brass inside Halden, overriding 64's ink outline by specificity. */
+.halden a:focus-visible,
+.halden button:focus-visible,
+.halden input:focus-visible,
+.halden textarea:focus-visible,
+.halden select:focus-visible,
+.halden [tabindex]:focus-visible {
+  outline: 1px solid #9a7b4f;
+  outline-offset: 4px;
+  border-radius: 1px;
+}
+
+html.threshold-lock,
+body.threshold-lock {
+  height: 100dvh;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+/*
+ * The only page transition on the site. Content is opaque by default, so a
+ * reader with animation turned off — or with JS unavailable — sees it at once.
+ */
+@keyframes page-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.halden .page-fade {
+  animation: page-fade 300ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .halden .page-fade {
+    animation: none;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────────────
+   Shared gutter. The nav, the footer and the copy rail on /the-house all
+   hang off this one value, so their left edges line up down the page.
+   ────────────────────────────────────────────────────────────────────── */
+.halden {
+  --gutter: 24px;
+
+  /* The only two vertical spacing values on /the-house. */
+  --space-section: 96px;
+  --space-copy-image: 24px;
+}
+
+@media (min-width: 900px) {
+  .halden {
+    --gutter: 48px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .halden {
+    --gutter: 64px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .halden {
+    --gutter: 80px;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────────────
+   /the-house. One table of measurements; every rule below reads from it.
+   Bleeds are percentages of the document, not vw: `100vw` includes the
+   vertical scrollbar and would push the right edge into overflow.
+   ────────────────────────────────────────────────────────────────────── */
+.halden .house {
+  --plate-w: 100%;
+  --image-h: 56vh;
+  /* More air between plates than the rest of the site carries, so the
+     sequence reads slower. Scoped here, so the footer rhythm is unchanged. */
+  --space-section: 128px;
+  /* The title belongs to the sequence, so it sits nearer to it than the
+     plates sit to each other. */
+  --space-title: 48px;
+}
+
+@media (min-width: 900px) {
+  .halden .house {
+    --plate-w: 840px;
+    --image-h: 68vh;
+  }
+}
+
+@media (min-width: 1200px) {
+  .halden .house {
+    --plate-w: 1000px;
+    --image-h: 70vh;
+  }
+}
+
+@media (min-width: 1440px) {
+  .halden .house {
+    --plate-w: 1120px;
+    --image-h: 74vh;
+  }
+}
+
+/* The page's own title, centred above the sequence. */
+.halden .house-title {
+  padding-inline: var(--gutter);
+  text-align: center;
+  /* One exception in a uniform-gap column: pull the first plate up by the
+     difference between the two spacings. */
+  margin-bottom: calc(var(--space-title) - var(--space-section));
+}
+
+/* Primary sections: a centred column — image, then room label, then note. */
+.halden .house-plate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-copy-image);
+  padding-inline: var(--gutter);
+}
+
+.halden .house-figure {
+  position: relative;
+  width: 100%;
+  max-width: var(--plate-w);
+  height: var(--image-h);
+  overflow: hidden;
+}
+
+.halden .house-rail {
+  width: 100%;
+  max-width: var(--plate-w);
+  text-align: center;
+}
+
+/* Detail shots: one row at the foot of the sequence, inside the gutter. */
+.halden .house-details {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-copy-image);
+  padding-inline: var(--gutter);
+}
+
+@media (min-width: 900px) {
+  .halden .house-details {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* The sources are 3:4, so the row keeps their ratio rather than cropping.
+   Also the positioned ancestor the fill images size themselves against. */
+.halden .house-details-figure {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+}
+
+.halden .house-copy {
+  /* Runs wide across the plate, still centred and still short of its edges. */
+  max-width: 86ch;
+  margin-inline: auto;
+  text-wrap: pretty;
+}
+
+/* Written as a compound so it outranks the rule above whatever the order. */
+.halden .house-copy.house-copy-narrow {
+  max-width: 72ch;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   CLARA ASHDOWN DESIGN — served at /clara-ashdown. Every rule below is
+   scoped to the `.clara` wrapper set in
+   app/(clara)/clara-ashdown/layout.tsx, so this brand's palette, gutters,
+   selection and focus ring cannot reach a 64 Studios or Halden page.
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* Painted on the element rather than html/body, with :has() covering the
+   overscroll area behind it so the ground does not flash 64's white. */
+body:has(.clara) {
+  background-color: #f3f0e8;
+}
+
+.clara ::selection {
+  background-color: #b9a98c;
+  color: #2b2822;
+}
+
+/* Focus is brass inside Clara, overriding 64's ink outline by specificity. */
+.clara a:focus-visible,
+.clara button:focus-visible,
+.clara input:focus-visible,
+.clara textarea:focus-visible,
+.clara select:focus-visible,
+.clara [tabindex]:focus-visible {
+  outline: 1px solid #93703e;
+  outline-offset: 4px;
+  border-radius: 1px;
+}
+
+/* ──────────────────────────────────────────────────────────────────────
+   Shared gutter, matching `reference-home.html`: 24px on a phone, 48px
+   from the tablet breakpoint up. The nav, the sections and the colophon
+   all hang off this one value, so their edges line up down the page.
+   ────────────────────────────────────────────────────────────────────── */
+.clara {
+  --gutter: 24px;
+  --space-section: 96px;
+}
+
+@media (min-width: 760px) {
+  .clara {
+    --gutter: 48px;
+    --space-section: 140px;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────────────
+   Drop cap. Long-form only — every journal essay and every case study
+   opens with one, and nothing short (nav, forms, colophon) ever does.
+   Set the way a printed quarterly would: floated into the first three
+   lines of the paragraph, optically aligned to the cap height rather
+   than sitting on the first baseline.
+   ────────────────────────────────────────────────────────────────────── */
+.clara .dropcap::first-letter {
+  float: left;
+  font-family: var(--font-clara-display), Georgia, serif;
+  font-weight: 500;
+  font-size: 76px;
+  line-height: 0.8;
+  padding-top: 8px;
+  padding-right: 10px;
+  color: #93703e;
+}
+
+/* The cap is set from the paragraph's own font-size on some engines, so
+   it is pinned again here at the smaller measure a phone gets. */
+@media (max-width: 480px) {
+  .clara .dropcap::first-letter {
+    font-size: 58px;
+    padding-top: 6px;
+    padding-right: 8px;
+  }
+}
+
+/*
+ * The one motion signature: opacity 0 → 1 with a 14px rise. GSAP drives it
+ * where it runs, but the element must not be invisible if that script never
+ * arrives, so the hidden state is set by the client component itself rather
+ * than declared here.
+ *
+ * Under reduced motion nothing moves at all: GSAP is skipped and the final
+ * state is what was rendered.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .clara [data-rise],
+  .clara [data-hero-step] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .clara [data-hero-rule] {
+    width: 64px !important;
+  }
+}
