@@ -22,6 +22,24 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: "nash-calloway",
+    title: "Nash Calloway Design",
+    descriptor: "An interior design and architecture studio in Los Angeles and London",
+    category: "Brand & Website",
+    year: "2026",
+    url: "/nash-calloway",
+    cover: {
+      src: "/portfolio/nash-calloway/cover.jpg",
+      width: 2000,
+      height: 1333,
+      alt: "A low modern house behind palms, its glazed beach elevation open to the light.",
+    },
+    scope: ["Brand identity", "Art direction", "Website"],
+    summary: [
+      "A results-led register: nine projects, each shown as photography and a short factual note on the one move that mattered. The portfolio does the persuading, so the copy does not.",
+    ],
+  },
+  {
     slug: "halden",
     title: "Halden",
     descriptor: "A private house in Marylebone",
@@ -56,24 +74,6 @@ export const projects: Project[] = [
     scope: ["Brand identity", "Art direction", "Photography", "Website"],
     summary: [
       "Aldern & Voss. An independent watchmaker, built from one reference and a sideways walk through its parts.",
-    ],
-  },
-  {
-    slug: "clara-ashdown",
-    title: "Clara Ashdown Design",
-    descriptor: "A solo interior design practice in the Cotswolds",
-    category: "Brand & Website",
-    year: "2026",
-    url: "/clara-ashdown",
-    cover: {
-      src: "/portfolio/clara-ashdown/cover.jpg",
-      width: 2600,
-      height: 1733,
-      alt: "Honey-stone cottages along a quiet lane in the Cotswolds, in the shade of the trees above them.",
-    },
-    scope: ["Brand identity", "Art direction", "Editorial", "Website"],
-    summary: [
-      "A one-person practice that restores period houses, and writes about it better than most studios photograph. The site is built around the writing rather than a gallery: a journal numbered by entry instead of dated, drop caps set as a printed quarterly would, and a colophon where the footer usually goes.",
     ],
   },
 ];

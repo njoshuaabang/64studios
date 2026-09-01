@@ -3,8 +3,8 @@ import type { Config } from "tailwindcss";
 /**
  * Three brands, one app. 64 Studios owns the unprefixed tokens; the two case
  * studies of other brands own a namespace each — Halden, served at /halden,
- * under `halden-`, and Clara Ashdown Design, served at /clara-ashdown, under
- * `clara-`. Replacing `theme.colors` wholesale (rather than extending) still
+ * under `halden-`, and Nash Calloway Design, served at /nash-calloway, under
+ * `nash-`. Replacing `theme.colors` wholesale (rather than extending) still
  * keeps Tailwind's greys, and pure black and white, out of reach of all three.
  *
  * The prefix is the boundary. Nothing stops a 64 page writing `text-halden-ink`
@@ -32,20 +32,22 @@ const config: Config = {
       "halden-green": "#22302A",
       "halden-brass": "#9A7B4F",
 
-      // Clara Ashdown Design
-      "clara-chalk": "#F3F0E8",
-      "clara-ink": "#2B2822",
-      "clara-stone": "#B9A98C",
-      "clara-sage": "#6E7259",
-      "clara-brass": "#93703E",
+      // Nash Calloway Design — six tokens, no black, no white
+      "nash-walnut": "#5C4530",
+      "nash-terracotta": "#C1603C",
+      "nash-plaster": "#F1E9DD",
+      "nash-olive": "#6B6E45",
+      "nash-brass": "#A9772F",
+      "nash-ink": "#2A2622",
+
     },
     fontFamily: {
       display: ["var(--font-display)", "system-ui", "sans-serif"],
       body: ["var(--font-body)", "system-ui", "sans-serif"],
       "halden-display": ["var(--font-halden-display)", "Georgia", "serif"],
       "halden-body": ["var(--font-halden-body)", "system-ui", "sans-serif"],
-      "clara-display": ["var(--font-clara-display)", "Georgia", "serif"],
-      "clara-body": ["var(--font-clara-body)", "system-ui", "sans-serif"],
+      "nash-display": ["var(--font-nash-display)", "system-ui", "sans-serif"],
+      "nash-body": ["var(--font-nash-body)", "system-ui", "sans-serif"],
     },
     spacing: {
       0: "0px",
@@ -88,25 +90,13 @@ const config: Config = {
         "halden-display": ["32px", { lineHeight: "1.25" }],
         "halden-hero": ["40px", { lineHeight: "1.2" }],
 
-        /* Clara Ashdown. Prefixed for the same reason Halden's is: `base`
-           and the rest would otherwise retune every 64 Studios page. */
-        "clara-micro": ["12px", { lineHeight: "1.5" }],
-        "clara-meta": ["13px", { lineHeight: "1.6" }],
-        "clara-sub": ["13.5px", { lineHeight: "1.6" }],
-        "clara-nav": ["14px", { lineHeight: "1.5" }],
-        "clara-base": ["16px", { lineHeight: "1.7" }],
         /* Serif body copy runs looser than sans, per the tokens. */
-        "clara-prose": ["19px", { lineHeight: "1.68" }],
-        "clara-lead": ["23px", { lineHeight: "1.65" }],
-        "clara-title": ["30px", { lineHeight: "1.25" }],
-        "clara-dropcap": ["76px", { lineHeight: "0.8" }],
       },
       maxWidth: {
         "halden-content": "1280px",
         "halden-prose": "680px",
         /* The tokens cap content at ~1180px; reading columns are set in
            `ch` on the elements themselves, since they follow the face. */
-        "clara-content": "1180px",
       },
       letterSpacing: {
         "halden-wordmark": "0.35em",

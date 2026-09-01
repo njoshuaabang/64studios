@@ -232,97 +232,29 @@ body.threshold-lock {
 }
 
 /* ══════════════════════════════════════════════════════════════════════
-   CLARA ASHDOWN DESIGN — served at /clara-ashdown. Every rule below is
-   scoped to the `.clara` wrapper set in
-   app/(clara)/clara-ashdown/layout.tsx, so this brand's palette, gutters,
-   selection and focus ring cannot reach a 64 Studios or Halden page.
+   NASH CALLOWAY DESIGN — served at /nash-calloway. Every rule below is
+   scoped to the `.nash` wrapper set in app/(nash)/nash-calloway/layout.tsx,
+   so this brand's palette cannot reach a 64 Studios or Halden page.
    ══════════════════════════════════════════════════════════════════════ */
 
-/* Painted on the element rather than html/body, with :has() covering the
-   overscroll area behind it so the ground does not flash 64's white. */
-body:has(.clara) {
-  background-color: #f3f0e8;
+/* Painted on the element, with :has() covering the overscroll area behind it
+   so the ground does not flash 64's white. */
+body:has(.nash) {
+  background-color: #f1e9dd;
 }
 
-.clara ::selection {
-  background-color: #b9a98c;
-  color: #2b2822;
+.nash ::selection {
+  background-color: #5c4530;
+  color: #f1e9dd;
 }
 
-/* Focus is brass inside Clara, overriding 64's ink outline by specificity. */
-.clara a:focus-visible,
-.clara button:focus-visible,
-.clara input:focus-visible,
-.clara textarea:focus-visible,
-.clara select:focus-visible,
-.clara [tabindex]:focus-visible {
-  outline: 1px solid #93703e;
-  outline-offset: 4px;
-  border-radius: 1px;
-}
-
-/* ──────────────────────────────────────────────────────────────────────
-   Shared gutter, matching `reference-home.html`: 24px on a phone, 48px
-   from the tablet breakpoint up. The nav, the sections and the colophon
-   all hang off this one value, so their edges line up down the page.
-   ────────────────────────────────────────────────────────────────────── */
-.clara {
-  --gutter: 24px;
-  --space-section: 96px;
-}
-
-@media (min-width: 760px) {
-  .clara {
-    --gutter: 48px;
-    --space-section: 140px;
-  }
-}
-
-/* ──────────────────────────────────────────────────────────────────────
-   Drop cap. Long-form only — every journal essay and every case study
-   opens with one, and nothing short (nav, forms, colophon) ever does.
-   Set the way a printed quarterly would: floated into the first three
-   lines of the paragraph, optically aligned to the cap height rather
-   than sitting on the first baseline.
-   ────────────────────────────────────────────────────────────────────── */
-.clara .dropcap::first-letter {
-  float: left;
-  font-family: var(--font-clara-display), Georgia, serif;
-  font-weight: 500;
-  font-size: 76px;
-  line-height: 0.8;
-  padding-top: 8px;
-  padding-right: 10px;
-  color: #93703e;
-}
-
-/* The cap is set from the paragraph's own font-size on some engines, so
-   it is pinned again here at the smaller measure a phone gets. */
-@media (max-width: 480px) {
-  .clara .dropcap::first-letter {
-    font-size: 58px;
-    padding-top: 6px;
-    padding-right: 8px;
-  }
-}
-
-/*
- * The one motion signature: opacity 0 → 1 with a 14px rise. GSAP drives it
- * where it runs, but the element must not be invisible if that script never
- * arrives, so the hidden state is set by the client component itself rather
- * than declared here.
- *
- * Under reduced motion nothing moves at all: GSAP is skipped and the final
- * state is what was rendered.
- */
-@media (prefers-reduced-motion: reduce) {
-  .clara [data-rise],
-  .clara [data-hero-step] {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-
-  .clara [data-hero-rule] {
-    width: 64px !important;
-  }
+/* Focus is brass inside Nash, overriding 64's ink outline by specificity. */
+.nash a:focus-visible,
+.nash button:focus-visible,
+.nash input:focus-visible,
+.nash textarea:focus-visible,
+.nash select:focus-visible,
+.nash [tabindex]:focus-visible {
+  outline: 2px solid #a9772f;
+  outline-offset: 3px;
 }

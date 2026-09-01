@@ -1,23 +1,20 @@
 import type { MetadataRoute } from "next";
 import { projects } from "@/config/portfolio";
-import { caseStudies } from "@/lib/clara/work";
-import { writtenEntries } from "@/lib/clara/journal";
+import { projects as nashProjects } from "@/lib/nash/projects";
 import { SITE_URL } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const pages = ["", "/portfolio", "/studio", "/contact"];
-  // Halden and Clara Ashdown are sections of this site, not separate
-  // deployments. Clara's two data-driven routes are listed from their own
-  // sources, so a new case study or essay appears here without a second edit.
+  // Halden and Nash Calloway are sections of this site, not separate
+  // deployments. Nash's project routes are listed from their own source, so a
+  // tenth project would appear here without a second edit.
   const halden = ["/halden", "/halden/the-house", "/halden/membership", "/halden/enquire"];
-  const clara = [
-    "/clara-ashdown",
-    "/clara-ashdown/about",
-    "/clara-ashdown/work",
-    "/clara-ashdown/journal",
-    "/clara-ashdown/enquire",
-    ...caseStudies.map((project) => `/clara-ashdown/work/${project.slug}`),
-    ...writtenEntries.map((entry) => `/clara-ashdown/journal/${entry.essay.slug}`),
+  const nash = [
+    "/nash-calloway",
+    "/nash-calloway/portfolio",
+    "/nash-calloway/about",
+    "/nash-calloway/enquire",
+    ...nashProjects.map((project) => `/nash-calloway/portfolio/${project.slug}`),
   ];
 
   return [
@@ -27,7 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: path === "" ? 1 : 0.8,
     })),
-    ...[...halden, ...clara].map((path) => ({
+    ...[...halden, ...nash].map((path) => ({
       url: `${SITE_URL}${path}`,
       lastModified: new Date(),
       changeFrequency: "yearly" as const,

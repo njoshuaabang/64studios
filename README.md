@@ -27,7 +27,6 @@ No pure black, no pure white, no third color. Spacing in 8px multiples.
 - `/studio` — manifesto
 - `/contact` — mailto enquiry
 - `/halden` — Halden, the second case study (see below)
-- `/clara-ashdown` — Clara Ashdown Design, the third case study (see below)
 
 ## Halden
 
@@ -44,56 +43,42 @@ font variables and nothing else.
 
 One Tailwind config serves all three, so the prefix is the boundary:
 
-| | 64 Studios | Halden | Clara Ashdown |
-| --- | --- | --- | --- |
-| Colour | `ink`, `bone`, `background` | `halden-*` | `clara-*` |
-| Type | `font-display`, `font-body` | `font-halden-*` | `font-clara-*` |
-| Scale | Tailwind's default (`text-xs`…) | `text-halden-micro` … `text-halden-hero` | `text-clara-micro` … `text-clara-dropcap` |
+| | 64 Studios | Halden |
+| --- | --- | --- |
+| Colour | `ink`, `bone`, `background` | `halden-*` |
+| Type | `font-display`, `font-body` | `font-halden-*` |
+| Scale | Tailwind's default (`text-xs`…) | `text-halden-micro` … `text-halden-hero` |
 
 Halden's CSS — gutters, `.house` measurements, selection, focus ring — is scoped
-to the `.halden` wrapper set in `app/(halden)/halden/layout.tsx`, and Clara's —
-gutter, drop cap, selection, focus ring — to the `.clara` wrapper set in
-`app/(clara)/clara-ashdown/layout.tsx`. Nothing stops a 64 page writing
+to the `.halden` wrapper set in `app/(halden)/halden/layout.tsx`. Nothing stops a 64 page writing
 `text-halden-ink`, the way separate configs once did; keep to your own
 namespace.
 
 The standalone app in `halden/` is the pre-merge original, kept only as a
 reference. It is excluded from `tsconfig.json` and is not built or served.
 
-## Clara Ashdown Design
 
-Clara Ashdown Design is the third self-initiated case study, and like Halden it
-is a section of this site rather than a separate deployment. Its pages live
-under `app/(clara)/clara-ashdown/`, its components in `components/clara/`, its
-copy and helpers in `lib/clara/`, and its photography in `public/clara/images/`.
+## Nash Calloway Design
 
-It is the text-led register of the three: the writing carries the site, not the
-photography. Four things are deliberate and should survive any edit.
+The third self-initiated case study, served at `/nash-calloway` as a section of
+this site rather than a separate deployment. Pages live under
+`app/(nash)/nash-calloway/`, components in `components/nash/`, data and helpers
+in `lib/nash/`, and photography in `public/nash/images/`.
 
-- **A colophon, not a footer.** Every page closes with the typeface credit and
-  where the work was made. There is no second set of nav links down there.
-- **Drop caps on long-form only.** Every case study and journal essay opens
-  with one, set in `.dropcap` (globals.css). Never on nav, forms or the
-  colophon.
-- **Entry numbering, never dates.** The journal is a numbered sequence —
-  "Entry No. 01" — and no timestamp appears anywhere on the site. Case studies
-  are not a sequence, so they carry no number.
-- **One motion signature.** A single fade-and-rise, on the home hero and on
-  each page's `h1`. No scroll reveals, no card staggers, no colour change on
-  hover — hover moves letter-spacing and draws an underline, nothing else.
+Nine projects drive twelve routes from one array in `lib/nash/projects.ts` —
+adding a tenth adds a page and a sitemap entry with no other edit. All project
+copy is verbatim from the studio handoff.
 
-Type is Fraunces and Inter via `next/font/google`; the palette is the five
-tokens below and nothing else.
-
-| | Clara Ashdown |
+| | Nash Calloway |
 | --- | --- |
-| Colour | `clara-chalk`, `clara-ink`, `clara-stone`, `clara-sage`, `clara-brass` |
-| Type | `font-clara-display` (Fraunces), `font-clara-body` (Inter) |
-| Scale | `text-clara-micro` … `text-clara-dropcap` |
+| Colour | `nash-walnut`, `nash-terracotta`, `nash-plaster`, `nash-olive`, `nash-brass`, `nash-ink` |
+| Type | `font-nash-display` (Space Grotesk), `font-nash-body` (Inter) |
 
-Work and journal entries are data, in `lib/clara/work.ts` and
-`lib/clara/journal.ts`; adding to either array adds a route and a sitemap
-entry. An entry with no `essay` is listed on the index but has no page.
+Its scoped CSS — ground, selection, brass focus ring — hangs off the `.nash`
+wrapper in `app/(nash)/nash-calloway/layout.tsx`.
+
+Two rules worth keeping: the hero crossfade is the site's only motion, and
+every project photograph sits in the framing device in `components/nash/Plate.tsx`.
 
 ## Commands
 
