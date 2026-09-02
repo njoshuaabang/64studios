@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
+import { HaldenBaseProvider } from "@/components/halden/HaldenBase";
 import { HALDEN_BASE } from "@/lib/halden/paths";
+import { haldenBase } from "@/lib/halden/server";
 
 /**
  * Halden's brand scope. The `halden` class is the hook every scoped rule in
@@ -27,13 +29,15 @@ export const viewport: Viewport = {
   themeColor: "#F2EFE9",
 };
 
-export default function HaldenLayout({ children }: { children: React.ReactNode }) {
+export default async function HaldenLayout({ children }: { children: React.ReactNode }) {
+  const base = await haldenBase();
+
   return (
     <div
       lang="en-GB"
       className="halden min-h-[100dvh] bg-halden-limewash font-halden-body text-halden-base text-halden-ink antialiased"
     >
-      {children}
+      <HaldenBaseProvider value={base}>{children}</HaldenBaseProvider>
     </div>
   );
 }

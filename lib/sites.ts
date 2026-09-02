@@ -19,12 +19,6 @@ import { SITE_URL } from "./site";
  * Rebuilding it with `base: "/"` is the fix, and its source is not in this
  * repository, so until that happens the subdomain sends visitors to the
  * prefixed path where the app actually works.
- *
- * Halden is deliberately absent. Adding a row would route its subdomain, but
- * `haldenPath` is not host-aware the way `nashPath` now is, so its links would
- * keep emitting /halden/… and every navigation would bounce through the
- * canonicalising redirect. It wants the same treatment Nash had before it
- * belongs here.
  */
 export type Site = {
   /** The label in `<subdomain>.64studios.com`. */
@@ -37,6 +31,7 @@ export type Site = {
 
 export const SITES: Site[] = [
   { subdomain: "nash-calloway", base: "/nash-calloway", rootServed: true },
+  { subdomain: "halden", base: "/halden", rootServed: true },
   { subdomain: "aldern-voss", base: "/aldern-voss", rootServed: false },
 ];
 

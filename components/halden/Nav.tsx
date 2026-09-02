@@ -5,14 +5,15 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Wordmark from "./Wordmark";
 import { useReducedMotion } from "@/lib/halden/useReducedMotion";
+import { useHaldenBase } from "./HaldenBase";
 import { haldenPath } from "@/lib/halden/paths";
 
 const navItem = "whitespace-nowrap py-1 text-halden-nano uppercase tracking-halden-nav";
 
-const links = [
-  { href: haldenPath("/the-house"), label: "The House" },
-  { href: haldenPath("/membership"), label: "Membership" },
-  { href: haldenPath("/enquire"), label: "Enquire" },
+const sections = [
+  { path: "/the-house", label: "The House" },
+  { path: "/membership", label: "Membership" },
+  { path: "/enquire", label: "Enquire" },
 ];
 
 /**
@@ -22,8 +23,13 @@ const links = [
  */
 export default function Nav() {
   const pathname = usePathname();
+  const base = useHaldenBase();
   const reducedMotion = useReducedMotion();
-  const revealOnScroll = pathname === haldenPath("/the-house");
+  const links = sections.map(({ path, label }) => ({ href: haldenPath(base, path), label }));
+  // usePathname reports the URL the visitor sees, which is already the clean
+  // form on the subdomain — so this has to be built from the same base, not
+  // from the prefix, or the sequence page would never be recognised there.
+  const revealOnScroll = pathname === haldenPath(base, "/the-house");
 
   const [scrolled, setScrolled] = useState(false);
   const [renderedPath, setRenderedPath] = useState(pathname);
@@ -72,7 +78,7 @@ export default function Nav() {
         className="flex w-full flex-wrap items-center justify-between gap-x-4 gap-y-1 px-[var(--gutter)] py-1"
       >
         <Link
-          href={haldenPath()}
+          href={haldenPath(base)}
           aria-label="Halden — back to the threshold"
           className="py-1 text-halden-ink transition-colors duration-300 hover:text-halden-brass"
         >

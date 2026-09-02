@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/halden/Reveal";
 import { asset, haldenPath } from "@/lib/halden/paths";
+import { haldenBase } from "@/lib/halden/server";
 
 export const metadata: Metadata = {
   title: "Membership",
@@ -17,7 +18,9 @@ const paragraphs = [
   "Members may bring two guests. The guests are the member’s responsibility, which is usually enough.",
 ];
 
-export default function MembershipPage() {
+export default async function MembershipPage() {
+  const base = await haldenBase();
+
   return (
     <main className="w-full px-[var(--gutter)] pt-8 text-center md:pt-10">
       <Reveal>
@@ -55,7 +58,7 @@ export default function MembershipPage() {
 
       <Reveal className="pt-10">
         <Link
-          href={haldenPath("/enquire")}
+          href={haldenPath(base, "/enquire")}
           className="inline-block text-halden-brass underline-offset-4 transition-colors duration-300 hover:underline"
         >
           Enquire

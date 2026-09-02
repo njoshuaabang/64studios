@@ -116,27 +116,29 @@ URL arriving on a subdomain is 308'd to its clean form, which is what catches
 pasted links and old bookmarks instead of resolving them to
 `/nash-calloway/nash-calloway/…`.
 
-Links are host-aware rather than hardcoded: `nashBase()` resolves the prefix per
-request for server components, and the Nash layout hands the same value to
-client components through `NashBaseProvider`. That is why the nav emits
-`/portfolio` on the subdomain and `/nash-calloway/portfolio` on the main domain
-from one component. A link that leaves for 64 Studios goes through `studioUrl`,
+Links are host-aware rather than hardcoded: `nashBase()` / `haldenBase()` resolve
+the prefix per request for server components, and each brand's layout hands the
+same value to its client components through a provider. That is why one nav
+component emits `/portfolio` on the subdomain and `/nash-calloway/portfolio` on
+the main domain. Halden's nav also compares `usePathname()` against the base
+rather than the prefix — that hook reports the URL the visitor sees, which is
+already clean on the subdomain. A link that leaves for 64 Studios goes through `studioUrl`,
 which returns an absolute URL on a subdomain — a different origin there — and a
 relative one on the main domain so it stays a client navigation.
 
 Static assets are untouched: the middleware matcher skips anything with a file
 extension, because `/nash/images/*.jpg` and `/aldern-voss/media/*.jpg` are
-absolute paths baked into markup and bundles.
+absolute paths baked into markup and bundles. Halden makes the distinction
+explicit in `lib/halden/paths.ts`, which exports two helpers that look identical
+and are not: `haldenPath` builds a route and moves with the host, `asset` builds
+a URL for a file in `public/halden/` and stays prefixed on every host. Making
+both host-aware would 404 every Halden image on the subdomain.
 
 **Aldern & Voss cannot serve clean root URLs yet.** Its bundle carries
 `basename: "/aldern-voss"` compiled in from Vite's `base`, so at a subdomain
 root its router matches nothing. Until it is rebuilt with `base: "/"` — its Vite
 source is not in this repository — its subdomain 308s to the prefixed path where
 the app works. Flip `rootServed` to `true` in `lib/sites.ts` once it is.
-
-**Halden is deliberately not in the table.** Routing it is one row, but
-`haldenPath` is not host-aware the way `nashPath` now is, so its links would
-keep emitting `/halden/…` and bounce through the redirect on every navigation.
 
 ### Pointing the subdomains (not done — needs account access)
 
@@ -145,13 +147,15 @@ repository has no git remote and no linked deployment, so none of this could be
 done from the codebase:
 
 1. Push the repository and import it as a Vercel project.
-2. Add `nash-calloway.64studios.com` and `aldern-voss.64studios.com` as domains
-   on that project.
+2. Add `nash-calloway.64studios.com`, `halden.64studios.com` and
+   `aldern-voss.64studios.com` as domains on that project. They are subdomains
+   of the one registered domain, not separate registrations — Vercel calls any
+   hostname attached to a project a "domain".
 3. In SiteGround DNS, add a CNAME for each subdomain to the target Vercel gives
    you. The apex can stay pointed at SiteGround — subdomains resolve
    independently, so the existing site is unaffected.
-4. Only once the subdomains resolve, add `alternates.canonical` to the Nash
-   pages pointing at the subdomain. It is left out on purpose: canonical tags
+4. Only once the subdomains resolve, add `alternates.canonical` to the Nash and
+   Halden pages pointing at their subdomain. It is left out on purpose: canonical tags
    aimed at a hostname that does not resolve are worse than none.
 
 ## Commands

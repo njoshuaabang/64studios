@@ -7,9 +7,11 @@ import gsap from "gsap";
 import Wordmark from "./Wordmark";
 import { prefersReducedMotion } from "@/lib/halden/motion";
 import { useIsomorphicLayoutEffect } from "@/lib/halden/useIsomorphicLayoutEffect";
+import { useHaldenBase } from "./HaldenBase";
 import { asset, haldenPath } from "@/lib/halden/paths";
 
 export default function Threshold() {
+  const base = useHaldenBase();
   const rootRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -102,7 +104,7 @@ export default function Threshold() {
 
         <div data-threshold-step className="pt-10">
           <Link
-            href={haldenPath("/the-house")}
+            href={haldenPath(base, "/the-house")}
             className="inline-block border-b border-halden-brass px-1 pb-1 text-halden-micro uppercase tracking-halden-label text-halden-limewash transition-colors duration-300 hover:border-halden-limewash focus-visible:bg-halden-ink"
           >
             Enter

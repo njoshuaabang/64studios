@@ -1,16 +1,20 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import EnquireForm from "@/components/halden/EnquireForm";
 import Reveal from "@/components/halden/Reveal";
 import { asset } from "@/lib/halden/paths";
+import { studioUrl } from "@/lib/sites";
 
 export const metadata: Metadata = {
   title: "Enquire",
   description: "The house replies to every enquiry.",
 };
 
-export default function EnquirePage() {
+export default async function EnquirePage() {
+  const back = studioUrl((await headers()).get("host"), "/portfolio/halden");
+
   return (
     <main className="relative flex min-h-[640px] flex-1 lg:grid lg:grid-cols-2">
       {/*
@@ -50,7 +54,7 @@ export default function EnquirePage() {
           */}
           <Reveal className="pt-10">
             <Link
-              href="/portfolio/halden"
+              href={back}
               className="inline-block border border-halden-brass/70 px-3 py-2 text-halden-micro uppercase tracking-halden-label text-halden-brass transition-colors duration-300 hover:border-halden-ink hover:text-halden-ink"
             >
               Back to 64 Studios
