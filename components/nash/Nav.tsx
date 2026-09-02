@@ -7,13 +7,22 @@ const links = [
   { href: nashPath("/enquire"), label: "Enquire" },
 ];
 
-/** Minimal chrome: the wordmark, and three words straight into the work. */
+/**
+ * Minimal chrome: the wordmark, and three words straight into the work.
+ *
+ * Wraps rather than overflowing — below roughly 340px the wordmark and the
+ * three links cannot share a line, so the list drops beneath it whole.
+ */
 export default function Nav({ transparent = false }: { transparent?: boolean }) {
   const tone = transparent ? "text-nash-plaster" : "text-nash-walnut";
 
   return (
-    <header className={`flex items-baseline justify-between gap-4 px-4 py-4 md:px-8 ${tone}`}>
-      <Link href={nashPath()} className="whitespace-nowrap font-nash-display text-sm font-medium md:text-lg">
+    <header data-nash-chrome className={`flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 px-4 py-4 md:px-8 ${tone}`}>
+      <Link
+        href={nashPath()}
+        data-nash-wordmark
+        className="whitespace-nowrap font-nash-display text-sm font-medium md:text-lg"
+      >
         Nash Calloway Design
       </Link>
       <nav aria-label="Primary">

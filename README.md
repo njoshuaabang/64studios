@@ -77,8 +77,17 @@ copy is verbatim from the studio handoff.
 Its scoped CSS — ground, selection, brass focus ring — hangs off the `.nash`
 wrapper in `app/(nash)/nash-calloway/layout.tsx`.
 
-Two rules worth keeping: the hero crossfade is the site's only motion, and
-every project photograph sits in the framing device in `components/nash/Plate.tsx`.
+Two rules worth keeping: the panel entrance in `components/nash/Entrance.tsx`
+is the site's only motion — the hero is a single held frame, not a rotation —
+and every project photograph sits in the framing device in
+`components/nash/Plate.tsx`.
+
+The entrance is gated by an inline script in `app/layout.tsx` that sets
+`data-ncd-entrance` on `<html>` before paint. It has to be a raw inline script
+rather than `next/script`: a `beforeInteractive` script inside `<body>` is
+queued until after hydration begins, far too late for a gate the first frame
+depends on. It plays on every load of the home page, and is skipped entirely
+under `prefers-reduced-motion`.
 
 ## Commands
 

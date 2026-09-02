@@ -4,7 +4,7 @@
  * so they are data rather than markup.
  */
 
-export const collections = ["LA & Malibu", "London", "Resort", "Artist Homes"] as const;
+export const collections = ["LA & Malibu", "London", "Resort-style", "Artist Homes"] as const;
 
 export type Collection = (typeof collections)[number];
 
@@ -93,7 +93,7 @@ export const projects: NashProject[] = [
     move:
       "A mid-1990s conservatory had been added to bring the garden closer, but it did the opposite — boxing the view behind a low glass lean-to. We removed it entirely and rebuilt the rear elevation in steel-framed glass at full height, so the ground floor faces the garden instead of apologizing for it.",
     images: [
-      { src: "/nash/images/holland-after.jpg", stage: "after", alt: "The villa seen from the garden, the rear elevation glazed to full height." },
+      { src: "/nash/images/holland-after.jpg", stage: "after", alt: "The villa seen across its garden, the garden front open to the lawn." },
       { src: "/nash/images/holland-during.jpg", stage: "during", alt: "Scaffolding standing across the elevation while the rear was rebuilt." },
     ],
   },
@@ -114,21 +114,21 @@ export const projects: NashProject[] = [
   {
     slug: "punta-cielo",
     name: "Punta Cielo",
-    collection: "Resort",
+    collection: "Resort-style",
     location: "Riviera Maya, Mexico",
     scope: "New-build villa, interior architecture and furnishing, 9,800 sq ft, five bedrooms",
     duration: "22 months",
     move:
       "The site's cenote was the only reason to build here, so every primary room was oriented around a single sightline to it. We used pivoting timber screens instead of walls between interior and jungle, so the boundary itself changes through the day rather than staying fixed.",
     images: [
-      { src: "/nash/images/punta-after.jpg", stage: "after", alt: "A pool held between dense planting at the villa." },
+      { src: "/nash/images/punta-after.jpg", stage: "after", alt: "A round infinity pool on a timber deck, jungle running out to the sea beyond." },
       { src: "/nash/images/punta-during.jpg", stage: "during", alt: "The concrete frame of the villa during construction, openings not yet filled." },
     ],
   },
   {
     slug: "villa-serena",
     name: "Villa Serena",
-    collection: "Resort",
+    collection: "Resort-style",
     location: "Amalfi Coast, Italy",
     scope: "New-build villa, interior architecture and furnishing, 7,400 sq ft, terraced across three levels",
     duration: "18 months",

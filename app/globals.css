@@ -258,3 +258,92 @@ body:has(.nash) {
   outline: 2px solid #a9772f;
   outline-offset: 3px;
 }
+
+/* ──────────────────────────────────────────────────────────────────────
+   Nash entrance sequence. Plays only when the home page's inline script
+   has set data-ncd-entrance="play" before paint — so it never flashes for
+   a returning visitor, and never runs under reduced motion at all.
+   Timings and the bezier are taken from loading-animation-reference.html.
+   ────────────────────────────────────────────────────────────────────── */
+.ncd-entrance {
+  display: none;
+}
+
+html[data-ncd-entrance="play"] .ncd-entrance {
+  display: block;
+}
+
+html[data-ncd-entrance="play"] .ncd-panel {
+  position: fixed;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background-color: #5c4530;
+  z-index: 60;
+}
+
+html[data-ncd-entrance="play"] .ncd-panel-left {
+  left: 0;
+  animation: ncd-slide-left 1s cubic-bezier(0.76, 0, 0.24, 1) 1.1s forwards;
+}
+
+html[data-ncd-entrance="play"] .ncd-panel-right {
+  right: 0;
+  animation: ncd-slide-right 1s cubic-bezier(0.76, 0, 0.24, 1) 1.1s forwards;
+}
+
+@keyframes ncd-slide-left {
+  to { transform: translateX(-100%); }
+}
+
+@keyframes ncd-slide-right {
+  to { transform: translateX(100%); }
+}
+
+/* Travels from dead centre to the nav's measured position, then hands over
+   to the real nav wordmark under a short crossfade. */
+html[data-ncd-entrance="play"] .ncd-wordmark {
+  position: fixed;
+  z-index: 70;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  font-family: var(--font-nash-display), system-ui, sans-serif;
+  font-weight: 500;
+  font-size: clamp(28px, 4vw, 42px);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  color: #f1e9dd;
+  animation:
+    ncd-settle 1.2s cubic-bezier(0.76, 0, 0.24, 1) 1.15s forwards,
+    ncd-handover 0.4s ease 2.35s forwards;
+}
+
+@keyframes ncd-settle {
+  to {
+    left: var(--ncd-settle-x, 32px);
+    top: var(--ncd-settle-y, 20px);
+    transform: translate(0, 0);
+    font-size: var(--ncd-settle-size, 18px);
+    letter-spacing: 0;
+  }
+}
+
+@keyframes ncd-handover {
+  to { opacity: 0; }
+}
+
+/* The page's own chrome waits behind the sequence and arrives as it lands. */
+html[data-ncd-entrance="play"] [data-nash-chrome] {
+  animation: ncd-fade-in 0.4s ease 2.35s both;
+}
+
+html[data-ncd-entrance="play"] [data-nash-cta] {
+  animation: ncd-fade-in 1s ease 2.6s both;
+}
+
+@keyframes ncd-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

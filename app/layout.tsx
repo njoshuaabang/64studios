@@ -24,11 +24,35 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
+    // Nash's entrance gate sets a data attribute on <html> before paint, which
+    // React would otherwise report as a hydration mismatch on this element.
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${display.variable} ${body.variable} ${haldenDisplay.variable} ${haldenBody.variable} ${nashDisplay.variable} ${nashBody.variable}`}
     >
-      <body className="bg-background font-body text-ink antialiased">{children}</body>
+      <body className="bg-background font-body text-ink antialiased">
+        {/*
+          Runs as the parser reaches it — before the entrance markup below is
+          parsed and before first paint — so the panels are either present from
+          the first frame or never rendered, with no flash either way. It is a
+          raw inline script rather than next/script because `beforeInteractive`
+          inside <body> is queued to run after hydration begins, which is far
+          too late for a gate that has to beat paint. It no-ops on every route
+          but Nash's home page, and deliberately keeps no session flag — the
+          sequence replays on every load of that page.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{
+if (location.pathname !== '/nash-calloway') return;
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+document.documentElement.setAttribute('data-ncd-entrance','play');
+}catch(e){}})();`,
+          }}
+        />
+        {children}
+      </body>
     </html>
   );
 }
