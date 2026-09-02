@@ -83,14 +83,13 @@ Two rules worth keeping: the only motion is the panel entrance in
 every project photograph sits in the framing device in
 `components/nash/Plate.tsx`.
 
-The hero's dim is one flat ink layer over the frame stack, not one per frame,
-so a dissolve holds the same weight instead of pulsing darker while two images
-are both partly opaque. Its value is not a taste call: 63% is what the
-darkest-needing frame in the rotation requires for plaster type to clear 4.5:1,
-measured behind the wordmark, nav and button boxes. Changing the rotation means
-re-measuring. Several photographs are excluded for failing this — the white
-ceilings and stucco frames need better than 66%, dark enough to lose the
-picture.
+The hero carries no scrim, by choice: the photography shows at its own
+exposure. The cost is measured and known — plaster chrome over those frames
+runs 1.18 to 2.47 to one where AA wants 4.5, so the nav and the button are hard
+to read on the brighter frames. Anyone restoring it should use one flat ink
+layer over the frame stack rather than one per frame, since per-frame scrims
+composite and pulse darker through every dissolve; 63% is the value that clears
+4.5:1 on the darkest-needing frame in the current rotation.
 
 The entrance is gated by an inline script in `app/layout.tsx` that sets
 `data-ncd-entrance` on `<html>` before paint. It has to be a raw inline script

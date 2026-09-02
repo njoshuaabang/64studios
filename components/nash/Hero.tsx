@@ -11,17 +11,13 @@ const FADE = 1.5; // seconds of crossfade
  * The site's only recurring motion. Frames hold, then cross-dissolve — no
  * slide, no scale, no Ken Burns.
  *
- * One flat scrim covers the whole hero, laid over the stack rather than one
- * per frame. That matters during a dissolve: a per-frame scrim would composite
- * two of them while both images are partly opaque and pulse darker through
- * every transition. One layer above the stack holds the same weight throughout.
- *
- * Ink rather than walnut, and flat rather than a gradient. Walnut is a brown
- * and tinted the photography orange over two composited frames; a gradient
- * made the image change brightness as the eye travelled down it. 63% is the
- * figure that clears 4.5:1 on the darkest-needing frame in the rotation,
- * measured behind the actual wordmark, nav and button boxes rather than over
- * the band as a whole — undimmed, those same frames run 1.18 to 2.47 to one.
+ * The frames carry no scrim: each is shown at its own exposure. Plaster type
+ * over them does not clear WCAG AA on any frame in the rotation — measured
+ * behind the wordmark, nav and button, the four run 2.47, 1.18, 1.86 and 1.22
+ * to one against 4.5 for normal text. Stone Canyon is the worst: near-white
+ * type on a sunlit white beam. This is a deliberate choice in favour of the
+ * photography, not an oversight — restoring it is one ink layer at 63% laid
+ * over the stack here, and nothing else.
  *
  * The first transition lands at HOLD seconds, comfortably after the entrance
  * panels have cleared at ~2.6s, so the two never overlap.
@@ -75,7 +71,6 @@ export default function Hero({ frames }: { frames: { src: string; alt: string }[
           />
         </div>
       ))}
-      <div aria-hidden="true" className="absolute inset-0 bg-nash-ink/[0.63]" />
     </div>
   );
 }

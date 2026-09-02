@@ -15,12 +15,9 @@ export const metadata: Metadata = {
  * as one doubled image rather than a change of project. Stone Canyon's
  * interior sits between the two coastal exteriors for that reason.
  *
- * These four are also the only set that clears 4.5:1 for plaster type at a dim
- * the photography survives. The white-walled frames — the Cañon Drive gallery,
- * Rockledge's ceiling, the Chester Square stucco — need better than 66% before
- * the nav is legible over them, which is dark enough to lose the picture. That
- * costs the Artist Homes collection a place in the rotation. Grosvenor Square
- * is out for a separate reason — see the note on its project images.
+ * The hero is undimmed, so nothing here is constrained by contrast any more.
+ * The set is what it is for subject variety; Grosvenor Square is out for a
+ * separate reason — see the note on its project images.
  */
 const frames = [
   {
