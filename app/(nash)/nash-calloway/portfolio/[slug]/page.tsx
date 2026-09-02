@@ -66,17 +66,39 @@ export default async function NashProjectPage({ params }: PageParams) {
         </p>
 
         {/* After first, then the construction shot — the finished room, then
-            what it took. Both sit in the same plate. */}
-        <div className="mt-10 flex flex-col gap-6 md:mt-14 md:gap-8">
-          {project.images.map((image, i) => (
-            <Plate
-              key={image.src}
-              src={image.src}
-              alt={image.alt}
-              priority={i === 0}
-              sizes="(max-width: 768px) 100vw, 1200px"
-            />
-          ))}
+            what it took. Side by side so the pair reads as one comparison
+            rather than two separate pictures, and held to the same 64rem
+            measure as the spec above. Both sit in the same plate.
+
+            They stack below 640px: two 3:2 frames sharing a phone's width
+            leaves each too small to show what it is for. */}
+        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 md:mt-14 md:gap-8">
+          {project.images.map((image, i) => {
+            // An odd final image would otherwise sit alone in the left column.
+            // It spans both instead and is centred at one column's width — the
+            // column is 50% minus half the gap, not a flat 50%, or it comes out
+            // wider than the pair above it. Half the gap is 24px then 32px:
+            // this project's spacing scale is 8px-based, so gap-6 is 48px and
+            // gap-8 is 64px, not the stock 1.5rem/2rem. The underscores are
+            // Tailwind's escape for the spaces calc() requires around its
+            // operator; without them the declaration is silently dropped.
+            const orphan = project.images.length % 2 === 1 && i === project.images.length - 1;
+
+            return (
+              <Plate
+                key={image.src}
+                src={image.src}
+                alt={image.alt}
+                priority={i === 0}
+                sizes="(max-width: 640px) 100vw, 50vw"
+                className={
+                  orphan
+                    ? "sm:col-span-2 sm:mx-auto sm:w-[calc(50%_-_24px)] md:w-[calc(50%_-_32px)]"
+                    : ""
+                }
+              />
+            );
+          })}
         </div>
       </main>
       <SignOff />

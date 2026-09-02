@@ -343,6 +343,18 @@ html[data-ncd-entrance="play"] [data-nash-cta] {
   animation: ncd-fade-in 1s ease 2.6s both;
 }
 
+/*
+  Touch devices have no hover to reveal the portfolio spec plate with, and a
+  first-tap-reveals / second-tap-navigates thumbnail is a coin toss for the
+  person tapping it. Where hover does not exist the plate is simply always on,
+  so a tap means the same thing on every device: open the project.
+*/
+@media (hover: none) {
+  .nash [data-nash-spec] {
+    opacity: 1;
+  }
+}
+
 @keyframes ncd-fade-in {
   from { opacity: 0; }
   to { opacity: 1; }

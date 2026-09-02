@@ -15,9 +15,11 @@ export const metadata: Metadata = {
  * as one doubled image rather than a change of project. Stone Canyon's
  * interior sits between the two coastal exteriors for that reason.
  *
- * The hero is undimmed, so nothing here is constrained by contrast any more.
- * The set is what it is for subject variety; Grosvenor Square is out for a
- * separate reason — see the note on its project images.
+ * Each frame is dimmed 30% by its own brightness filter, which clears WCAG AA
+ * on one frame of the four — the numbers are in
+ * Hero.tsx. The set is chosen for subject variety rather than for contrast;
+ * Grosvenor Square is out for a separate reason — see the note on its project
+ * images.
  */
 const frames = [
   {

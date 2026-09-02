@@ -83,13 +83,17 @@ Two rules worth keeping: the only motion is the panel entrance in
 every project photograph sits in the framing device in
 `components/nash/Plate.tsx`.
 
-The hero carries no scrim, by choice: the photography shows at its own
-exposure. The cost is measured and known — plaster chrome over those frames
-runs 1.18 to 2.47 to one where AA wants 4.5, so the nav and the button are hard
-to read on the brighter frames. Anyone restoring it should use one flat ink
-layer over the frame stack rather than one per frame, since per-frame scrims
-composite and pulse darker through every dissolve; 63% is the value that clears
-4.5:1 on the darkest-needing frame in the current rotation.
+The hero dims each frame 30% with a per-image `brightness(0.7)` filter rather
+than laying a scrim over the stack. The distinction matters during a dissolve:
+the filter is applied to each frame before the crossfade blends them, so the
+mid-transition result is still exactly 30% down, where two stacked scrims would
+composite and pulse darker. If you ever swap back to a scrim, use one layer
+above the stack, never one per frame.
+
+The cost is measured and known — plaster chrome over those frames runs 2.41 to
+4.58 to one where AA wants 4.5, clearing it on one frame of four, so the nav and
+the button stay hard to read on the brighter frames. Clearing AA everywhere in
+this rotation needs roughly a 63% dim.
 
 The entrance is gated by an inline script in `app/layout.tsx` that sets
 `data-ncd-entrance` on `<html>` before paint. It has to be a raw inline script

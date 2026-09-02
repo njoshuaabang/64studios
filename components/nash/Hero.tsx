@@ -11,13 +11,18 @@ const FADE = 1.5; // seconds of crossfade
  * The site's only recurring motion. Frames hold, then cross-dissolve — no
  * slide, no scale, no Ken Burns.
  *
- * The frames carry no scrim: each is shown at its own exposure. Plaster type
- * over them does not clear WCAG AA on any frame in the rotation — measured
- * behind the wordmark, nav and button, the four run 2.47, 1.18, 1.86 and 1.22
- * to one against 4.5 for normal text. Stone Canyon is the worst: near-white
- * type on a sunlit white beam. This is a deliberate choice in favour of the
- * photography, not an oversight — restoring it is one ink layer at 63% laid
- * over the stack here, and nothing else.
+ * Each photograph is dimmed 30% by its own brightness filter rather than by a
+ * scrim laid over the stack. The filter is applied to each frame's pixels
+ * before the crossfade blends them, so two frames mid-dissolve blend to a
+ * result that is still exactly 30% down. A per-frame scrim would not behave
+ * this way — two of them composite while both images are partly opaque and the
+ * hero would pulse darker through every transition.
+ *
+ * At 30% the chrome clears WCAG AA on one frame of four: measured behind the
+ * wordmark, nav and button, the rotation runs 4.58, 2.41, 3.60 and 2.48 to one
+ * against the 4.5 body text wants, and the mid-dissolve blends run 3.03 to
+ * 4.09. This is a deliberate choice for the photography, not an oversight.
+ * Clearing AA on every frame in this set needs roughly a 63% dim.
  *
  * The first transition lands at HOLD seconds, comfortably after the entrance
  * panels have cleared at ~2.6s, so the two never overlap.
@@ -67,7 +72,7 @@ export default function Hero({ frames }: { frames: { src: string; alt: string }[
             fill
             priority={i === 0}
             sizes="100vw"
-            className="object-cover"
+            className="object-cover brightness-[0.7]"
           />
         </div>
       ))}
