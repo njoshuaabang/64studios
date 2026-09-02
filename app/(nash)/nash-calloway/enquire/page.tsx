@@ -1,14 +1,18 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import Link from "next/link";
 import EnquireForm from "@/components/nash/EnquireForm";
 import Nav from "@/components/nash/Nav";
+import { studioUrl } from "@/lib/sites";
 import SignOff from "@/components/nash/SignOff";
 
 export const metadata: Metadata = {
   title: "Enquire",
 };
 
-export default function NashEnquirePage() {
+export default async function NashEnquirePage() {
+  const back = studioUrl((await headers()).get("host"), "/portfolio/nash-calloway");
+
   return (
     <>
       <Nav />
@@ -29,6 +33,11 @@ export default function NashEnquirePage() {
           the form so it survives submission — the form replaces itself with the
           confirmation message, and the way out should not disappear with it.
 
+          On a subdomain this has to be an absolute URL to 64studios.com: the two
+          are different origins there, and a root-relative path would resolve
+          back into the case study. On the main domain it stays relative so it
+          remains a client navigation.
+
           Secondary to Submit enquiry by weight of border, not by colour: the
           same walnut text at a 40% hairline against Submit's solid box. Brass
           would read as secondary more directly, but brass on plaster measures
@@ -37,7 +46,7 @@ export default function NashEnquirePage() {
           Sentence case, like everything else here.
         */}
         <Link
-          href="/portfolio/nash-calloway"
+          href={back}
           className="mt-12 inline-block border border-nash-walnut/40 px-3 py-2 font-nash-body text-sm text-nash-walnut transition-colors duration-200 hover:border-nash-walnut hover:bg-nash-walnut hover:text-nash-plaster md:mt-14"
         >
           Back to 64 Studios

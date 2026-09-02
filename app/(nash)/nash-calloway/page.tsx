@@ -4,6 +4,7 @@ import Entrance from "@/components/nash/Entrance";
 import Hero from "@/components/nash/Hero";
 import Nav from "@/components/nash/Nav";
 import { nashPath } from "@/lib/nash/paths";
+import { nashBase } from "@/lib/nash/server";
 
 export const metadata: Metadata = {
   title: { absolute: "Nash Calloway Design" },
@@ -40,7 +41,9 @@ const frames = [
   },
 ];
 
-export default function NashHomePage() {
+export default async function NashHomePage() {
+  const base = await nashBase();
+
   return (
     <main className="relative flex min-h-[100dvh] flex-col">
       <Entrance />
@@ -59,7 +62,7 @@ export default function NashHomePage() {
           <h1 className="sr-only">Nash Calloway Design</h1>
 
           <Link
-            href={nashPath("/portfolio")}
+            href={nashPath(base, "/portfolio")}
             data-nash-cta
             className="inline-flex w-full max-w-[12rem] items-center justify-center self-center border border-nash-plaster px-8 py-[12px] font-nash-body text-sm uppercase tracking-wide text-nash-plaster transition-colors duration-200 hover:bg-nash-plaster hover:text-nash-ink"
           >

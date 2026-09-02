@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import Nav from "@/components/nash/Nav";
 import Plate from "@/components/nash/Plate";
 import SignOff from "@/components/nash/SignOff";
-import { nashPath } from "@/lib/nash/paths";
+import { NASH_BASE, nashPath } from "@/lib/nash/paths";
+import { nashBase } from "@/lib/nash/server";
 import { getProject, projects } from "@/lib/nash/projects";
 
 export function generateStaticParams() {
@@ -24,7 +25,7 @@ export async function generateMetadata({ params }: PageParams): Promise<Metadata
     openGraph: {
       title: `${project.name} — Nash Calloway Design`,
       description: project.move,
-      url: nashPath(`/portfolio/${project.slug}`),
+      url: `${NASH_BASE}/portfolio/${project.slug}`,
       images: [{ url: project.images[0].src, alt: project.images[0].alt }],
     },
   };
@@ -38,12 +39,14 @@ export default async function NashProjectPage({ params }: PageParams) {
     notFound();
   }
 
+  const base = await nashBase();
+
   return (
     <>
       <Nav />
       <main className="px-4 pt-10 md:px-8 md:pt-16">
         <Link
-          href={nashPath("/portfolio")}
+          href={nashPath(base, "/portfolio")}
           className="font-nash-body text-sm text-nash-ink/70 transition-colors duration-200 hover:text-nash-brass"
         >
           Portfolio

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import Plate from "./Plate";
+import { useNashBase } from "./NashBase";
 import { nashPath } from "@/lib/nash/paths";
 import { collections, type Collection, type NashProject } from "@/lib/nash/projects";
 
@@ -22,6 +23,7 @@ type Filter = Collection | "All";
  * means the same thing everywhere: open the project.
  */
 export default function PortfolioGrid({ projects }: { projects: NashProject[] }) {
+  const base = useNashBase();
   const [filter, setFilter] = useState<Filter>("All");
 
   const filters: Filter[] = ["All", ...collections];
@@ -57,7 +59,7 @@ export default function PortfolioGrid({ projects }: { projects: NashProject[] })
           return (
             <li key={project.slug}>
               <Link
-                href={nashPath(`/portfolio/${project.slug}`)}
+                href={nashPath(base, `/portfolio/${project.slug}`)}
                 aria-label={project.name}
                 className="group block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-nash-brass"
               >
@@ -75,7 +77,7 @@ export default function PortfolioGrid({ projects }: { projects: NashProject[] })
 
               <h2 className="mt-2 font-nash-display text-lg text-nash-ink">
                 <Link
-                  href={nashPath(`/portfolio/${project.slug}`)}
+                  href={nashPath(base, `/portfolio/${project.slug}`)}
                   className="transition-colors duration-200 hover:text-nash-brass"
                 >
                   {project.name}
