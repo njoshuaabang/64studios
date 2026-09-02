@@ -10,18 +10,42 @@ export const metadata: Metadata = {
 };
 
 /**
- * One project, held still. Carbon Beach House is the frame the site opens on.
+ * Four finished projects, ordered so no two consecutive frames share a
+ * subject: a dissolve between two photographs of the same kind of thing reads
+ * as one doubled image rather than a change of project. Stone Canyon's
+ * interior sits between the two coastal exteriors for that reason.
+ *
+ * These four are also the only set that clears 4.5:1 for plaster type at a dim
+ * the photography survives. The white-walled frames — the Cañon Drive gallery,
+ * Rockledge's ceiling, the Chester Square stucco — need better than 66% before
+ * the nav is legible over them, which is dark enough to lose the picture. That
+ * costs the Artist Homes collection a place in the rotation. Grosvenor Square
+ * is out for a separate reason — see the note on its project images.
  */
-const hero = {
-  src: "/nash/images/carbon-after.jpg",
-  alt: "A low modern house behind palms, its glazed beach elevation open to the light.",
-};
+const frames = [
+  {
+    src: "/nash/images/carbon-after.jpg",
+    alt: "A low modern house behind palms, its glazed beach elevation open to the light.",
+  },
+  {
+    src: "/nash/images/stone-after.jpg",
+    alt: "A pine-panelled room under a beamed ceiling, the bay window open to trees.",
+  },
+  {
+    src: "/nash/images/serena-after.jpg",
+    alt: "Terraced buildings stepping down a cliff face above the sea.",
+  },
+  {
+    src: "/nash/images/holland-after.jpg",
+    alt: "The villa seen across its garden, the garden front open to the lawn.",
+  },
+];
 
 export default function NashHomePage() {
   return (
     <main className="relative flex min-h-[100dvh] flex-col">
       <Entrance />
-      <Hero src={hero.src} alt={hero.alt} />
+      <Hero frames={frames} />
 
       <div className="relative z-10 flex min-h-[100dvh] flex-col">
         <Nav transparent />
