@@ -30,7 +30,7 @@
       "runtimeExecutable": "sh",
       "runtimeArgs": [
         "-c",
-        "cd /Users/joshuaabang/Downloads/aldern-voss && npm run dev -- --port 5199 --strictPort"
+        "cd '/Users/joshuaabang/Downloads/watch portfolio project/aldern-voss' && npm run dev -- --port 5199 --strictPort"
       ],
       "port": 5199
     },
@@ -39,7 +39,7 @@
       "runtimeExecutable": "sh",
       "runtimeArgs": [
         "-c",
-        "cd '/Users/joshuaabang/Downloads/aldern-voss 2' && npm run dev -- --port 5200 --strictPort"
+        "cd '/Users/joshuaabang/Downloads/watch portfolio project/aldern-voss 2' && npm run dev -- --port 5200 --strictPort"
       ],
       "port": 5200
     },
@@ -48,7 +48,7 @@
       "runtimeExecutable": "sh",
       "runtimeArgs": [
         "-c",
-        "cd '/Users/joshuaabang/Downloads/aldern-voss 2' && npm run preview -- --port 5201 --strictPort"
+        "cd '/Users/joshuaabang/Downloads/watch portfolio project/aldern-voss 2' && npm run preview -- --port 5201 --strictPort"
       ],
       "port": 5201
     }
