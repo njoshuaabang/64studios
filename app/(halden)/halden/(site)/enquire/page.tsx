@@ -49,13 +49,27 @@ export default async function EnquirePage() {
           {/*
             The way back out of the house. A plain next/link, not 64's
             TransitionLink: the page transition provider lives in app/(64) and
-            this tree sits outside it. Brass hairline rather than the form's ink
-            box, so it reads as secondary to Send on the same screen.
+            this tree sits outside it.
+
+            Brass, and deliberately so: everything else on this page is ink,
+            so the one brass control is the one that leaves the house. That is
+            a different thing from Send, and it is meant to look it.
+
+            It is the deeper brass rather than the flat one, which is what
+            lets it stay brass at all: at 11px the standard brass measures
+            3.44:1 on limewash where AA wants 4.5, and this is 4.63:1. Same
+            hue, scaled to 84% — the signal survives and the label is legible.
+            Do not swap it back to `halden-brass` for consistency with the
+            footer; that trade only works on larger text.
+
+            On a subdomain this has to be an absolute URL to 64studios.com: the
+            two are different origins there, and a root-relative path would
+            resolve back into the house.
           */}
           <Reveal className="pt-10">
             <Link
               href={back}
-              className="inline-block border border-halden-brass/70 px-3 py-2 text-halden-micro uppercase tracking-halden-label text-halden-brass transition-colors duration-300 hover:border-halden-ink hover:text-halden-ink"
+              className="inline-block border border-halden-brass-deep/70 px-3 py-2 text-halden-micro uppercase tracking-halden-label text-halden-brass-deep transition-colors duration-300 hover:border-halden-ink hover:text-halden-ink"
             >
               Back to 64 Studios
             </Link>

@@ -31,6 +31,10 @@ const config: Config = {
       "halden-limewash": "#F2EFE9",
       "halden-green": "#22302A",
       "halden-brass": "#9A7B4F",
+      // The same brass scaled to 84% — same hue, enough darker to carry small
+      // text. Brass at 11px on limewash is 3.44:1 against the 4.5 AA wants;
+      // this is 4.63:1, so a brass control can stay brass and still be read.
+      "halden-brass-deep": "#816742",
 
       // Nash Calloway Design — six tokens, no black, no white
       "nash-walnut": "#5C4530",
