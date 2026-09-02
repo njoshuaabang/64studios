@@ -4,12 +4,12 @@ import { siteForHost } from "@/lib/sites";
 /**
  * Host-based routing for the case-study subdomains.
  *
- * nash-calloway.64studios.com/portfolio is served by rewriting it to
+ * nash-calloway.64studios.design/portfolio is served by rewriting it to
  * /nash-calloway/portfolio internally. The rewrite is invisible: the visitor
  * keeps the clean URL, and the route tree does not have to know it is being
  * reached from a second hostname.
  *
- * The main domain is untouched. 64studios.com/nash-calloway/* keeps working
+ * The main domain is untouched. 64studios.design/nash-calloway/* keeps working
  * exactly as before, which matters because that is what is deployed today and
  * what the 64 Studios portfolio links to.
  *

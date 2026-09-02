@@ -62,7 +62,7 @@ export default async function EnquirePage() {
             Do not swap it back to `halden-brass` for consistency with the
             footer; that trade only works on larger text.
 
-            On a subdomain this has to be an absolute URL to 64studios.com: the
+            On a subdomain this has to be an absolute URL to 64studios.design: the
             two are different origins there, and a root-relative path would
             resolve back into the house.
           */}

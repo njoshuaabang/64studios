@@ -105,8 +105,8 @@ under `prefers-reduced-motion`.
 ## Case-study subdomains
 
 Each case study is reachable two ways: as a section of the main domain
-(`64studios.com/nash-calloway`) and at the root of its own subdomain
-(`nash-calloway.64studios.com`). Both serve the same route tree — the subdomain
+(`64studios.design/nash-calloway`) and at the root of its own subdomain
+(`nash-calloway.64studios.design`). Both serve the same route tree — the subdomain
 is a second door, not a second copy.
 
 `lib/sites.ts` is the only place the mapping lives. `middleware.ts` reads the
@@ -142,21 +142,27 @@ the app works. Flip `rootServed` to `true` in `lib/sites.ts` once it is.
 
 ### Pointing the subdomains (not done — needs account access)
 
-The apex resolves to `35.215.109.174` with nameservers at SiteGround, and this
-repository has no git remote and no linked deployment, so none of this could be
-done from the codebase:
+`64studios.design` is registered through Vercel and already delegated to
+`ns1.vercel-dns.com` / `ns2.vercel-dns.com`, so Vercel manages the zone and no
+records have to be written by hand. What is missing is a project: the Vercel
+team has none, this repository has no git remote, and the domain cannot be
+attached to nothing.
 
-1. Push the repository and import it as a Vercel project.
-2. Add `nash-calloway.64studios.com`, `halden.64studios.com` and
-   `aldern-voss.64studios.com` as domains on that project. They are subdomains
-   of the one registered domain, not separate registrations — Vercel calls any
-   hostname attached to a project a "domain".
-3. In SiteGround DNS, add a CNAME for each subdomain to the target Vercel gives
-   you. The apex can stay pointed at SiteGround — subdomains resolve
-   independently, so the existing site is unaffected.
-4. Only once the subdomains resolve, add `alternates.canonical` to the Nash and
-   Halden pages pointing at their subdomain. It is left out on purpose: canonical tags
-   aimed at a hostname that does not resolve are worse than none.
+1. From the repository root, `npx vercel` to create and link the project, then
+   `npx vercel --prod`.
+2. In the project's Settings → Domains, add `64studios.design`, then
+   `nash-calloway.64studios.design`, `halden.64studios.design` and
+   `aldern-voss.64studios.design`. All four are hostnames on the one registered
+   domain, not separate registrations — Vercel calls any hostname attached to a
+   project a "domain". Because the zone is already on Vercel DNS they verify
+   without further configuration.
+3. Only once the subdomains resolve, add `alternates.canonical` to the Nash and
+   Halden pages pointing at their subdomain. It is left out on purpose:
+   canonical tags aimed at a hostname that does not resolve are worse than none.
+
+`hello@64studios.com` in `components/ContactForm.tsx` is deliberately unchanged.
+Where the site is served and where its mail is delivered are separate decisions,
+and moving the second one breaks a working address.
 
 ## Commands
 

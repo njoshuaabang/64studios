@@ -4,8 +4,8 @@ import { SITE_URL } from "./site";
  * The case-study sites that 64 Studios hosts, and where each one lives.
  *
  * Each site is reachable two ways: as a section of the main domain
- * (64studios.com/nash-calloway) and on its own subdomain
- * (nash-calloway.64studios.com). Both serve the same route tree — the
+ * (64studios.design/nash-calloway) and on its own subdomain
+ * (nash-calloway.64studios.design). Both serve the same route tree — the
  * subdomain is a different door into it, not a second copy — so this table is
  * the only place the mapping is written.
  *
@@ -21,7 +21,7 @@ import { SITE_URL } from "./site";
  * prefixed path where the app actually works.
  */
 export type Site = {
-  /** The label in `<subdomain>.64studios.com`. */
+  /** The label in `<subdomain>.64studios.design`. */
   subdomain: string;
   /** Where the site lives as a path on the main domain. */
   base: string;
@@ -43,7 +43,7 @@ export function normaliseHost(host: string | null | undefined): string | null {
 
 /**
  * The site a request is for, by hostname. Matches the first label against the
- * table, which means it works for any apex — 64studios.com in production,
+ * table, which means it works for any apex — 64studios.design in production,
  * nash-calloway.localhost in development — without the apex being hardcoded.
  */
 export function siteForHost(host: string | null | undefined): Site | null {

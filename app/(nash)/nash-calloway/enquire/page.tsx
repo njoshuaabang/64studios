@@ -33,7 +33,7 @@ export default async function NashEnquirePage() {
           the form so it survives submission — the form replaces itself with the
           confirmation message, and the way out should not disappear with it.
 
-          On a subdomain this has to be an absolute URL to 64studios.com: the two
+          On a subdomain this has to be an absolute URL to 64studios.design: the two
           are different origins there, and a root-relative path would resolve
           back into the case study. On the main domain it stays relative so it
           remains a client navigation.
