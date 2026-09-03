@@ -105,7 +105,7 @@ export default function HomeHero() {
       */}
       <p
         data-home-note
-        className="mt-6 w-full max-w-[34ch] self-start px-2 text-left font-body text-[0.625rem] leading-[1.6] text-ink sm:text-[0.6875rem] md:absolute md:bottom-6 md:left-6 md:mt-0 md:max-w-[34ch] md:px-0 md:text-xs [@media(max-height:500px)]:mt-3"
+        className="mt-6 w-full max-w-[34ch] self-start px-2 text-left font-body text-[0.6875rem] leading-[1.6] text-ink sm:text-xs md:absolute md:bottom-6 md:left-6 md:mt-0 md:max-w-[34ch] md:px-0 md:text-[0.8125rem] [@media(max-height:500px)]:mt-3"
       >
         64 Studios is a branding agency working across identity and the web. The studio designs
         brand marks and builds high-end websites for companies whose presence has fallen behind the
