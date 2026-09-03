@@ -22,12 +22,7 @@ export default function ProjectCard({ project }: { project: Project }) {
       </div>
       <div className="mt-3 flex flex-col gap-1">
         <h2 className="font-display text-lg font-semibold text-ink">{project.title}</h2>
-        <p className="font-body text-sm text-ink">{project.descriptor}</p>
-        {project.category ? (
-          <p className="font-body text-xs text-ink">
-            {project.category} · {project.year}
-          </p>
-        ) : null}
+        <p className="font-body text-sm text-ink">{project.subtitle}</p>
       </div>
     </TransitionLink>
   );

@@ -8,12 +8,17 @@ import Link from "next/link";
 export default function NotFound() {
   return (
     <main className="flex min-h-dvh flex-col items-center justify-center bg-background px-4 text-center">
-      <p className="font-display text-2xl font-semibold text-ink">Nothing here.</p>
+      <p className="max-w-[42ch] font-body text-base leading-relaxed text-ink">
+        This page has moved or never existed. Have a look at the work instead.
+      </p>
       <Link
-        href="/"
-        className="mt-6 font-body text-xs uppercase tracking-[0.25em] text-ink underline underline-offset-4"
+        href="/portfolio"
+        className="group mt-8 font-body text-xs uppercase tracking-[0.25em] text-ink"
       >
-        Return
+        <span className="relative pb-1">
+          View Portfolio
+          <span className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-ink transition-transform duration-400 ease-out group-hover:scale-x-100" />
+        </span>
       </Link>
     </main>
   );

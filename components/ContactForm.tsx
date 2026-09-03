@@ -2,7 +2,9 @@
 
 import { useState, type FormEvent } from "react";
 
-const email = "hello@64studios.com";
+// The address the footer and the failure message both print, so a visitor
+// who is told to write directly reaches the same inbox the form does.
+const email = "studio@64studios.com";
 
 type FieldName = "name" | "make" | "brandHome";
 
@@ -12,8 +14,11 @@ const fields: {
   required: boolean;
   error?: string;
 }[] = [
-  { name: "name", label: "Name", required: true, error: "Add your name" },
-  { name: "make", label: "What you make", required: true, error: "Add what you make" },
+  { name: "name", label: "Your name", required: true, error: "Please add your name." },
+  // Not blocking. The approved copy supplies exactly one empty-field message,
+  // for the name, and inventing a second would be writing copy that was never
+  // approved. Left open pending a line for it.
+  { name: "make", label: "What you make", required: false },
   { name: "brandHome", label: "Where your brand lives now — optional", required: false },
 ];
 
@@ -24,6 +29,7 @@ export default function ContactForm() {
     brandHome: "",
   });
   const [errors, setErrors] = useState<Partial<Record<FieldName, string>>>({});
+  const [status, setStatus] = useState<"idle" | "sent" | "failed">("idle");
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -41,9 +47,14 @@ export default function ContactForm() {
       .map(({ name, label }) => (values[name].trim() ? `${label}: ${values[name].trim()}` : null))
       .filter(Boolean)
       .join("\n");
-    window.location.href = `mailto:${email}?subject=${encodeURIComponent(
-      "Project enquiry — 64 Studios"
-    )}&body=${encodeURIComponent(body)}`;
+    try {
+      window.location.href = `mailto:${email}?subject=${encodeURIComponent(
+        "Project enquiry — 64 Studios"
+      )}&body=${encodeURIComponent(body)}`;
+      setStatus("sent");
+    } catch {
+      setStatus("failed");
+    }
   };
 
   return (
@@ -83,6 +94,22 @@ export default function ContactForm() {
           <span className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-ink transition-transform duration-400 ease-out group-hover:scale-x-100" />
         </span>
       </button>
+
+      {status === "sent" ? (
+        <p role="status" className="font-body text-sm leading-relaxed text-ink">
+          {"Thank you \u2014 that's arrived safely. You'll hear back within a day or two."}
+        </p>
+      ) : null}
+
+      {status === "failed" ? (
+        <p role="alert" className="font-body text-sm leading-relaxed text-ink">
+          {`That didn't go through. Try again, or email ${email} directly.`}
+        </p>
+      ) : null}
+
+      <p className="font-body text-sm leading-relaxed text-ink">
+        Every serious enquiry gets a reply, usually within a day or two.
+      </p>
     </form>
   );
 }

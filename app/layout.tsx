@@ -17,11 +17,27 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "64 Studios — Luxury Branding Agency",
+    default: "64 Studios — Branding Agency & Website Design",
+    // Routes that set a bare title get the suffix; routes that set their own
+    // full title (Selected Work, The Studio, Contact) pass it through absolute.
     template: "%s — 64 Studios",
   },
   description:
-    "64 Studios is a one-person luxury branding studio for interior designers. Six projects a year.",
+    "64 Studios is a branding agency designing brand identities and building high-end custom websites for hotels, makers, practices and founders.",
+  openGraph: {
+    title: "64 Studios — Branding Agency & Website Design",
+    description:
+      "64 Studios is a branding agency designing brand identities and building high-end custom websites for hotels, makers, practices and founders.",
+    url: SITE_URL,
+    siteName: "64 Studios",
+    type: "website",
+    images: [{ url: "/icon.svg", alt: "64 Studios" }],
+  },
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
