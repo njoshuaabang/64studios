@@ -63,7 +63,23 @@ export const projects: Project[] = [
     ],
     closingLine: "TODO",
     specs: ["Brand identity · Art direction · Website", "2026"],
-    images: [],
+    images: [
+      {
+        src: "/portfolio/nash-calloway/site-01.jpg",
+        alt: "The Nash Calloway Design homepage: the wordmark and three nav links over a photograph of a Malibu house behind palms at golden hour, with a single ENTER button centred low on the frame.",
+        placement: "situation",
+      },
+      {
+        src: "/portfolio/nash-calloway/site-02.jpg",
+        alt: "The Nash Calloway Design portfolio page: collection filters for LA & Malibu, London, Resort-style and Artist Homes above a two-column grid of framed project photographs.",
+        placement: "approach",
+      },
+      {
+        src: "/portfolio/nash-calloway/site-03.jpg",
+        alt: "A Nash Calloway Design project page: the write-up on the Carbon Beach House parapet above a pair of framed photographs, the finished house beside its roof framing under construction.",
+        placement: "approach",
+      },
+    ],
     url: "/nash-calloway",
     cover: {
       src: "/portfolio/nash-calloway/cover.jpg",
@@ -140,7 +156,23 @@ export const projects: Project[] = [
     approach: ["TODO"],
     closingLine: "TODO",
     specs: ["Brand identity · Art direction · Photography · Website", "2026"],
-    images: [],
+    images: [
+      {
+        src: "/portfolio/aldern-voss/site-01.jpg",
+        alt: "The Aldern & Voss threshold: the watch held on screen in the upper zone, with the wordmark, the positioning line and a Begin Experience button on solid bone beneath it.",
+        placement: "situation",
+      },
+      {
+        src: "/portfolio/aldern-voss/site-02.jpg",
+        alt: "The Aldern & Voss reference page part-way through its horizontal sequence: the watch worn on a wrist, captioned 07 Worn beneath the photograph.",
+        placement: "approach",
+      },
+      {
+        src: "/portfolio/aldern-voss/site-03.jpg",
+        alt: "The Aldern & Voss workshop page: the founding line set large above a photograph of a leather worker cutting a strap blank by hand, with the Why Florence text beside it.",
+        placement: "approach",
+      },
+    ],
     url: "/aldern-voss",
     cover: {
       src: "/portfolio/aldern-voss/cover.jpg",
