@@ -9,9 +9,9 @@ import type { CaseStudyImage, Project } from "@/config/portfolio";
  * cannot differ between one project and the next — there is no second
  * component in which they could drift.
  *
- * The rhythm is fixed: situation, its images, approach, its images, close,
- * specs. A project with no images simply skips those bands; the spacing either
- * side stays the same, because it belongs to the sections rather than to the
+ * The rhythm is fixed: situation, its images, approach, its images, specs. A
+ * project with no images simply skips those bands; the spacing either side
+ * stays the same, because it belongs to the sections rather than to the
  * images.
  */
 const SHELL = "mx-auto w-full max-w-3xl px-4 md:px-6";
@@ -93,12 +93,6 @@ export default function CaseStudyLayout({ project }: { project: Project }) {
 
       <ImageBand images={approachImages} />
 
-      <p
-        className={`${SHELL} ${SECTION} max-w-[34ch] text-center font-display text-xl font-medium leading-[1.5] text-ink md:text-2xl`}
-      >
-        {project.closingLine}
-      </p>
-
       <dl className={`${SHELL} ${SECTION} border-t border-bone pt-6`}>
         <dt className="sr-only">Specification</dt>
         {project.specs.map((spec) => (
@@ -108,9 +102,7 @@ export default function CaseStudyLayout({ project }: { project: Project }) {
         ))}
       </dl>
 
-      {project.attribution ? (
-        <p className={`${SHELL} mt-10 font-body text-xs text-ink`}>{project.attribution}</p>
-      ) : null}
+      <p className={`${SHELL} mt-10 font-body text-xs text-ink`}>{project.attribution}</p>
     </article>
   );
 }

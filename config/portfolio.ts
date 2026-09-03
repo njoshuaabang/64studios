@@ -21,9 +21,10 @@ export type CaseStudyImage = {
  * component: `CaseStudyLayout` renders all of this and nothing renders around
  * it, so two projects cannot drift apart in spacing or type scale.
  *
- * Fields with no existing copy hold the literal string "TODO". They are not
- * filled with invented prose, and they are listed in the handover rather than
- * left to be discovered.
+ * The situation and approach prose was written for the case studies rather
+ * than lifted from the projects, which had no copy in that form. It
+ * is the one part of this file that is not verbatim from an approved
+ * document, so it is the first place to look when the voice feels off.
  *
  * `cover` and `url` are not part of the case-study shape. They support the
  * listing card, the Open Graph image and the "Visit the site" button, which
@@ -38,10 +39,9 @@ export type Project = {
   situation: string;
   approachHeading: string;
   approach: string[];
-  closingLine: string;
   /** Small strings: services, stack, metrics. */
   specs: string[];
-  attribution?: string;
+  attribution: string;
   images: CaseStudyImage[];
   cover?: ProjectImage;
   url?: string;
@@ -56,13 +56,14 @@ export const projects: Project[] = [
     title: "Nash Calloway Design",
     subtitle: "An interior design and architecture studio in Los Angeles and London",
     situationHeading: SITUATION_HEADING,
-    situation: "TODO",
+    situation:
+      "Nine finished projects across Los Angeles and London, and the problem that arrives with them: written up at length, good work starts to read like every other studio's. What made each house worth visiting was usually one decision, and that decision was buried.",
     approachHeading: APPROACH_HEADING,
     approach: [
       "A results-led register: nine projects, each shown as photography and a short factual note on the one move that mattered. The portfolio does the persuading, so the copy does not.",
     ],
-    closingLine: "TODO",
     specs: ["Brand identity · Art direction · Website", "2026"],
+    attribution: "Self-initiated concept.",
     images: [
       {
         src: "/portfolio/nash-calloway/site-01.jpg",
@@ -93,12 +94,12 @@ export const projects: Project[] = [
     title: "Halden",
     subtitle: "A private house in Marylebone",
     situationHeading: SITUATION_HEADING,
-    situation: "TODO",
+    situation:
+      "A private house in a Georgian townhouse on a quiet Marylebone street, opening in a city with no shortage of them. What it had was restraint, which is the hardest quality to put on a website without spending it.",
     approachHeading: APPROACH_HEADING,
     approach: [
       "Most private clubs sell themselves in the language of a hotel. Halden is a house in Marylebone that behaves like one — a black door, six stools at the bar, twelve places at one table. The identity and the site were built to withhold rather than persuade.",
     ],
-    closingLine: "TODO",
     specs: [
       "Brand identity · Art direction · Photography · Website",
       "Next.js · GSAP · Vercel",
@@ -151,11 +152,15 @@ export const projects: Project[] = [
     subtitle:
       "An independent watchmaker, built from one reference and a sideways walk through its parts.",
     situationHeading: SITUATION_HEADING,
-    situation: "TODO",
+    situation:
+      "An independent watchmaker with one reference and nothing around it — no variants, no colourways, no price list. There is almost nothing for a catalogue to list, and a conventional brand site would have had to talk around the watch rather than show it.",
     approachHeading: APPROACH_HEADING,
-    approach: ["TODO"],
-    closingLine: "TODO",
+    approach: [
+      "The site opens on the watch itself, taken apart and drawn back together once before the name appears. Nothing is claimed while that is happening.",
+      "The reference is then walked through sideways: seven components, the page scrolling down while the watch travels across, each part held long enough to read one line about it. Case, dial, movement, crown, strap, case back, and the watch worn.",
+    ],
     specs: ["Brand identity · Art direction · Photography · Website", "2026"],
+    attribution: "Self-initiated concept.",
     images: [
       {
         src: "/portfolio/aldern-voss/site-01.jpg",
