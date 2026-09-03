@@ -4,6 +4,7 @@ import { haldenDisplay, haldenBody } from "@/lib/halden/fonts";
 import { nashDisplay, nashBody } from "@/lib/nash/fonts";
 import "./globals.css";
 import { SITE_URL } from "@/lib/site";
+import { Analytics } from "@vercel/analytics/next";
 
 /**
  * Shell only. Every brand's font variables are declared here because
@@ -52,6 +53,13 @@ document.documentElement.setAttribute('data-ncd-entrance','play');
           }}
         />
         {children}
+
+        {/*
+          Vercel Analytics. It renders nothing and is inert off Vercel, so it
+          costs local development and any other host precisely nothing. It sits
+          after {children} so it can never delay the page's own content.
+        */}
+        <Analytics />
       </body>
     </html>
   );
