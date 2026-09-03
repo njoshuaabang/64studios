@@ -30,7 +30,14 @@ export default function HomeHero() {
     const studiosEl = container.querySelector<HTMLElement>("[data-wordmark-studios]");
     const taglineEl = container.querySelector<HTMLElement>("[data-tagline]");
     const buttonEl = container.querySelector<HTMLElement>("[data-portfolio-button]");
-    const targets = [cardEl, numberEl, ruleEl, studiosEl, taglineEl, buttonEl].filter(Boolean);
+    const noteEl = container.querySelector<HTMLElement>("[data-home-note]");
+    // The nav is rendered by the layout, not by this component, so it is
+    // reached through the document. Only the homepage animates it; every other
+    // route leaves it alone and it is simply there.
+    const navEl = document.querySelector<HTMLElement>("[data-corner-nav]");
+    const targets = [navEl, cardEl, numberEl, ruleEl, studiosEl, taglineEl, buttonEl, noteEl].filter(
+      Boolean,
+    );
 
     if (prefersReducedMotion()) {
       gsap.set(targets, { clearProps: "all" });
@@ -41,11 +48,13 @@ export default function HomeHero() {
 
     let split: SplitText | undefined;
     const ctx = gsap.context(() => {
+      gsap.set(navEl, { opacity: 0 });
       gsap.set(cardEl, { opacity: 0 });
       gsap.set(numberEl, { opacity: 0, y: 24 });
       gsap.set(ruleEl, { scaleX: 0 });
       gsap.set(taglineEl, { opacity: 0 });
       gsap.set(buttonEl, { opacity: 0 });
+      gsap.set(noteEl, { opacity: 0 });
 
       let chars: Element[] = [];
       if (studiosEl) {
@@ -56,12 +65,14 @@ export default function HomeHero() {
 
       const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
 
-      tl.to(cardEl, { opacity: 1, duration: 0.8, ease: "power2.out" })
+      tl.to(navEl, { opacity: 1, duration: 0.8, ease: "power2.out" })
+        .to(cardEl, { opacity: 1, duration: 0.8, ease: "power2.out" }, "-=0.5")
         .to(numberEl, { opacity: 1, y: 0, duration: 1.1 }, "-=0.3")
         .to(ruleEl, { scaleX: 1, duration: 0.9, ease: "power2.out" }, "-=0.6")
         .to(chars, { opacity: 1, y: 0, duration: 0.6, stagger: 0.03, ease: "power2.out" }, "-=0.5")
         .to(taglineEl, { opacity: 1, duration: 0.8 }, "-=0.3")
-        .to(buttonEl, { opacity: 1, duration: 0.8 }, "-=0.4");
+        .to(buttonEl, { opacity: 1, duration: 0.8 }, "-=0.4")
+        .to(noteEl, { opacity: 1, duration: 0.8 }, "-=0.3");
     }, container);
 
     return () => {
@@ -85,6 +96,22 @@ export default function HomeHero() {
           <PortfolioButton />
         </div>
       </div>
+
+      {/*
+        Below the button on a phone, bottom-left of the viewport from md up.
+        The page cannot scroll — the main is fixed and clipped — so the size
+        steps down at the narrow end rather than the text being cut: the whole
+        sentence has to fit, and none of it may be lost.
+      */}
+      <p
+        data-home-note
+        className="mt-6 w-full max-w-[34ch] self-start px-2 text-left font-body text-[0.625rem] leading-[1.6] text-ink sm:text-[0.6875rem] md:absolute md:bottom-6 md:left-6 md:mt-0 md:max-w-[34ch] md:px-0 md:text-xs [@media(max-height:500px)]:mt-3"
+      >
+        64 Studios is a branding agency working across identity and the web. The studio designs
+        brand marks and builds high-end websites for companies whose presence has fallen behind the
+        quality of their work &mdash; hotels, makers, practices and founders who would rather not
+        blend in.
+      </p>
     </main>
   );
 }

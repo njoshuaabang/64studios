@@ -2,16 +2,23 @@ import type { Metadata } from "next";
 import ContactForm from "@/components/ContactForm";
 
 export const metadata: Metadata = {
-  title: "Contact",
+  title: { absolute: "Contact — 64 Studios" },
+  description:
+    "Start a conversation about brand identity or website design with 64 Studios.",
+  openGraph: {
+    title: "Contact — 64 Studios",
+    description:
+      "Start a conversation about brand identity or website design with 64 Studios.",
+  },
 };
 
 export default function ContactPage() {
   return (
     <main className="flex min-h-dvh flex-col items-center justify-center px-4 pb-16 pt-16 md:pt-20">
       <div className="w-full max-w-sm">
-        <h1 className="font-display text-2xl font-semibold text-ink md:text-3xl">Contact</h1>
+        <h1 className="font-display text-2xl font-semibold text-ink md:text-3xl">Begin</h1>
         <p className="mt-6 font-body text-base leading-relaxed text-ink">
-          For brands that want to look the way they deserve to.
+          {"Tell the studio what you're making. Enough to get a sense of it \u2014 the details can come later."}
         </p>
         <ContactForm />
       </div>
