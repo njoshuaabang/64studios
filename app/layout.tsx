@@ -5,6 +5,7 @@ import { nashDisplay, nashBody } from "@/lib/nash/fonts";
 import "./globals.css";
 import { SITE_URL } from "@/lib/site";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 /**
  * Shell only. Every brand's font variables are declared here because
@@ -55,11 +56,13 @@ document.documentElement.setAttribute('data-ncd-entrance','play');
         {children}
 
         {/*
-          Vercel Analytics. It renders nothing and is inert off Vercel, so it
-          costs local development and any other host precisely nothing. It sits
-          after {children} so it can never delay the page's own content.
+          Vercel Analytics and Speed Insights. They render nothing and are
+          inert off Vercel, so they cost local development and any other host
+          precisely nothing. They sit after {children} so they can never delay
+          the page's own content.
         */}
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
