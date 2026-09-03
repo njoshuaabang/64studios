@@ -10,15 +10,17 @@ import { SITE_URL } from "./site";
  * the only place the mapping is written.
  *
  * `rootServed` says whether a site can be served at the root of its subdomain
- * with the base path stripped from the URL. Next route groups can: their links
- * are generated at render time, so the prefix can be dropped per host. Aldern
- * & Voss cannot, and it is worth being precise about why rather than filing it
- * under "legacy": it is a Vite SPA whose bundle carries
- * `basename: "/aldern-voss"` compiled in from Vite's `base`, along with every
- * media path. At the root of a subdomain its router would match nothing.
- * Rebuilding it with `base: "/"` is the fix, and its source is not in this
- * repository, so until that happens the subdomain sends visitors to the
- * prefixed path where the app actually works.
+ * with the base path stripped from the URL. All three can. The Next route
+ * groups always could: their links are generated at render time, so the prefix
+ * is simply dropped per host.
+ *
+ * Aldern & Voss took a change to its own source. It is a Vite SPA, and its
+ * router basename used to be compiled in from Vite's `base`, so at the root of
+ * a subdomain it looked for a prefix the URL did not have and matched no route.
+ * It now derives the basename from the actual pathname at run time, which
+ * distinguishes the two mounts that one build serves. Its assets stay absolute
+ * at /aldern-voss/… — those files really do live there and resolve on either
+ * hostname — so only the router had to learn where it was.
  */
 export type Site = {
   /** The label in `<subdomain>.64studios.design`. */
@@ -32,7 +34,7 @@ export type Site = {
 export const SITES: Site[] = [
   { subdomain: "nash-calloway", base: "/nash-calloway", rootServed: true },
   { subdomain: "halden", base: "/halden", rootServed: true },
-  { subdomain: "aldern-voss", base: "/aldern-voss", rootServed: false },
+  { subdomain: "aldern-voss", base: "/aldern-voss", rootServed: true },
 ];
 
 /** The bare hostname, without port, lowercased. Null hosts resolve to null. */
