@@ -17,7 +17,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "64 Studios — Luxury Branding for Interior Designers",
+    default: "64 Studios — Luxury Branding Agency",
     template: "%s — 64 Studios",
   },
   description:
