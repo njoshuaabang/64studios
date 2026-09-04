@@ -6,60 +6,80 @@ import { useState, type FormEvent } from "react";
 // who is told to write directly reaches the same inbox the form does.
 const email = "studio@64studios.design";
 
-type FieldName = "name" | "make" | "brandHome";
+type FieldName = "name" | "email" | "make" | "brandHome";
 
 const fields: {
   name: FieldName;
   label: string;
+  type: "text" | "email";
   required: boolean;
   error?: string;
 }[] = [
-  { name: "name", label: "Your name", required: true, error: "Please add your name." },
-  // Not blocking. The approved copy supplies exactly one empty-field message,
-  // for the name, and inventing a second would be writing copy that was never
-  // approved. Left open pending a line for it.
-  { name: "make", label: "What you make", required: false },
-  { name: "brandHome", label: "Where your brand lives now — optional", required: false },
+  { name: "name", label: "Your name", type: "text", required: true, error: "Please add your name." },
+  { name: "email", label: "Your email", type: "email", required: true, error: "Please add a valid email." },
+  // Not blocking. The approved copy supplies exactly two empty-field
+  // messages, for name and email, and inventing more would be writing copy
+  // that was never approved. Left open pending a line for it.
+  { name: "make", label: "What you make", type: "text", required: false },
+  { name: "brandHome", label: "Where your brand lives now — optional", type: "text", required: false },
 ];
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function ContactForm() {
   const [values, setValues] = useState<Record<FieldName, string>>({
     name: "",
+    email: "",
     make: "",
     brandHome: "",
   });
   const [errors, setErrors] = useState<Partial<Record<FieldName, string>>>({});
-  const [status, setStatus] = useState<"idle" | "sent" | "failed">("idle");
+  const [status, setStatus] = useState<"idle" | "submitting" | "sent" | "failed">("idle");
+  const [failedMessage, setFailedMessage] = useState("");
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const nextErrors: Partial<Record<FieldName, string>> = {};
-    for (const field of fields) {
-      if (field.required && !values[field.name].trim()) {
-        nextErrors[field.name] = field.error;
-      }
+    if (!values.name.trim()) nextErrors.name = "Please add your name.";
+    if (!values.email.trim() || !EMAIL_RE.test(values.email.trim())) {
+      nextErrors.email = "Please add a valid email.";
     }
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
 
-    const body = fields
-      .map(({ name, label }) => (values[name].trim() ? `${label}: ${values[name].trim()}` : null))
-      .filter(Boolean)
-      .join("\n");
+    setStatus("submitting");
+    const form = event.currentTarget;
+    const honeypot = (new FormData(form).get("company") as string) ?? "";
+
     try {
-      window.location.href = `mailto:${email}?subject=${encodeURIComponent(
-        "Project enquiry — 64 Studios"
-      )}&body=${encodeURIComponent(body)}`;
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          name: values.name.trim(),
+          email: values.email.trim(),
+          make: values.make.trim(),
+          brandHome: values.brandHome.trim(),
+          company: honeypot,
+        }),
+      });
+      const data = (await response.json()) as { ok: boolean; error?: string };
+      if (!data.ok) {
+        setFailedMessage(data.error ?? "");
+        setStatus("failed");
+        return;
+      }
       setStatus("sent");
     } catch {
+      setFailedMessage("");
       setStatus("failed");
     }
   };
 
   return (
     <form noValidate onSubmit={handleSubmit} className="mt-10 flex flex-col gap-6">
-      {fields.map(({ name, label, required }) => (
+      {fields.map(({ name, label, type, required }) => (
         <div key={name} className="flex flex-col">
           <label htmlFor={`contact-${name}`} className="font-body text-sm text-ink">
             {label}
@@ -67,7 +87,7 @@ export default function ContactForm() {
           <input
             id={`contact-${name}`}
             name={name}
-            type="text"
+            type={type}
             value={values[name]}
             required={required}
             aria-invalid={errors[name] ? true : undefined}
@@ -85,12 +105,21 @@ export default function ContactForm() {
           ) : null}
         </div>
       ))}
+
+      {/* Honeypot: hidden from sighted and screen-reader users alike; any
+          real visitor leaves it empty, so a filled value marks a bot. */}
+      <div className="absolute -left-[9999px]" aria-hidden="true">
+        <label htmlFor="contact-company">Company</label>
+        <input id="contact-company" name="company" type="text" tabIndex={-1} autoComplete="off" />
+      </div>
+
       <button
         type="submit"
-        className="group mt-2 self-start font-body text-xs uppercase tracking-[0.25em] text-ink"
+        disabled={status === "submitting"}
+        className="group mt-2 self-start font-body text-xs uppercase tracking-[0.25em] text-ink disabled:opacity-60"
       >
         <span className="relative pb-1">
-          Send enquiry
+          {status === "submitting" ? "Sending" : "Send enquiry"}
           <span className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-ink transition-transform duration-400 ease-out group-hover:scale-x-100" />
         </span>
       </button>
@@ -103,7 +132,7 @@ export default function ContactForm() {
 
       {status === "failed" ? (
         <p role="alert" className="font-body text-sm leading-relaxed text-ink">
-          {`That didn't go through. Try again, or email ${email} directly.`}
+          {failedMessage || `That didn't go through. Try again, or email ${email} directly.`}
         </p>
       ) : null}
 
