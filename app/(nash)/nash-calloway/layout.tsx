@@ -15,6 +15,10 @@ export const metadata: Metadata = {
   },
   description:
     "Interior architecture and design in Los Angeles, London, and select international locations.",
+  // A self-initiated concept, not a real business — kept out of the index but
+  // still crawlable, so it still renders for anything that fetches it. Set
+  // once here for the whole brand tree rather than page by page.
+  robots: { index: false, follow: true },
   openGraph: {
     title: "Nash Calloway Design",
     description: "Mid-century instinct. Wherever the house is.",

@@ -21,7 +21,11 @@ export default function Footer() {
         </address>
 
         <p className="pt-10 text-halden-micro text-halden-ink/70">
-          Self-initiated concept. 64 Studios.
+          A self-initiated concept by{" "}
+          <a href="https://64studios.design" className={linkStyle}>
+            64 Studios
+          </a>
+          . Not a real business.
         </p>
       </div>
     </footer>

@@ -15,6 +15,10 @@ export const metadata: Metadata = {
   },
   description:
     "A private members' house in a Georgian townhouse on a Marylebone street. Built in 1794, and a house again.",
+  // A self-initiated concept, not a real business — kept out of the index but
+  // still crawlable, so it still renders for anything that fetches it. Set
+  // once here for the whole brand tree rather than page by page.
+  robots: { index: false, follow: true },
   openGraph: {
     title: "Halden",
     description: "A private house in Marylebone.",
