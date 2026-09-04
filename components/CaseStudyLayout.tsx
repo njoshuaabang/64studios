@@ -67,7 +67,7 @@ export default function CaseStudyLayout({ project }: { project: Project }) {
               src={project.cover.src}
               alt={project.cover.alt}
               fill
-              priority
+              preload
               sizes="(max-width: 768px) 100vw, 768px"
               className="object-cover"
             />

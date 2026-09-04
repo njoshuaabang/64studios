@@ -34,8 +34,8 @@ export default function PortfolioPage() {
         Identities and websites for brands that would rather not blend in.
       </p>
       <div className="mt-10 grid grid-cols-1 gap-10 sm:grid-cols-2 md:mt-14 md:gap-12">
-        {projects.map((project) => (
-          <ProjectCard key={project.slug} project={project} />
+        {projects.map((project, i) => (
+          <ProjectCard key={project.slug} project={project} preload={i === 0} />
         ))}
       </div>
     </main>

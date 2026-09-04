@@ -23,7 +23,7 @@ export default function Plate({
   return (
     <figure className={`border border-nash-ink/20 p-1 md:p-2 ${className}`}>
       <div className="relative aspect-[3/2] overflow-hidden">
-        <Image src={src} alt={alt} fill sizes={sizes} priority={priority} className="object-cover" />
+        <Image src={src} alt={alt} fill sizes={sizes} preload={priority} className="object-cover" />
         {children}
       </div>
     </figure>

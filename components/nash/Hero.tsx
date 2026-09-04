@@ -70,7 +70,7 @@ export default function Hero({ frames }: { frames: { src: string; alt: string }[
             alt={i === 0 ? frame.alt : ""}
             aria-hidden={i === 0 ? undefined : true}
             fill
-            priority={i === 0}
+            preload={i === 0}
             sizes="100vw"
             className="object-cover brightness-[0.7]"
           />

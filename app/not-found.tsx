@@ -1,13 +1,18 @@
 import Link from "next/link";
+import { display, body } from "@/lib/fonts";
 
 /**
  * The global 404 renders under the root layout only — outside both brand
  * groups — so it uses a plain link rather than 64's TransitionLink, which
- * needs the PageTransition provider from app/(64)/layout.tsx.
+ * needs the PageTransition provider from app/(64)/layout.tsx, and declares
+ * its own copy of 64's font variables rather than relying on app/(64)/layout.tsx,
+ * which this route sits outside of.
  */
 export default function NotFound() {
   return (
-    <main className="flex min-h-dvh flex-col items-center justify-center bg-background px-4 text-center">
+    <main
+      className={`${display.variable} ${body.variable} flex min-h-dvh flex-col items-center justify-center bg-background px-4 text-center`}
+    >
       <p className="max-w-[42ch] font-body text-base leading-relaxed text-ink">
         This page has moved or never existed. Have a look at the work instead.
       </p>

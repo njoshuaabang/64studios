@@ -1,7 +1,4 @@
 import type { Metadata } from "next";
-import { display, body } from "@/lib/fonts";
-import { haldenDisplay, haldenBody } from "@/lib/halden/fonts";
-import { nashDisplay, nashBody } from "@/lib/nash/fonts";
 import "./globals.css";
 import { SITE_URL } from "@/lib/site";
 import { Analytics } from "@vercel/analytics/next";
@@ -51,11 +48,13 @@ const organizationSchema = {
 };
 
 /**
- * Shell only. Every brand's font variables are declared here because
- * `next/font` has to be loaded at the top of the tree, but no chrome is: 64
- * Studios gets its nav and page transition from app/(64)/layout.tsx, Halden
- * its own from app/(halden)/halden/layout.tsx, and Nash Calloway hers from
- * app/(nash)/nash-calloway/layout.tsx.
+ * Shell only — no chrome, no fonts. 64 Studios gets its nav, page transition
+ * and its two font variables from app/(64)/layout.tsx, Halden its own from
+ * app/(halden)/halden/layout.tsx, Nash Calloway hers from
+ * app/(nash)/nash-calloway/layout.tsx, and the one route outside all three
+ * groups — app/not-found.tsx — declares its own. Nothing here needs a font,
+ * so nothing here loads one; each brand's fonts now load only on that
+ * brand's own pages.
  */
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -87,12 +86,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     // Nash's entrance gate sets a data attribute on <html> before paint, which
     // React would otherwise report as a hydration mismatch on this element.
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={`${display.variable} ${body.variable} ${haldenDisplay.variable} ${haldenBody.variable} ${nashDisplay.variable} ${nashBody.variable}`}
-    >
-      <body className="bg-background font-body text-ink antialiased">
+    <html lang="en" suppressHydrationWarning>
+      <body className="bg-background text-ink antialiased">
         <JsonLd data={organizationSchema} />
         {/*
           Runs as the parser reaches it — before the entrance markup below is

@@ -26,7 +26,7 @@ export default async function EnquirePage() {
           src={asset("/images/corridor.jpg")}
           alt="An upstairs corridor lined with dark green panelled doors, one of them standing open to the light."
           fill
-          priority
+          preload
           quality={82}
           sizes="(max-width: 1023px) 100vw, 50vw"
           className="object-cover"

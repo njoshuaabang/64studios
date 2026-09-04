@@ -35,7 +35,7 @@ function Plate({
           src={asset(block.src)}
           alt={block.alt}
           fill
-          priority={priority}
+          preload={priority}
           quality={82}
           sizes={PLATE_SIZES}
           style={{ objectPosition: block.objectPosition }}

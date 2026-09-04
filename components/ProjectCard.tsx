@@ -4,7 +4,13 @@ import Image from "next/image";
 import TransitionLink from "./TransitionLink";
 import type { Project } from "@/config/portfolio";
 
-export default function ProjectCard({ project }: { project: Project }) {
+export default function ProjectCard({
+  project,
+  preload = false,
+}: {
+  project: Project;
+  preload?: boolean;
+}) {
   const { cover } = project;
 
   return (
@@ -15,6 +21,7 @@ export default function ProjectCard({ project }: { project: Project }) {
             src={cover.src}
             alt={cover.alt}
             fill
+            preload={preload}
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 512px"
             className="object-cover"
           />

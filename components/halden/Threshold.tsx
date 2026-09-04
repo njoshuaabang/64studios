@@ -77,7 +77,7 @@ export default function Threshold() {
           src={asset("/images/threshold.jpg")}
           alt="The front of the house on a Marylebone street: a black Georgian door numbered 18, set in pale stone between tall sash windows behind iron railings."
           fill
-          priority
+          preload
           quality={82}
           sizes="100vw"
           className="object-cover"

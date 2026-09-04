@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { NashBaseProvider } from "@/components/nash/NashBase";
 import { NASH_BASE } from "@/lib/nash/paths";
 import { nashBase } from "@/lib/nash/server";
+import { nashDisplay, nashBody } from "@/lib/nash/fonts";
 
 /**
  * Nash's brand scope. The `nash` class is the hook every scoped rule in
@@ -36,7 +37,9 @@ export default async function NashLayout({ children }: { children: React.ReactNo
   const base = await nashBase();
 
   return (
-    <div className="nash min-h-[100dvh] bg-nash-plaster font-nash-body text-nash-ink antialiased">
+    <div
+      className={`nash min-h-[100dvh] bg-nash-plaster font-nash-body text-nash-ink antialiased ${nashDisplay.variable} ${nashBody.variable}`}
+    >
       <NashBaseProvider value={base}>{children}</NashBaseProvider>
     </div>
   );
