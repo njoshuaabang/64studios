@@ -85,12 +85,9 @@ export default function HomeHero() {
     <main
       id="main-content" tabIndex={-1}
       ref={containerRef}
-      className="fixed inset-0 flex h-dvh w-full flex-col items-center justify-center overflow-hidden bg-bone px-2"
+      className="fixed inset-0 flex h-dvh w-full flex-col items-center justify-center overflow-hidden bg-background px-2 pt-8 md:pt-10"
     >
-      <div
-        data-card
-        className="flex aspect-square w-full max-w-[min(88vw,80dvh,36rem)] flex-col items-center justify-center bg-background px-2 py-4"
-      >
+      <div data-card className="flex w-full flex-col items-center justify-center px-2 py-4">
         <Wordmark as="h1" size="hero" />
         <TaglineLockup className="mt-3 md:mt-8 [@media(max-height:500px)]:mt-2" />
         <div className="mt-6 md:mt-10 [@media(max-height:500px)]:mt-3">
@@ -99,14 +96,18 @@ export default function HomeHero() {
       </div>
 
       {/*
-        Below the button on a phone, bottom-left of the viewport from md up.
-        The page cannot scroll — the main is fixed and clipped — so the size
-        steps down at the narrow end rather than the text being cut: the whole
-        sentence has to fit, and none of it may be lost.
+        Below the button until the viewport is both wide and tall enough for
+        the corner position — bottom-left, from md up. Gating the corner
+        position on height too (not just width) matters because the page
+        cannot scroll: a wide-but-short window (a laptop lid barely open, a
+        landscape phone) used to pull the note out of flow into the same
+        corner the card already occupies, overlapping the two. Below that
+        combined threshold it stays in normal flow, same as a phone, and the
+        size steps down at the narrow end so the whole sentence still fits.
       */}
       <p
         data-home-note
-        className="mt-6 w-full max-w-[34ch] self-start px-2 text-left font-body text-xs leading-[1.6] text-ink sm:text-sm md:absolute md:bottom-6 md:left-6 md:mt-0 md:max-w-[34ch] md:px-0 md:text-base [@media(max-height:500px)]:mt-3"
+        className="mt-6 w-full max-w-[34ch] self-start px-2 text-left font-body text-xs leading-[1.6] text-ink sm:text-sm [@media(min-width:768px)_and_(min-height:600px)]:absolute [@media(min-width:768px)_and_(min-height:600px)]:bottom-6 [@media(min-width:768px)_and_(min-height:600px)]:left-6 [@media(min-width:768px)_and_(min-height:600px)]:mt-0 [@media(min-width:768px)_and_(min-height:600px)]:max-w-[34ch] [@media(min-width:768px)_and_(min-height:600px)]:px-0 [@media(min-width:768px)_and_(min-height:600px)]:text-base [@media(max-height:500px)]:mt-3"
       >
         64 Studios is a branding agency working across identity and the web. The studio designs
         brand marks and builds high-end websites for companies whose presence has fallen behind the

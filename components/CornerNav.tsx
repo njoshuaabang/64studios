@@ -20,7 +20,7 @@ export default function CornerNav() {
     <nav
       aria-label="Primary"
       data-corner-nav
-      className="fixed inset-x-0 top-0 z-40 flex items-center justify-between px-3 py-3 md:px-4 md:py-4"
+      className="fixed inset-x-0 top-0 z-40 flex items-center justify-between px-3 py-1 md:px-4 md:py-2"
     >
       <TransitionLink
         href="/"

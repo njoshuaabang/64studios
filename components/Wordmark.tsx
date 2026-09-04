@@ -6,7 +6,7 @@ type WordmarkProps = {
 
 const SIZES = {
   hero: {
-    number: "text-[length:min(22vw,16dvh)] leading-[0.85] sm:text-[length:min(16vw,16dvh)] md:text-[length:min(9rem,20dvh)]",
+    number: "text-[length:min(32vw,24dvh)] leading-[0.85] sm:text-[length:min(24vw,26dvh)] md:text-[length:min(16rem,30dvh)]",
     rule: "mt-2 h-px w-20 md:w-24",
     studios: "mt-3 text-xs sm:text-sm",
   },
