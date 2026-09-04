@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: { absolute: "Selected Work — 64 Studios" },
   description:
     "Brand identity and website design projects by 64 Studios, a branding agency building custom, hand-coded websites.",
+  alternates: { canonical: "/portfolio" },
   openGraph: {
     title: "Selected Work — 64 Studios",
     description:

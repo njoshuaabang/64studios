@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import ContactForm from "@/components/ContactForm";
 
 export const metadata: Metadata = {
-  title: { absolute: "Contact — 64 Studios" },
+  title: { absolute: "Start a Project — 64 Studios" },
   description:
     "Start a conversation about brand identity or website design with 64 Studios.",
+  alternates: { canonical: "/contact" },
   openGraph: {
-    title: "Contact — 64 Studios",
+    title: "Start a Project — 64 Studios",
     description:
       "Start a conversation about brand identity or website design with 64 Studios.",
   },
