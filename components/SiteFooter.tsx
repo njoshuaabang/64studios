@@ -10,9 +10,9 @@ import TransitionLink from "./TransitionLink";
  * at a time.
  */
 const social = [
-  { href: "https://instagram.com/", label: "Instagram" },
-  { href: "https://behance.net/", label: "Behance" },
-  { href: "https://linkedin.com/", label: "LinkedIn" },
+  { href: "https://www.instagram.com/sixtyfour.studios/", label: "Instagram" },
+  { href: "https://www.behance.net/64studios", label: "Behance" },
+  { href: "https://www.linkedin.com/in/nkere-abang-698071434/", label: "LinkedIn" },
 ];
 
 export default function SiteFooter() {
