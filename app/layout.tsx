@@ -88,6 +88,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     // React would otherwise report as a hydration mismatch on this element.
     <html lang="en" suppressHydrationWarning>
       <body className="bg-background text-ink antialiased">
+        {/*
+          The one link every page needs before its own nav: jumps a keyboard
+          or screen-reader visitor straight past whichever brand's nav sits
+          ahead of it to that page's own <main id="main-content">. Renders
+          before any brand's layout, so it cannot assume a brand's own font —
+          it uses the browser default, which is fine for something normally
+          invisible.
+        */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-[100] focus:bg-background focus:px-2 focus:py-1 focus:text-sm focus:text-ink focus:outline focus:outline-1 focus:outline-ink"
+        >
+          Skip to content
+        </a>
         <JsonLd data={organizationSchema} />
         {/*
           Runs as the parser reaches it — before the entrance markup below is

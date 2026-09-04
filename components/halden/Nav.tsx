@@ -8,7 +8,7 @@ import { useReducedMotion } from "@/lib/halden/useReducedMotion";
 import { useHaldenBase } from "./HaldenBase";
 import { haldenPath } from "@/lib/halden/paths";
 
-const navItem = "whitespace-nowrap py-1 text-halden-nano uppercase tracking-halden-nav";
+const navItem = "whitespace-nowrap py-2 text-halden-micro uppercase tracking-halden-nav";
 
 const sections = [
   { path: "/the-house", label: "The House" },
@@ -80,7 +80,7 @@ export default function Nav() {
         <Link
           href={haldenPath(base)}
           aria-label="Halden — back to the threshold"
-          className="py-1 text-halden-ink transition-colors duration-300 hover:text-halden-brass"
+          className="inline-block py-2 text-halden-ink transition-colors duration-300 hover:text-halden-brass"
         >
           <Wordmark />
         </Link>

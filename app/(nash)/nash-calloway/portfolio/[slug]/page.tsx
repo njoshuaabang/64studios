@@ -44,7 +44,7 @@ export default async function NashProjectPage({ params }: PageParams) {
   return (
     <>
       <Nav />
-      <main className="px-4 pt-10 md:px-8 md:pt-16">
+      <main id="main-content" tabIndex={-1} className="px-4 pt-10 md:px-8 md:pt-16">
         <Link
           href={nashPath(base, "/portfolio")}
           className="font-nash-body text-sm text-nash-ink/70 transition-colors duration-200 hover:text-nash-brass"

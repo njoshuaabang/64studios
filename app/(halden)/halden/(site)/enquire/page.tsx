@@ -16,7 +16,7 @@ export default async function EnquirePage() {
   const back = studioUrl((await headers()).get("host"), "/portfolio/halden");
 
   return (
-    <main className="relative flex min-h-[640px] flex-1 lg:grid lg:grid-cols-2">
+    <main id="main-content" tabIndex={-1} className="relative flex min-h-[640px] flex-1 lg:grid lg:grid-cols-2">
       {/*
         Desktop: the corridor is the left half of the page. Below that it sits
         behind the form instead, quiet enough to read straight through.

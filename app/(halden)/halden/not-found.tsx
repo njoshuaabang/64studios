@@ -6,7 +6,7 @@ export default async function NotFound() {
   const base = await haldenBase();
 
   return (
-    <main className="flex min-h-[100dvh] flex-col items-center justify-center bg-halden-limewash px-3 text-center">
+    <main id="main-content" tabIndex={-1} className="flex min-h-[100dvh] flex-col items-center justify-center bg-halden-limewash px-3 text-center">
       <p className="font-halden-display text-halden-title font-light">No such room.</p>
       <Link
         href={haldenPath(base, "/the-house")}

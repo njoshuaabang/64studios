@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 
 export default function PortfolioPage() {
   return (
-    <main className="mx-auto max-w-6xl px-4 pb-16 pt-16 md:px-6 md:pt-20">
+    <main id="main-content" tabIndex={-1} className="mx-auto max-w-6xl px-4 pb-16 pt-16 md:px-6 md:pt-20">
       <JsonLd data={breadcrumb} />
       <h1 className="font-display text-2xl font-semibold text-ink md:text-3xl">Selected Work</h1>
       <p className="mt-4 max-w-[45ch] font-body text-base leading-relaxed text-ink">

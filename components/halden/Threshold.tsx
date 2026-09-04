@@ -69,6 +69,8 @@ export default function Threshold() {
 
   return (
     <main
+      id="main-content"
+      tabIndex={-1}
       ref={rootRef}
       className="relative h-[100dvh] w-full overflow-hidden bg-halden-ink"
     >

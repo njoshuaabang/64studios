@@ -11,6 +11,8 @@ import { display, body } from "@/lib/fonts";
 export default function NotFound() {
   return (
     <main
+      id="main-content"
+      tabIndex={-1}
       className={`${display.variable} ${body.variable} flex min-h-dvh flex-col items-center justify-center bg-background px-4 text-center`}
     >
       <p className="max-w-[42ch] font-body text-base leading-relaxed text-ink">

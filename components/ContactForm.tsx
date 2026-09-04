@@ -116,7 +116,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="group mt-2 self-start font-body text-xs uppercase tracking-[0.25em] text-ink disabled:opacity-60"
+        className="group mt-2 self-start py-2 font-body text-xs uppercase tracking-[0.25em] text-ink disabled:opacity-60"
       >
         <span className="relative pb-1">
           {status === "submitting" ? "Sending" : "Send enquiry"}

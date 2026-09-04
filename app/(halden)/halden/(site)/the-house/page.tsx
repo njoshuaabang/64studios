@@ -68,7 +68,7 @@ export default function TheHousePage() {
   );
 
   return (
-    <main className="house flex flex-col gap-[var(--space-section)] pt-[var(--space-section)]">
+    <main id="main-content" tabIndex={-1} className="house flex flex-col gap-[var(--space-section)] pt-[var(--space-section)]">
       {/* Was visually hidden; now the page's own centred title. */}
       <Reveal className="house-title">
         <h1 className="font-halden-display text-halden-display font-light">The House.</h1>

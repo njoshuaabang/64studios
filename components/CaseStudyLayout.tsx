@@ -46,7 +46,7 @@ export default function CaseStudyLayout({ project }: { project: Project }) {
   return (
     <article className="pb-20 pt-16 md:pt-20">
       <header className={SHELL}>
-        <TransitionLink href="/portfolio" className={HEADING}>
+        <TransitionLink href="/portfolio" className={`inline-block py-2 ${HEADING}`}>
           ← Selected Work
         </TransitionLink>
 

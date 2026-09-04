@@ -22,7 +22,7 @@ export default async function MembershipPage() {
   const base = await haldenBase();
 
   return (
-    <main className="w-full px-[var(--gutter)] pt-8 text-center md:pt-10">
+    <main id="main-content" tabIndex={-1} className="w-full px-[var(--gutter)] pt-8 text-center md:pt-10">
       <Reveal>
         <h1 className="font-halden-display text-halden-display font-light">Membership.</h1>
       </Reveal>

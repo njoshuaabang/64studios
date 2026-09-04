@@ -24,7 +24,7 @@ export default async function Nav({ transparent = false }: { transparent?: boole
       <Link
         href={nashPath(base)}
         data-nash-wordmark
-        className="whitespace-nowrap font-nash-display text-sm font-medium md:text-lg"
+        className="inline-block whitespace-nowrap py-2 font-nash-display text-sm font-medium md:text-lg"
       >
         Nash Calloway Design
       </Link>
@@ -34,7 +34,7 @@ export default async function Nav({ transparent = false }: { transparent?: boole
             <li key={link.href}>
               <Link
                 href={link.href}
-                className={`whitespace-nowrap font-nash-body text-xs transition-colors duration-200 md:text-sm ${
+                className={`inline-block whitespace-nowrap py-2 font-nash-body text-xs transition-colors duration-200 md:text-sm ${
                   transparent ? "hover:text-white" : "hover:text-nash-brass"
                 }`}
               >

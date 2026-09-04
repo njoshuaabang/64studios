@@ -10,7 +10,7 @@ export default function NashAboutPage() {
   return (
     <>
       <Nav />
-      <main className="px-4 pt-10 md:px-8 md:pt-16">
+      <main id="main-content" tabIndex={-1} className="px-4 pt-10 md:px-8 md:pt-16">
         <h1 className="font-nash-display text-3xl text-nash-ink md:text-4xl">About</h1>
 
         <p className="mt-6 max-w-[62ch] font-nash-body text-base leading-relaxed text-nash-ink md:mt-8 md:text-lg">

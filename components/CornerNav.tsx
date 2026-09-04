@@ -25,7 +25,7 @@ export default function CornerNav() {
       <TransitionLink
         href="/"
         aria-label="64 Studios — Home"
-        className="font-display text-sm font-bold text-ink"
+        className="inline-block py-2 font-display text-sm font-bold text-ink"
       >
         64.
       </TransitionLink>
@@ -34,7 +34,7 @@ export default function CornerNav() {
           <li key={link.href}>
             <TransitionLink
               href={link.href}
-              className="group grid font-body text-[11px] uppercase text-ink"
+              className="group grid py-2 font-body text-[11px] uppercase text-ink"
             >
               {/* Invisible copy at hover tracking reserves the width, so one
                   link's hover never reflows its neighbours. */}

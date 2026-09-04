@@ -84,10 +84,10 @@ export default async function CaseStudyPage({ params }: PageParams) {
   };
 
   return (
-    <>
+    <main id="main-content" tabIndex={-1}>
       <JsonLd data={creativeWork} />
       <JsonLd data={breadcrumb} />
       <CaseStudyLayout project={project} />
-    </>
+    </main>
   );
 }

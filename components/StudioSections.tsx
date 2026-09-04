@@ -34,7 +34,7 @@ export default function StudioSections() {
   }, []);
 
   return (
-    <main ref={containerRef} className="mx-auto max-w-5xl px-4 md:px-6">
+    <main id="main-content" tabIndex={-1} ref={containerRef} className="mx-auto max-w-5xl px-4 md:px-6">
       <h1 className="sr-only">Studio</h1>
 
       <section aria-labelledby="mission-label" data-reveal className="pb-[12vh] pt-[16vh]">
@@ -97,7 +97,7 @@ export default function StudioSections() {
           <TransitionLink
             href="/contact"
             data-reveal-item
-            className="group inline-flex items-center font-body text-xs uppercase tracking-[0.25em] text-ink"
+            className="group inline-flex items-center py-2 font-body text-xs uppercase tracking-[0.25em] text-ink"
           >
             <span className="relative pb-1">
               Begin a conversation

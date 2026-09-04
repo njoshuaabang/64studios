@@ -45,7 +45,7 @@ export default async function NashHomePage() {
   const base = await nashBase();
 
   return (
-    <main className="relative flex min-h-[100dvh] flex-col">
+    <main id="main-content" tabIndex={-1} className="relative flex min-h-[100dvh] flex-col">
       <Entrance />
       <Hero frames={frames} />
 

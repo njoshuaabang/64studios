@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <main className="flex min-h-dvh flex-col items-center justify-center px-4 pb-16 pt-16 md:pt-20">
+    <main id="main-content" tabIndex={-1} className="flex min-h-dvh flex-col items-center justify-center px-4 pb-16 pt-16 md:pt-20">
       <JsonLd data={contactPageSchema} />
       <div className="w-full max-w-sm">
         <h1 className="font-display text-2xl font-semibold text-ink md:text-3xl">Begin</h1>
