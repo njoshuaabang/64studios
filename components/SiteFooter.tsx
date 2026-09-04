@@ -27,10 +27,10 @@ export default function SiteFooter() {
 
       <p className="mt-4 font-body text-sm text-ink">
         <a
-          href="mailto:studio@64studios.com"
+          href="mailto:studio@64studios.design"
           className="underline decoration-transparent underline-offset-4 transition-colors duration-400 hover:decoration-ink"
         >
-          studio@64studios.com
+          studio@64studios.design
         </a>
       </p>
 

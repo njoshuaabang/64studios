@@ -4,7 +4,7 @@ import { useState, type FormEvent } from "react";
 
 // The address the footer and the failure message both print, so a visitor
 // who is told to write directly reaches the same inbox the form does.
-const email = "studio@64studios.com";
+const email = "studio@64studios.design";
 
 type FieldName = "name" | "make" | "brandHome";
 
