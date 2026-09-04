@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { projects, getProject } from "@/config/portfolio";
 import CaseStudyLayout from "@/components/CaseStudyLayout";
+import JsonLd from "@/components/JsonLd";
+import { SITE_URL } from "@/lib/site";
 
 export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
@@ -56,5 +58,36 @@ export default async function CaseStudyPage({ params }: PageParams) {
     notFound();
   }
 
-  return <CaseStudyLayout project={project} />;
+  const url = `${SITE_URL}/portfolio/${project.slug}`;
+
+  const creativeWork = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: project.title,
+    description: project.subtitle,
+    about: project.subtitle,
+    creator: { "@type": "Organization", name: "64 Studios", url: SITE_URL },
+    // By convention every project's specs array ends with its year — the one
+    // place that fact already lives, rather than a new field duplicating it.
+    dateCreated: project.specs.at(-1),
+    image: project.cover ? `${SITE_URL}${project.cover.src}` : undefined,
+  };
+
+  const breadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "64 Studios", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Selected Work", item: `${SITE_URL}/portfolio` },
+      { "@type": "ListItem", position: 3, name: project.title, item: url },
+    ],
+  };
+
+  return (
+    <>
+      <JsonLd data={creativeWork} />
+      <JsonLd data={breadcrumb} />
+      <CaseStudyLayout project={project} />
+    </>
+  );
 }

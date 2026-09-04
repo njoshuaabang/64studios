@@ -1,5 +1,16 @@
 import type { Metadata } from "next";
 import StudioSections from "@/components/StudioSections";
+import JsonLd from "@/components/JsonLd";
+import { SITE_URL } from "@/lib/site";
+
+const breadcrumb = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "64 Studios", item: SITE_URL },
+    { "@type": "ListItem", position: 2, name: "The Studio", item: `${SITE_URL}/studio` },
+  ],
+};
 
 export const metadata: Metadata = {
   // Absolute, so the "%s — 64 Studios" template does not append a second time.
@@ -17,5 +28,10 @@ export const metadata: Metadata = {
 };
 
 export default function StudioPage() {
-  return <StudioSections />;
+  return (
+    <>
+      <JsonLd data={breadcrumb} />
+      <StudioSections />
+    </>
+  );
 }

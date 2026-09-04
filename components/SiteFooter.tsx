@@ -9,7 +9,9 @@ import TransitionLink from "./TransitionLink";
  * characters — a screen reader must announce "64 Studios", not the letters one
  * at a time.
  */
-const social = [
+// Exported so the Organization schema's `sameAs` (app/layout.tsx) reads these
+// same three URLs rather than a second, separately-maintained copy.
+export const social = [
   { href: "https://www.instagram.com/sixtyfour.studios/", label: "Instagram" },
   { href: "https://www.behance.net/64studios", label: "Behance" },
   { href: "https://www.linkedin.com/in/nkere-abang-698071434/", label: "LinkedIn" },
