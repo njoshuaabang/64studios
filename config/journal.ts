@@ -13,6 +13,8 @@ export type JournalEntry = {
   published: string;
   /** Which project the decision was made on. */
   project: string;
+  /** That project's case-study slug, so the entry can link to it in prose. */
+  projectSlug: string;
   body: string[];
 };
 
@@ -24,6 +26,7 @@ export const entries: JournalEntry[] = [
       "A locked viewport is usually a mistake. This is the case where the refusal was the content, and what it cost to do safely.",
     published: "2026-09-05",
     project: "Halden",
+    projectSlug: "halden",
     body: [
       "Halden's home page is one viewport and it does not move. A photograph of a black door on a Marylebone street, the name of the house, and one way in. There is nothing below the fold because there is no fold.",
       "That is normally a bad idea. A page that refuses to scroll breaks the first thing a visitor tries, and on a phone it is the difference between a site that works and a site that appears broken. It is worth doing only when the refusal is itself the content.",
@@ -44,6 +47,7 @@ export const entries: JournalEntry[] = [
       "A monospace face is the wrong choice for almost everything on a website, and the right one for a column of measurements.",
     published: "2026-09-05",
     project: "Aldern & Voss",
+    projectSlug: "aldern-voss",
     body: [
       "Aldern & Voss sells one watch. There is no catalogue, no colourway and no second reference to compare against. What the site has in place of range is precision: case diameter, movement, water resistance, lug width, the figures a person buying this kind of object actually reads before anything else.",
       "Those figures are set in IBM Plex Mono. The rest of the site runs on Space Grotesk for display and IBM Plex Sans for body copy, so the monospace face is doing one job and only one.",

@@ -1,5 +1,6 @@
 import { projects } from "@/config/portfolio";
 import { entries } from "@/config/journal";
+import { faqs } from "@/config/faq";
 import { SITE_URL } from "@/lib/site";
 
 /**
@@ -46,7 +47,7 @@ ${[
   line(
     "Process",
     "/process",
-    "The one-to-two-week engagement stage by stage, what is needed from the client, and what happens after launch.",
+    "The one-to-two-week engagement stage by stage, what is needed from the client, what happens after launch, and the answers to the common questions listed below.",
   ),
   line(
     "The studio",
@@ -56,6 +57,12 @@ ${[
   line("Journal", "/journal", "Notes on single decisions taken from real projects."),
   line("Contact", "/contact", "The enquiry form. Every serious enquiry gets a reply."),
 ].join("\n")}
+
+## Questions answered
+
+Every question below is answered in full at ${SITE_URL}/process.
+
+${faqs.map((f) => `- ${f.q}`).join("\n")}
 
 ## Case studies
 
@@ -70,6 +77,7 @@ ${entries.map((e) => line(e.title, `/journal/${e.slug}`, e.summary)).join("\n")}
 - The three case studies are self-initiated concepts rather than client work, and each is labelled as such on its own page. The studio is new and does not claim a client history.
 - Halden, Nash Calloway Design and Aldern & Voss are invented brands built by 64 Studios to demonstrate its work. They are not real businesses. Each has its own subdomain, each carries a disclosure in its footer, and all three are excluded from indexing.
 - The one-to-two-week window covers the identity and the finished site, and includes launch.
+- How the pages relate: /services describes the work and links to /portfolio and /process. /process sets out the stages, answers the questions above, and ends at /contact. Each case study links back to /process. Each journal entry links to the case study it was written about, and the journal index links to /portfolio.
 `;
 
   return new Response(body, {

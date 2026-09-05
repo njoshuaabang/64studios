@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
 import TransitionLink from "@/components/TransitionLink";
 import NewsletterSignup from "@/components/NewsletterSignup";
+import { INLINE_LINK } from "@/lib/underline";
 import { entries } from "@/config/journal";
 import { SITE_URL } from "@/lib/site";
 
@@ -43,8 +44,11 @@ export default function JournalPage() {
           Notes on the work
         </h1>
         <p className="mt-6 max-w-[58ch] font-body text-base leading-[1.6] text-ink">
-          One decision per entry, taken from a real project, with the reasoning and what it cost.
-          Not a blog about design in general.
+          One decision per entry, taken from{" "}
+          <TransitionLink href="/portfolio" className={INLINE_LINK}>
+            a real project
+          </TransitionLink>
+          , with the reasoning and what it cost. Not a blog about design in general.
         </p>
       </div>
 

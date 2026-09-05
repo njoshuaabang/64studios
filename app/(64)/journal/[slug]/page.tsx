@@ -3,11 +3,38 @@ import { notFound } from "next/navigation";
 import JsonLd from "@/components/JsonLd";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import TransitionLink from "@/components/TransitionLink";
-import { entries, getEntry } from "@/config/journal";
+import { entries, getEntry, type JournalEntry } from "@/config/journal";
 import { SITE_URL } from "@/lib/site";
+import { INLINE_LINK } from "@/lib/underline";
 
 export function generateStaticParams() {
   return entries.map((entry) => ({ slug: entry.slug }));
+}
+
+/**
+ * Links the first mention of the project to its case study, in the sentence
+ * where the entry first names it. An entry that discusses a decision made on
+ * a project and never points at that project wastes both pages, and a
+ * "related work" module at the foot would be the version of this that nobody
+ * reads.
+ *
+ * Only the first occurrence is linked. The name recurs several times in a
+ * piece of this length, and linking every instance would turn the prose into
+ * a list of links.
+ */
+function withProjectLink(paragraph: string, entry: JournalEntry) {
+  const at = paragraph.indexOf(entry.project);
+  if (at === -1) return paragraph;
+
+  return (
+    <>
+      {paragraph.slice(0, at)}
+      <TransitionLink href={`/portfolio/${entry.projectSlug}`} className={INLINE_LINK}>
+        {entry.project}
+      </TransitionLink>
+      {paragraph.slice(at + entry.project.length)}
+    </>
+  );
 }
 
 type PageParams = { params: Promise<{ slug: string }> };
@@ -71,6 +98,10 @@ export default async function JournalEntryPage({ params }: PageParams) {
     ],
   };
 
+  // The first paragraph that names the project is the one that carries the
+  // link. -1 when the body never names it, in which case nothing is linked.
+  const linkParagraph = entry.body.findIndex((p) => p.includes(entry.project));
+
   return (
     <main id="main-content" tabIndex={-1} className="mx-auto max-w-5xl px-4 md:px-6">
       <JsonLd data={article} />
@@ -97,12 +128,12 @@ export default async function JournalEntryPage({ params }: PageParams) {
         </div>
 
         <div className="mt-8">
-          {entry.body.map((paragraph) => (
+          {entry.body.map((paragraph, index) => (
             <p
               key={paragraph.slice(0, 40)}
               className="mt-4 max-w-[68ch] font-body text-base leading-[1.7] text-ink first:mt-0"
             >
-              {paragraph}
+              {index === linkParagraph ? withProjectLink(paragraph, entry) : paragraph}
             </p>
           ))}
         </div>

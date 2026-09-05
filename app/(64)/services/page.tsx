@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
 import TransitionLink from "@/components/TransitionLink";
 import { SITE_URL } from "@/lib/site";
-import { UNDERLINE } from "@/lib/underline";
+import { UNDERLINE, INLINE_LINK } from "@/lib/underline";
 
 const LABEL = "font-body text-[11px] uppercase tracking-[0.5em] text-ink";
 const PROSE = "max-w-[58ch] font-body text-base leading-[1.6] text-ink";
@@ -96,7 +96,11 @@ export default function ServicesPage() {
         <p className={`mt-3 ${PROSE}`}>
           The work below can be taken separately, and most of it is taken together, because an
           identity that never gets built and a site with no identity behind it are each half of a
-          job.
+          job. What that has produced so far is in{" "}
+          <TransitionLink href="/portfolio" className={INLINE_LINK}>
+            selected work
+          </TransitionLink>
+          .
         </p>
       </div>
 

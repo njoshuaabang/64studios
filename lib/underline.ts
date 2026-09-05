@@ -17,3 +17,12 @@
  */
 export const UNDERLINE =
   "absolute bottom-0 left-0 h-px w-full bg-ink opacity-[0.35] transition-opacity duration-200 ease-out group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none";
+
+/**
+ * A link inside a paragraph. The animated draw above belongs to standalone
+ * calls to action; inside prose it would pull the eye off the sentence, so
+ * these are a plain rule that darkens instead. Same colour and offset as the
+ * address in the homepage footer.
+ */
+export const INLINE_LINK =
+  "underline decoration-ink/35 underline-offset-4 transition-colors duration-200 hover:decoration-ink focus-visible:decoration-ink motion-reduce:transition-none";

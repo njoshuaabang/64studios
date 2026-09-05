@@ -1,5 +1,6 @@
 import Image from "next/image";
 import TransitionLink from "./TransitionLink";
+import { INLINE_LINK } from "@/lib/underline";
 import VisitSiteButton from "./VisitSiteButton";
 import type { CaseStudyImage, Project } from "@/config/portfolio";
 
@@ -142,6 +143,18 @@ export default function CaseStudyLayout({ project }: { project: Project }) {
           </dd>
         ))}
       </dl>
+
+      {/* One line, shared by all three case studies rather than written into
+          each: the shape of the engagement is the same every time, and a
+          visitor who has just read what was made is the one most likely to
+          want to know how it was run. */}
+      <p className={`${SHELL} mt-10 max-w-[62ch] font-body text-base leading-[1.7] text-ink`}>
+        Every project here runs to the same shape, set out stage by stage in{" "}
+        <TransitionLink href="/process" className={INLINE_LINK}>
+          how a project runs
+        </TransitionLink>
+        .
+      </p>
 
       <p className={`${SHELL} mt-10 font-body text-[13px] text-ink`}>{project.attribution}</p>
     </article>

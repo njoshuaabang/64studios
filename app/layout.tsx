@@ -26,9 +26,13 @@ import { social } from "@/config/social";
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": ["Organization", "ProfessionalService"],
+  // The stable identifier other blocks point at — the Person on /studio uses
+  // it for worksFor — so the founder and the business are one linked entity
+  // rather than two names that happen to match.
+  "@id": `${SITE_URL}/#organization`,
   name: "64 Studios",
   url: SITE_URL,
-  logo: `${SITE_URL}/icon.svg`,
+  logo: `${SITE_URL}/logo.png`,
   email: "studio@64studios.design",
   founder: {
     "@type": "Person",

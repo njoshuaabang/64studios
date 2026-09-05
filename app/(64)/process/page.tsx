@@ -3,6 +3,7 @@ import JsonLd from "@/components/JsonLd";
 import TransitionLink from "@/components/TransitionLink";
 import { SITE_URL } from "@/lib/site";
 import { UNDERLINE } from "@/lib/underline";
+import { faqs } from "@/config/faq";
 
 const PROSE = "max-w-[58ch] font-body text-base leading-[1.6] text-ink";
 const STAGE_NUMBER = "font-body text-[11px] uppercase tracking-[0.5em] text-ink";
@@ -28,6 +29,16 @@ const breadcrumb = {
     { "@type": "ListItem", position: 1, name: "64 Studios", item: SITE_URL },
     { "@type": "ListItem", position: 2, name: "Process", item: `${SITE_URL}/process` },
   ],
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
 };
 
 /**
@@ -64,6 +75,7 @@ export default function ProcessPage() {
   return (
     <main id="main-content" tabIndex={-1} className="mx-auto max-w-5xl px-4 md:px-6">
       <JsonLd data={breadcrumb} />
+      <JsonLd data={faqSchema} />
 
       <div className="pb-[2vh] pt-[6vh]">
         <div aria-hidden="true" className="h-px w-12 bg-ink" />
@@ -167,6 +179,30 @@ export default function ProcessPage() {
           subscription rather than a service.
         </p>
       </Stage>
+
+      {/* Set as prose, not as an accordion: there are eight of these and
+          nothing is gained by hiding seven of them behind a control. The
+          questions are h3 under one h2, which is also the shape the schema
+          above describes. */}
+      <section aria-labelledby="faq-label" className="pt-[6vh]">
+        <h2 id="faq-label" className={STAGE_NUMBER}>
+          Questions
+        </h2>
+        <div className="mt-6 md:grid md:grid-cols-12 md:gap-6">
+          <dl className="md:col-span-8 md:col-start-5">
+            {faqs.map((item) => (
+              <div key={item.q} className="mt-8 first:mt-0">
+                <dt>
+                  <h3 className="max-w-[46ch] font-display text-lg font-semibold leading-[1.35] text-ink">
+                    {item.q}
+                  </h3>
+                </dt>
+                <dd className={`mt-2 ${PROSE}`}>{item.a}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
 
       <div className="pb-[6vh] pt-[5vh]">
         <TransitionLink
