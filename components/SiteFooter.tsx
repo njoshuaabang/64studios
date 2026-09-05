@@ -35,7 +35,7 @@ export default function SiteFooter() {
             <li key={page.href}>
               <TransitionLink
                 href={page.href}
-                className="inline-block py-1 underline decoration-transparent underline-offset-4 transition-colors duration-400 hover:decoration-ink"
+                className="inline-block py-1 underline decoration-ink/35 underline-offset-4 transition-colors duration-200 hover:decoration-ink focus-visible:decoration-ink motion-reduce:transition-none"
               >
                 {page.label}
               </TransitionLink>
@@ -47,7 +47,7 @@ export default function SiteFooter() {
       <p className="mt-4 font-body text-sm text-ink">
         <a
           href="mailto:studio@64studios.design"
-          className="underline decoration-transparent underline-offset-4 transition-colors duration-400 hover:decoration-ink"
+          className="underline decoration-ink/35 underline-offset-4 transition-colors duration-200 hover:decoration-ink focus-visible:decoration-ink motion-reduce:transition-none"
         >
           studio@64studios.design
         </a>

@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 import Wordmark from "./Wordmark";
-import TaglineLockup from "./TaglineLockup";
 import PortfolioButton from "./PortfolioButton";
 import { prefersReducedMotion } from "@/lib/motion";
 import { watchForStall } from "@/lib/frames";
@@ -113,7 +112,19 @@ export default function HomeHero() {
     >
       <div data-card className="flex w-full flex-col items-center justify-center px-2 py-4">
         <Wordmark as="h1" size="hero" />
-        <TaglineLockup className="mt-3 md:mt-8 [@media(max-height:500px)]:mt-2" />
+        {/*
+          The positioning line, in the slot the category label used to hold.
+          Body face and sentence case, because it is a sentence: no uppercase
+          and no letter-spacing, both of which would make it read as a label
+          again. It is allowed to break to a second line on a narrow screen
+          and never to a third, which is what the measure below is set for.
+        */}
+        <p
+          data-tagline
+          className="mt-3 max-w-[30ch] text-balance px-2 text-center font-body text-base leading-[1.65] text-ink md:mt-8 md:max-w-none [@media(max-height:500px)]:mt-2"
+        >
+          Most good businesses are undersold by their websites.
+        </p>
         <div className="mt-6 md:mt-10 [@media(max-height:500px)]:mt-3">
           <PortfolioButton />
         </div>
@@ -131,7 +142,7 @@ export default function HomeHero() {
       */}
       <p
         data-home-note
-        className="mt-6 w-full max-w-[34ch] self-start px-2 text-left font-body text-xs leading-[1.6] text-ink sm:text-sm [@media(min-width:768px)_and_(min-height:600px)]:absolute [@media(min-width:768px)_and_(min-height:600px)]:bottom-6 [@media(min-width:768px)_and_(min-height:600px)]:left-6 [@media(min-width:768px)_and_(min-height:600px)]:mt-0 [@media(min-width:768px)_and_(min-height:600px)]:max-w-[34ch] [@media(min-width:768px)_and_(min-height:600px)]:px-0 [@media(min-width:768px)_and_(min-height:600px)]:text-base [@media(max-height:500px)]:mt-3"
+        className="mt-6 w-full max-w-[34ch] self-start px-2 text-left font-body text-base leading-[1.65] text-ink [@media(min-width:768px)_and_(min-height:600px)]:absolute [@media(min-width:768px)_and_(min-height:600px)]:bottom-6 [@media(min-width:768px)_and_(min-height:600px)]:left-6 [@media(min-width:768px)_and_(min-height:600px)]:mt-0 [@media(min-width:768px)_and_(min-height:600px)]:max-w-[34ch] [@media(min-width:768px)_and_(min-height:600px)]:px-0 [@media(max-height:500px)]:mt-3"
       >
         64 Studios is a branding agency working across identity and the web. The studio designs
         brand marks and builds high-end websites for companies whose presence has fallen behind the

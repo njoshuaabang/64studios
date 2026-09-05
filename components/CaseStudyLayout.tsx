@@ -137,13 +137,13 @@ export default function CaseStudyLayout({ project }: { project: Project }) {
       <dl className={`${SHELL} ${SECTION} border-t border-bone pt-6`}>
         <dt className="sr-only">Specification</dt>
         {project.specs.map((spec) => (
-          <dd key={spec} className="font-body text-[11px] uppercase tracking-[0.2em] text-ink">
+          <dd key={spec} className="font-body text-[13px] uppercase tracking-[0.2em] text-ink">
             {spec}
           </dd>
         ))}
       </dl>
 
-      <p className={`${SHELL} mt-10 font-body text-xs text-ink`}>{project.attribution}</p>
+      <p className={`${SHELL} mt-10 font-body text-[13px] text-ink`}>{project.attribution}</p>
     </article>
   );
 }

@@ -7,6 +7,7 @@ import { prefersReducedMotion } from "@/lib/motion";
 import { framesRunning } from "@/lib/frames";
 import TransitionLink from "./TransitionLink";
 import NewsletterSignup from "./NewsletterSignup";
+import { UNDERLINE } from "@/lib/underline";
 
 const LABEL = "font-body text-[11px] uppercase tracking-[0.5em] text-ink";
 const PROSE = "max-w-[58ch] font-body text-base leading-[1.6] text-ink";
@@ -195,7 +196,7 @@ export default function StudioSections() {
           >
             <span className="relative pb-1">
               Begin a conversation
-              <span className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-ink transition-transform duration-400 ease-out group-hover:scale-x-100" />
+              <span className={UNDERLINE} />
             </span>
           </TransitionLink>
         </div>

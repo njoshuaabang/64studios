@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { track } from "@vercel/analytics";
+import { UNDERLINE } from "@/lib/underline";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -89,7 +90,7 @@ export default function NewsletterSignup() {
         >
           <span className="relative pb-1">
             {status === "submitting" ? "Adding" : "Add me"}
-            <span className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-ink transition-transform duration-400 ease-out group-hover:scale-x-100" />
+            <span className={UNDERLINE} />
           </span>
         </button>
       </div>

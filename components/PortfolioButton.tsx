@@ -2,6 +2,7 @@
 
 import { track } from "@vercel/analytics";
 import TransitionLink from "./TransitionLink";
+import { UNDERLINE } from "@/lib/underline";
 
 export default function PortfolioButton({ className = "" }: { className?: string }) {
   return (
@@ -13,7 +14,7 @@ export default function PortfolioButton({ className = "" }: { className?: string
     >
       <span className="relative pb-1">
         View Portfolio
-        <span className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-ink transition-transform duration-400 ease-out group-hover:scale-x-100" />
+        <span className={UNDERLINE} />
       </span>
     </TransitionLink>
   );

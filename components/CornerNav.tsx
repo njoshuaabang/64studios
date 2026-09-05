@@ -29,12 +29,16 @@ export default function CornerNav() {
       >
         64.
       </TransitionLink>
-      <ul className="flex items-center gap-3 sm:gap-4 md:gap-6">
+      {/* The gap gives way before the tracking does, for the same reason the
+          tracking eases off below 640px: at 13px the three links closed to
+          3px of the 64. mark on a 320px screen. Narrowing the gap there buys
+          the clearance back without touching the letter-spaced character. */}
+      <ul className="flex items-center gap-2 sm:gap-4 md:gap-6">
         {links.map((link) => (
           <li key={link.href}>
             <TransitionLink
               href={link.href}
-              className="group grid py-2 font-body text-[11px] uppercase text-ink"
+              className="group grid py-2 font-body text-[13px] uppercase text-ink"
             >
               {/* Invisible copy at hover tracking reserves the width, so one
                   link's hover never reflows its neighbours. */}

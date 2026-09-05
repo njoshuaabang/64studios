@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
 import TransitionLink from "@/components/TransitionLink";
 import { SITE_URL } from "@/lib/site";
+import { UNDERLINE } from "@/lib/underline";
 
 const LABEL = "font-body text-[11px] uppercase tracking-[0.5em] text-ink";
 const PROSE = "max-w-[58ch] font-body text-base leading-[1.6] text-ink";
@@ -210,7 +211,7 @@ export default function ServicesPage() {
         >
           <span className="relative pb-1">
             How a project runs
-            <span className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-ink transition-transform duration-400 ease-out group-hover:scale-x-100" />
+            <span className={UNDERLINE} />
           </span>
         </TransitionLink>
       </footer>

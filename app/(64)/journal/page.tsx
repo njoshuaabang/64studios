@@ -56,7 +56,7 @@ export default function JournalPage() {
                 {entry.project}
               </p>
               <h2 className="mt-3 max-w-[30ch] font-display text-xl font-semibold leading-[1.3] text-ink md:text-2xl">
-                <TransitionLink href={`/journal/${entry.slug}`} className="hover:underline">
+                <TransitionLink href={`/journal/${entry.slug}`} className="underline decoration-ink/35 underline-offset-4 transition-colors duration-200 hover:decoration-ink focus-visible:decoration-ink motion-reduce:transition-none">
                   {entry.title}
                 </TransitionLink>
               </h2>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
 import TransitionLink from "@/components/TransitionLink";
 import { SITE_URL } from "@/lib/site";
+import { UNDERLINE } from "@/lib/underline";
 
 const PROSE = "max-w-[58ch] font-body text-base leading-[1.6] text-ink";
 const STAGE_NUMBER = "font-body text-[11px] uppercase tracking-[0.5em] text-ink";
@@ -174,7 +175,7 @@ export default function ProcessPage() {
         >
           <span className="relative pb-1">
             Begin a conversation
-            <span className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-ink transition-transform duration-400 ease-out group-hover:scale-x-100" />
+            <span className={UNDERLINE} />
           </span>
         </TransitionLink>
       </footer>

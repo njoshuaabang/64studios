@@ -23,7 +23,7 @@ export default function SocialLinks() {
             rel="noreferrer"
             target="_blank"
             onClick={() => track("social_link_clicked", { platform: item.label })}
-            className="underline decoration-transparent underline-offset-4 transition-colors duration-400 hover:decoration-ink"
+            className="underline decoration-ink/35 underline-offset-4 transition-colors duration-200 hover:decoration-ink focus-visible:decoration-ink motion-reduce:transition-none"
           >
             {item.label}
           </a>
