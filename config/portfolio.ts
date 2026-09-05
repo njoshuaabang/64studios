@@ -37,10 +37,19 @@ export type Project = {
   subtitle: string;
   situationHeading: string;
   situation: string;
+  /** Further situation paragraphs, on the one case study taken deeper. */
+  situationExtra?: string[];
   approachHeading: string;
   approach: string[];
   /** Small strings: services, stack, metrics. */
   specs: string[];
+  /**
+   * The two deeper sections. Optional because only the one case study the
+   * brief asked to take further carries them — the other two keep the short
+   * situation-and-approach shape rather than being padded to match.
+   */
+  decisions?: { title: string; body: string }[];
+  shipped?: string[];
   attribution: string;
   images: CaseStudyImage[];
   cover?: ProjectImage;
@@ -96,9 +105,41 @@ export const projects: Project[] = [
     situationHeading: SITUATION_HEADING,
     situation:
       "A private house in a Georgian townhouse on a quiet Marylebone street, opening in a city with no shortage of them. What it had was restraint, which is the hardest quality to put on a website without spending it.",
+    situationExtra: [
+      "The category is crowded and its websites are interchangeable. A hero shot of a bar at golden hour, a paragraph about community, a membership form, and a photograph of people laughing at a table nobody in the building has ever sat at. They are all selling access, and they all sell it in the same voice.",
+      "Halden's problem was the opposite of a marketing problem. There are twelve places at one table and six stools at the bar. Anything the site did to widen the audience would have damaged the thing it was advertising, so reach was never the measure. The site had to turn the wrong visitor away as efficiently as it drew the right one in.",
+    ],
     approachHeading: APPROACH_HEADING,
     approach: [
       "Most private clubs sell themselves in the language of a hotel. Halden is a house in Marylebone that behaves like one — a black door, six stools at the bar, twelve places at one table. The identity and the site were built to withhold rather than persuade.",
+      "Nothing on the site explains what a private house is, because a visitor who needs that explained is not the visitor. It shows the rooms and states the terms, then stops.",
+      "The identity follows the building rather than the category. Zodiak, a high-contrast transitional serif, is the period voice for a house built in 1794, and Switzer carries everything functional underneath it. The palette is limewash and deep green taken off the walls themselves, with brass reserved for the things that have to be found rather than read.",
+    ],
+    decisions: [
+      {
+        title: "The home page does not scroll",
+        body: "One viewport: the door, the name, and one way in. A page that refuses to scroll is normally a mistake, and here it is the argument. The whole proposition is that most of the house is not shown to you, so a home page stacking benefit columns beneath a hero would have contradicted its own copy in its structure.",
+      },
+      {
+        title: "Brass had to become two colours",
+        body: "Brass at 11px on limewash measures 3.44:1, under the 4.5 that AA asks for at body sizes. Rather than drop the colour from small text, the palette gained a second brass at 84% of the first, the same hue measuring 4.63:1, used wherever brass has to carry something that will actually be read. The accent survives and so does the type.",
+      },
+      {
+        title: "The nav stays out of the way on the sequence",
+        body: "On the house page the nav is hidden until the reader has committed to scrolling, because that page is a sequence of rooms and a bar fixed across the top of each one reads as browser chrome rather than as part of the house. It appears after 24 pixels of scroll. It also appears immediately for anyone arriving by keyboard, since a control that reveals only on scroll is a trap for a reader who does not scroll.",
+      },
+      {
+        title: "The rooms are a column, not a grid",
+        body: "Nine rooms could have been a grid of nine thumbnails. They are a single centred column instead, one room to a screen. A grid invites comparison, and a house is not a set of options to be weighed against each other. You move through it in an order, and the page was built to be moved through the same way.",
+      },
+    ],
+    shipped: [
+      "Four pages: the threshold, the house, membership and the enquiry.",
+      "A wordmark set in Zodiak with its own letter-spacing, and a palette of five. The type scale stops at 40px so that no heading can outgrow the mark by accident.",
+      "Nine room plates and three detail shots, art-directed and sequenced rather than gathered.",
+      "A three-field enquiry form, the shortest the house could ask for and still reply properly.",
+      "Built in Next.js and deployed on Vercel, with GSAP for the threshold sequence and the reveals. Every animation is gated on prefers-reduced-motion.",
+      "The whole brand is scoped under one CSS class, so it shares a single stylesheet with two other brands without either reaching into the other's type.",
     ],
     specs: [
       "Brand identity · Art direction · Photography · Website",
@@ -121,6 +162,16 @@ export const projects: Project[] = [
         src: "/portfolio/halden/site-03.jpg",
         alt: "The Halden homepage: the wordmark, the word Marylebone and a single ENTER link centred over a dimmed photograph of the black front door.",
         placement: "situation",
+      },
+      {
+        src: "/portfolio/halden/site-04.jpg",
+        alt: "The Halden membership page: four short paragraphs about how membership works, centred on limewash above a photograph looking down the stairwell.",
+        placement: "approach",
+      },
+      {
+        src: "/portfolio/halden/site-05.jpg",
+        alt: "The Halden house page at the top of its sequence: the title The House above a full-width photograph of the entrance hall, with no navigation bar in sight.",
+        placement: "approach",
       },
       {
         src: "/portfolio/halden/hall.jpg",

@@ -78,6 +78,11 @@ export default function CaseStudyLayout({ project }: { project: Project }) {
       <section className={`${SHELL} ${SECTION}`}>
         <h2 className={HEADING}>{project.situationHeading}</h2>
         <p className={PROSE}>{project.situation}</p>
+        {project.situationExtra?.map((paragraph) => (
+          <p key={paragraph} className={PROSE}>
+            {paragraph}
+          </p>
+        ))}
       </section>
 
       <ImageBand images={situationImages} />
@@ -92,6 +97,42 @@ export default function CaseStudyLayout({ project }: { project: Project }) {
       </section>
 
       <ImageBand images={approachImages} />
+
+      {/* Both sections render only where the data exists, so the two shorter
+          case studies keep their original shape rather than showing empty
+          headings. */}
+      {project.decisions ? (
+        <section className={`${SHELL} ${SECTION}`}>
+          <h2 className={HEADING}>The decisions</h2>
+          {project.decisions.map((decision) => (
+            <div key={decision.title} className="mt-8 first:mt-6">
+              <h3 className="max-w-[46ch] font-display text-lg font-semibold leading-[1.35] text-ink">
+                {decision.title}
+              </h3>
+              <p className="mt-2 max-w-[62ch] font-body text-base leading-[1.7] text-ink">
+                {decision.body}
+              </p>
+            </div>
+          ))}
+        </section>
+      ) : null}
+
+      {project.shipped ? (
+        <section className={`${SHELL} ${SECTION}`}>
+          <h2 className={HEADING}>What shipped</h2>
+          <ul className="mt-6 flex flex-col gap-3">
+            {project.shipped.map((item) => (
+              <li
+                key={item}
+                className="flex max-w-[62ch] gap-3 font-body text-base leading-[1.7] text-ink"
+              >
+                <span aria-hidden="true" className="mt-[0.8em] h-px w-3 shrink-0 bg-ink" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
 
       <dl className={`${SHELL} ${SECTION} border-t border-bone pt-6`}>
         <dt className="sr-only">Specification</dt>
