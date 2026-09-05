@@ -37,7 +37,7 @@ export default function JournalPage() {
     <main id="main-content" tabIndex={-1} className="mx-auto max-w-5xl px-4 md:px-6">
       <JsonLd data={breadcrumb} />
 
-      <header className="pb-[2vh] pt-[6vh]">
+      <div className="pb-[2vh] pt-[6vh]">
         <div aria-hidden="true" className="h-px w-12 bg-ink" />
         <h1 className="mt-3 max-w-[22ch] font-display text-[clamp(1.5rem,2.6vw,2.25rem)] font-semibold leading-[1.3] text-ink">
           Notes on the work
@@ -46,7 +46,7 @@ export default function JournalPage() {
           One decision per entry, taken from a real project, with the reasoning and what it cost.
           Not a blog about design in general.
         </p>
-      </header>
+      </div>
 
       <ul className="pt-[2vh]">
         {entries.map((entry) => (

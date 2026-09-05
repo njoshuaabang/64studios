@@ -15,16 +15,21 @@ const fields: {
   label: string;
   type: "text" | "email";
   required: boolean;
+  /** The autofill token a browser matches this field against. */
+  autoComplete: string;
   error?: string;
 }[] = [
-  { name: "name", label: "Your name", type: "text", required: true, error: "Please add your name." },
-  { name: "email", label: "Your email", type: "email", required: true, error: "Please add a valid email." },
+  { name: "name", label: "Your name", type: "text", required: true, autoComplete: "name", error: "Please add your name." },
+  { name: "email", label: "Your email", type: "email", required: true, autoComplete: "email", error: "Please add a valid email." },
   // Not blocking. The approved copy supplies exactly two empty-field
   // messages, for name and email, and inventing more would be writing copy
   // that was never approved. Left open pending a line for it.
-  { name: "make", label: "What you make", type: "text", required: false },
-  { name: "brandHome", label: "Where your brand lives now — optional", type: "text", required: false },
+  { name: "make", label: "What you make", type: "text", required: false, autoComplete: "organization" },
+  { name: "brandHome", label: "Where your brand lives now — optional", type: "text", required: false, autoComplete: "url" },
 ];
+
+/** Matches MAX_LENGTHS.message in app/api/contact/route.ts. */
+const MESSAGE_MAX = 2000;
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -35,6 +40,7 @@ export default function ContactForm() {
     make: "",
     brandHome: "",
   });
+  const [message, setMessage] = useState("");
   const [errors, setErrors] = useState<Partial<Record<FieldName, string>>>({});
   const [status, setStatus] = useState<"idle" | "submitting" | "sent" | "failed">("idle");
   const [failedMessage, setFailedMessage] = useState("");
@@ -63,6 +69,7 @@ export default function ContactForm() {
           email: values.email.trim(),
           make: values.make.trim(),
           brandHome: values.brandHome.trim(),
+          message: message.trim(),
           company: honeypot,
         }),
       });
@@ -86,7 +93,7 @@ export default function ContactForm() {
 
   return (
     <form noValidate onSubmit={handleSubmit} className="mt-10 flex flex-col gap-6">
-      {fields.map(({ name, label, type, required }) => (
+      {fields.map(({ name, label, type, required, autoComplete }) => (
         <div key={name} className="flex flex-col">
           <label htmlFor={`contact-${name}`} className="font-body text-sm text-ink">
             {label}
@@ -97,6 +104,7 @@ export default function ContactForm() {
             type={type}
             value={values[name]}
             required={required}
+            autoComplete={autoComplete}
             aria-invalid={errors[name] ? true : undefined}
             aria-describedby={errors[name] ? `contact-${name}-error` : undefined}
             onChange={(event) => {
@@ -112,6 +120,25 @@ export default function ContactForm() {
           ) : null}
         </div>
       ))}
+
+      {/* The one field for saying what the project actually is. Optional,
+          because an enquiry that only leaves a name and an address is still
+          worth having, and asking for a paragraph before a conversation has
+          started is a good way not to get one. */}
+      <div className="flex flex-col">
+        <label htmlFor="contact-message" className="font-body text-sm text-ink">
+          Anything else
+        </label>
+        <textarea
+          id="contact-message"
+          name="message"
+          rows={4}
+          maxLength={MESSAGE_MAX}
+          value={message}
+          onChange={(event) => setMessage(event.target.value)}
+          className="mt-1 w-full resize-y rounded-none border-0 border-b border-bone bg-transparent py-1 font-body text-base text-ink transition-colors duration-400 focus:border-ink"
+        />
+      </div>
 
       {/* Honeypot: hidden from sighted and screen-reader users alike; any
           real visitor leaves it empty, so a filled value marks a bot. */}

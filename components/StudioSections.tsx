@@ -187,7 +187,7 @@ export default function StudioSections() {
 
       {/* The call to action and the email capture share a row: stacked, the
           capture would push this page past the height it is held to. */}
-      <footer data-reveal className="pb-[3vh] pt-[2vh] md:grid md:grid-cols-12 md:gap-6">
+      <div data-reveal className="pb-[3vh] pt-[2vh] md:grid md:grid-cols-12 md:gap-6">
         <div className="md:col-span-4">
           <TransitionLink
             href="/contact"
@@ -203,7 +203,7 @@ export default function StudioSections() {
         <div data-reveal-item className="mt-6 md:col-span-7 md:col-start-6 md:mt-0">
           <NewsletterSignup />
         </div>
-      </footer>
+      </div>
     </main>
   );
 }

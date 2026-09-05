@@ -45,7 +45,7 @@ export default function CaseStudyLayout({ project }: { project: Project }) {
 
   return (
     <article className="pb-20 pt-16 md:pt-20">
-      <header className={SHELL}>
+      <div className={SHELL}>
         <TransitionLink href="/portfolio" className={`inline-block py-2 ${HEADING}`}>
           ← Selected Work
         </TransitionLink>
@@ -58,7 +58,7 @@ export default function CaseStudyLayout({ project }: { project: Project }) {
           {project.subtitle}
         </h2>
         <VisitSiteButton url={project.url} className="mt-8" />
-      </header>
+      </div>
 
       {project.cover ? (
         <div className={`${SHELL} ${SECTION}`}>

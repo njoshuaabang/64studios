@@ -83,7 +83,7 @@ export default function ServicesPage() {
       ))}
       <JsonLd data={breadcrumb} />
 
-      <header className="pb-[3vh] pt-[6vh]">
+      <div className="pb-[3vh] pt-[6vh]">
         <div aria-hidden="true" className="h-px w-12 bg-ink" />
         <h1 className="mt-3 max-w-[20ch] font-display text-[clamp(1.5rem,2.6vw,2.25rem)] font-semibold leading-[1.3] text-ink">
           Brand identity and website design
@@ -98,7 +98,7 @@ export default function ServicesPage() {
           identity that never gets built and a site with no identity behind it are each half of a
           job.
         </p>
-      </header>
+      </div>
 
       <div className="md:grid md:grid-cols-12 md:gap-6">
         <section aria-labelledby="identity-label" className="pt-[3vh] md:col-span-6">
@@ -204,7 +204,7 @@ export default function ServicesPage() {
         </section>
       </div>
 
-      <footer className="pb-[6vh] pt-[4vh]">
+      <div className="pb-[6vh] pt-[4vh]">
         <TransitionLink
           href="/process"
           className="group inline-flex items-center py-2 font-body text-xs uppercase tracking-[0.25em] text-ink"
@@ -214,7 +214,7 @@ export default function ServicesPage() {
             <span className={UNDERLINE} />
           </span>
         </TransitionLink>
-      </footer>
+      </div>
     </main>
   );
 }

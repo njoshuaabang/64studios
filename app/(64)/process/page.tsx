@@ -65,7 +65,7 @@ export default function ProcessPage() {
     <main id="main-content" tabIndex={-1} className="mx-auto max-w-5xl px-4 md:px-6">
       <JsonLd data={breadcrumb} />
 
-      <header className="pb-[2vh] pt-[6vh]">
+      <div className="pb-[2vh] pt-[6vh]">
         <div aria-hidden="true" className="h-px w-12 bg-ink" />
         <h1 className="mt-3 max-w-[22ch] font-display text-[clamp(1.5rem,2.6vw,2.25rem)] font-semibold leading-[1.3] text-ink">
           How a project runs, start to finish
@@ -76,7 +76,7 @@ export default function ProcessPage() {
           follows is what actually happens in that window, in the order it happens, and what is
           needed from you at each point.
         </p>
-      </header>
+      </div>
 
       <Stage number="00" title="Before the clock starts" when="A conversation, then a start date">
         <p className={PROSE}>
@@ -168,7 +168,7 @@ export default function ProcessPage() {
         </p>
       </Stage>
 
-      <footer className="pb-[6vh] pt-[5vh]">
+      <div className="pb-[6vh] pt-[5vh]">
         <TransitionLink
           href="/contact"
           className="group inline-flex items-center py-2 font-body text-xs uppercase tracking-[0.25em] text-ink"
@@ -178,7 +178,7 @@ export default function ProcessPage() {
             <span className={UNDERLINE} />
           </span>
         </TransitionLink>
-      </footer>
+      </div>
     </main>
   );
 }

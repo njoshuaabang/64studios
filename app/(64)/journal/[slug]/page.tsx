@@ -83,7 +83,7 @@ export default async function JournalEntryPage({ params }: PageParams) {
           ← Journal
         </TransitionLink>
 
-        <header className="mt-6">
+        <div className="mt-6">
           <p className="font-body text-[11px] uppercase tracking-[0.5em] text-ink">
             {entry.project}
           </p>
@@ -93,7 +93,7 @@ export default async function JournalEntryPage({ params }: PageParams) {
           <time dateTime={entry.published} className="mt-3 block font-body text-sm text-ink/80">
             {dateFormat.format(new Date(entry.published))}
           </time>
-        </header>
+        </div>
 
         <div className="mt-8">
           {entry.body.map((paragraph) => (

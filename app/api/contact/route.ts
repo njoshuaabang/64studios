@@ -3,7 +3,18 @@ import { Resend } from "resend";
 const TO = "studio@64studios.design";
 const FROM = "64 Studios <studio@64studios.design>";
 
-const MAX_LENGTHS = { name: 200, email: 320, make: 2000, brandHome: 500 } as const;
+const MAX_LENGTHS = { name: 200, email: 320, make: 2000, brandHome: 500, message: 2000 } as const;
+
+/**
+ * Strips CR and LF before a value can reach a mail header.
+ *
+ * The brief called for "the same CR/LF stripping as the existing fields" and
+ * there was none: every field was only trimmed. It happened not to matter,
+ * because the one value that reaches a header is replyTo and EMAIL_RE already
+ * forbids whitespace in it. This makes that explicit rather than incidental,
+ * so a later field added to a header does not quietly inherit the gap.
+ */
+const stripBreaks = (value: string) => value.replace(/[\r\n]+/g, " ").trim();
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 // ponytail: rate limit state lives in this instance's memory, so it resets on
@@ -50,10 +61,13 @@ export async function POST(request: Request) {
   // them. Only the required fields and the subject line differ.
   const isSubscribe = body.kind === "subscribe";
 
-  const name = typeof body.name === "string" ? body.name.trim() : "";
-  const email = typeof body.email === "string" ? body.email.trim() : "";
-  const make = typeof body.make === "string" ? body.make.trim() : "";
-  const brandHome = typeof body.brandHome === "string" ? body.brandHome.trim() : "";
+  const name = typeof body.name === "string" ? stripBreaks(body.name) : "";
+  const email = typeof body.email === "string" ? stripBreaks(body.email) : "";
+  const make = typeof body.make === "string" ? stripBreaks(body.make) : "";
+  const brandHome = typeof body.brandHome === "string" ? stripBreaks(body.brandHome) : "";
+  // The message keeps its line breaks: it is the one field that is prose and
+  // it only ever reaches the body of the mail, never a header.
+  const message = typeof body.message === "string" ? body.message.trim() : "";
 
   if (!isSubscribe && (!name || name.length > MAX_LENGTHS.name)) {
     return Response.json({ ok: false, error: "Please add your name." }, { status: 400 });
@@ -63,6 +77,12 @@ export async function POST(request: Request) {
   }
   if (make.length > MAX_LENGTHS.make || brandHome.length > MAX_LENGTHS.brandHome) {
     return Response.json({ ok: false, error: "That's too long." }, { status: 400 });
+  }
+  if (message.length > MAX_LENGTHS.message) {
+    return Response.json(
+      { ok: false, error: `Please keep the message under ${MAX_LENGTHS.message} characters.` },
+      { status: 400 },
+    );
   }
 
   const apiKey = process.env.RESEND_API_KEY;
@@ -78,6 +98,7 @@ export async function POST(request: Request) {
         `Email: ${email}`,
         make ? `What they make: ${make}` : null,
         brandHome ? `Where their brand lives now: ${brandHome}` : null,
+        message ? `\nAnything else:\n${message}` : null,
       ].filter(Boolean);
 
   try {

@@ -108,7 +108,12 @@ export default function HomeHero() {
     <main
       id="main-content" tabIndex={-1}
       ref={containerRef}
-      className="fixed inset-0 flex h-dvh w-full flex-col items-center justify-center overflow-hidden bg-background px-2 pt-8 md:pt-10"
+      // The bottom padding reserves the room the address in the footer needs.
+      // It applies exactly while the intro paragraph is in normal flow, since
+      // that is when the two would otherwise occupy the same band; once the
+      // paragraph moves to its bottom-left corner the address is diagonally
+      // opposite it and nothing has to give.
+      className="fixed inset-0 flex h-dvh w-full flex-col items-center justify-center overflow-hidden bg-background px-2 pt-9 pb-14 md:pt-10 [@media(min-width:768px)_and_(min-height:600px)]:pb-0"
     >
       <div data-card className="flex w-full flex-col items-center justify-center px-2 py-4">
         <Wordmark as="h1" size="hero" />
@@ -142,7 +147,7 @@ export default function HomeHero() {
       */}
       <p
         data-home-note
-        className="mt-6 w-full max-w-[34ch] self-start px-2 text-left font-body text-base leading-[1.65] text-ink [@media(min-width:768px)_and_(min-height:600px)]:absolute [@media(min-width:768px)_and_(min-height:600px)]:bottom-6 [@media(min-width:768px)_and_(min-height:600px)]:left-6 [@media(min-width:768px)_and_(min-height:600px)]:mt-0 [@media(min-width:768px)_and_(min-height:600px)]:max-w-[34ch] [@media(min-width:768px)_and_(min-height:600px)]:px-0 [@media(max-height:500px)]:mt-3"
+        className="mt-4 w-full max-w-[34ch] self-start px-2 text-left font-body text-base leading-[1.65] text-ink [@media(min-width:768px)_and_(min-height:600px)]:absolute [@media(min-width:768px)_and_(min-height:600px)]:bottom-6 [@media(min-width:768px)_and_(min-height:600px)]:left-6 [@media(min-width:768px)_and_(min-height:600px)]:mt-0 [@media(min-width:768px)_and_(min-height:600px)]:max-w-[34ch] [@media(min-width:768px)_and_(min-height:600px)]:px-0 [@media(max-height:500px)]:mt-3"
       >
         64 Studios is a branding agency working across identity and the web. The studio designs
         brand marks and builds high-end websites for companies whose presence has fallen behind the
