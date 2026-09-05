@@ -1,10 +1,19 @@
+import { headers } from "next/headers";
+import { studioUrl } from "@/lib/sites";
+
 /**
  * Not a colophon — one line, no credits, no typeface note. The disclosure
  * beneath it is the one addition to that rule: honesty that this is a
  * self-initiated concept, not a real studio, matters more than the minimalism
  * it costs.
+ *
+ * That link goes to this project's case study rather than the 64 Studios home
+ * page: the question the line raises is "what is this?", and the case study is
+ * the answer to it.
  */
-export default function SignOff() {
+export default async function SignOff() {
+  const back = studioUrl((await headers()).get("host"), "/portfolio/nash-calloway");
+
   return (
     <footer className="px-4 pb-8 pt-16 md:px-8 md:pt-20">
       <p className="font-nash-body text-sm text-nash-olive">
@@ -12,7 +21,7 @@ export default function SignOff() {
       </p>
       <p className="mt-2 font-nash-body text-xs text-nash-ink/70">
         A self-initiated concept by{" "}
-        <a href="https://64studios.design" className="transition-colors duration-200 hover:text-nash-brass">
+        <a href={back} className="transition-colors duration-200 hover:text-nash-brass">
           64 Studios
         </a>
         . Not a real business.

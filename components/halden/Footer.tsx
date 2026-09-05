@@ -1,7 +1,22 @@
+import { headers } from "next/headers";
+import { studioUrl } from "@/lib/sites";
+
 const linkStyle =
   "text-halden-brass underline-offset-4 transition-colors duration-300 hover:underline";
 
-export default function Footer() {
+/**
+ * The disclosure link goes to Halden's own case study, not to the 64 Studios
+ * home page. Someone reading this line is asking what this site is, and the
+ * page that answers that is the write-up of this project — the home page
+ * makes them go and find it.
+ *
+ * studioUrl keeps that working from either door: an absolute URL on
+ * halden.64studios.design, a root-relative path on the main host, where it
+ * stays a client navigation.
+ */
+export default async function Footer() {
+  const back = studioUrl((await headers()).get("host"), "/portfolio/halden");
+
   return (
     <footer className="w-full px-[var(--gutter)] pb-6 pt-[var(--space-section)]">
       <div className="border-t border-halden-brass/70 pt-4">
@@ -22,7 +37,7 @@ export default function Footer() {
 
         <p className="pt-10 text-halden-micro text-halden-ink/70">
           A self-initiated concept by{" "}
-          <a href="https://64studios.design" className={linkStyle}>
+          <a href={back} className={linkStyle}>
             64 Studios
           </a>
           . Not a real business.
