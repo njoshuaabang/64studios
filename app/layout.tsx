@@ -4,7 +4,7 @@ import { SITE_URL } from "@/lib/site";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import JsonLd from "@/components/JsonLd";
-import { social } from "@/components/SiteFooter";
+import { social } from "@/config/social";
 
 /**
  * The one Organization block for the whole site — every page inherits it
@@ -13,8 +13,8 @@ import { social } from "@/components/SiteFooter";
  * Studios" in their own footer, so the same attribution in structured data
  * is consistent with that, not a second signal invented for this.
  *
- * `sameAs` is read from the footer's own list rather than typed out a second
- * time, so the two cannot drift.
+ * `sameAs` is read from config/social.ts, the same list the footer renders
+ * and the outbound-click tracking reads, so none of the three can drift.
  *
  * Two facts here are not yet stated as prose anywhere, but both are already
  * live and real rather than invented: "Sheffield" is in the /studio title

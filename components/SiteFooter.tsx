@@ -1,4 +1,5 @@
 import TransitionLink from "./TransitionLink";
+import SocialLinks from "./SocialLinks";
 
 /**
  * The footer for 64 Studios' own pages. Not the homepage: that is a single
@@ -9,18 +10,10 @@ import TransitionLink from "./TransitionLink";
  * characters — a screen reader must announce "64 Studios", not the letters one
  * at a time.
  */
-// Exported so the Organization schema's `sameAs` (app/layout.tsx) reads these
-// same three URLs rather than a second, separately-maintained copy.
 const pages = [
   { href: "/services", label: "Services" },
   { href: "/process", label: "Process" },
   { href: "/journal", label: "Journal" },
-];
-
-export const social = [
-  { href: "https://www.instagram.com/sixtyfour.studios/", label: "Instagram" },
-  { href: "https://www.behance.net/64studios", label: "Behance" },
-  { href: "https://www.linkedin.com/in/nkere-abang-698071434/", label: "LinkedIn" },
 ];
 
 export default function SiteFooter() {
@@ -61,19 +54,7 @@ export default function SiteFooter() {
       </p>
 
       <p className="mt-4 font-body text-sm text-ink">
-        {social.map((item, i) => (
-          <span key={item.href}>
-            {i > 0 ? <span aria-hidden="true"> &middot; </span> : null}
-            <a
-              href={item.href}
-              rel="noreferrer"
-              target="_blank"
-              className="underline decoration-transparent underline-offset-4 transition-colors duration-400 hover:decoration-ink"
-            >
-              {item.label}
-            </a>
-          </span>
-        ))}
+        <SocialLinks />
       </p>
 
       <p className="mt-4 font-body text-sm text-ink">&copy; 2026</p>

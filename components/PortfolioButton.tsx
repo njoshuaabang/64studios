@@ -1,5 +1,6 @@
 "use client";
 
+import { track } from "@vercel/analytics";
 import TransitionLink from "./TransitionLink";
 
 export default function PortfolioButton({ className = "" }: { className?: string }) {
@@ -7,6 +8,7 @@ export default function PortfolioButton({ className = "" }: { className?: string
     <TransitionLink
       href="/portfolio"
       data-portfolio-button
+      onClick={() => track("cta_view_portfolio_clicked")}
       className={`group inline-flex items-center py-2 font-body text-xs uppercase tracking-[0.25em] text-ink ${className}`}
     >
       <span className="relative pb-1">

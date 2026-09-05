@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { track } from "@vercel/analytics";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -39,6 +40,7 @@ export default function NewsletterSignup() {
         setStatus("failed");
         return;
       }
+      track("newsletter_subscribed");
       setStatus("sent");
     } catch {
       setError("");

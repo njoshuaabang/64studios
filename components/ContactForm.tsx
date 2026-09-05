@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { track } from "@vercel/analytics";
 
 // The address the footer and the failure message both print, so a visitor
 // who is told to write directly reaches the same inbox the form does.
@@ -66,12 +67,17 @@ export default function ContactForm() {
       });
       const data = (await response.json()) as { ok: boolean; error?: string };
       if (!data.ok) {
+        // The status code separates a validation refusal from a send failure,
+        // which are different problems: one is copy, the other is the pipeline.
+        track("enquiry_failed", { reason: response.status });
         setFailedMessage(data.error ?? "");
         setStatus("failed");
         return;
       }
+      track("enquiry_submitted");
       setStatus("sent");
     } catch {
+      track("enquiry_failed", { reason: "network" });
       setFailedMessage("");
       setStatus("failed");
     }
