@@ -52,7 +52,7 @@ export default function NewsletterSignup() {
   if (status === "sent") {
     return (
       <p role="status" className="max-w-[58ch] font-body text-base leading-[1.6] text-ink">
-        Added. You will hear from the studio when there is something worth sending.
+        Noted. Thank you.
       </p>
     );
   }
@@ -60,7 +60,7 @@ export default function NewsletterSignup() {
   return (
     <form noValidate onSubmit={handleSubmit} className="max-w-[58ch]">
       <p className="font-body text-base leading-[1.6] text-ink">
-        The studio writes about the work occasionally. Leave an address if you want those.
+        One email when there is something worth showing.
       </p>
 
       <div className="mt-3 flex flex-wrap items-end gap-4">
@@ -89,7 +89,7 @@ export default function NewsletterSignup() {
           className="group py-2 font-body text-xs uppercase tracking-[0.25em] text-ink disabled:opacity-60"
         >
           <span className="relative pb-1">
-            {status === "submitting" ? "Adding" : "Add me"}
+            {status === "submitting" ? "Adding" : "Leave an address"}
             <span className={UNDERLINE} />
           </span>
         </button>
@@ -102,15 +102,18 @@ export default function NewsletterSignup() {
         <input id="subscribe-company" name="company" type="text" tabIndex={-1} autoComplete="off" />
       </div>
 
-      {error ? (
-        <p id="subscribe-error" className="mt-2 font-body text-sm text-ink">
-          {error}
-        </p>
-      ) : null}
-
-      {status === "failed" && !error ? (
-        <p role="alert" className="mt-2 font-body text-sm text-ink">
-          That did not go through. Try again, or email studio@64studios.design directly.
+      {/* One message for both failures, keeping the typed address in the
+          field either way. A rejected address needs the specific reason; a
+          failed send needs somewhere else to go. Both get the direct
+          address, because either way the visitor is still holding an email
+          they wanted to give the studio. */}
+      {error || status === "failed" ? (
+        <p
+          id="subscribe-error"
+          role={error ? undefined : "alert"}
+          className="mt-2 font-body text-sm text-ink"
+        >
+          {error || "That did not go through."} Or email studio@64studios.design directly.
         </p>
       ) : null}
     </form>

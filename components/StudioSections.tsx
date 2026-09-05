@@ -6,7 +6,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { prefersReducedMotion } from "@/lib/motion";
 import { framesRunning } from "@/lib/frames";
 import TransitionLink from "./TransitionLink";
-import NewsletterSignup from "./NewsletterSignup";
 import { UNDERLINE } from "@/lib/underline";
 
 const LABEL = "font-body text-[11px] uppercase tracking-[0.5em] text-ink";
@@ -185,24 +184,20 @@ export default function StudioSections() {
         </div>
       </section>
 
-      {/* The call to action and the email capture share a row: stacked, the
-          capture would push this page past the height it is held to. */}
-      <div data-reveal className="pb-[3vh] pt-[2vh] md:grid md:grid-cols-12 md:gap-6">
-        <div className="md:col-span-4">
-          <TransitionLink
-            href="/contact"
-            data-reveal-item
-            className="group inline-flex items-center py-2 font-body text-xs uppercase tracking-[0.25em] text-ink"
-          >
-            <span className="relative pb-1">
-              Begin a conversation
-              <span className={UNDERLINE} />
-            </span>
-          </TransitionLink>
-        </div>
-        <div data-reveal-item className="mt-6 md:col-span-7 md:col-start-6 md:mt-0">
-          <NewsletterSignup />
-        </div>
+      {/* The page ends on the one thing it is asking for. The email capture
+          that used to share this row now lives only where someone is already
+          reading the writing, which is the journal. */}
+      <div data-reveal className="pb-[3vh] pt-[2vh]">
+        <TransitionLink
+          href="/contact"
+          data-reveal-item
+          className="group inline-flex items-center py-2 font-body text-xs uppercase tracking-[0.25em] text-ink"
+        >
+          <span className="relative pb-1">
+            Begin a conversation
+            <span className={UNDERLINE} />
+          </span>
+        </TransitionLink>
       </div>
     </main>
   );

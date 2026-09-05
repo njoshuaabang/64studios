@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import JsonLd from "@/components/JsonLd";
+import NewsletterSignup from "@/components/NewsletterSignup";
 import TransitionLink from "@/components/TransitionLink";
 import { entries, getEntry } from "@/config/journal";
 import { SITE_URL } from "@/lib/site";
@@ -106,6 +107,10 @@ export default async function JournalEntryPage({ params }: PageParams) {
           ))}
         </div>
       </article>
+
+      <div className="border-t border-bone pb-[6vh] pt-8">
+        <NewsletterSignup />
+      </div>
     </main>
   );
 }

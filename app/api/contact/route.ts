@@ -3,7 +3,7 @@ import { Resend } from "resend";
 const TO = "studio@64studios.design";
 const FROM = "64 Studios <studio@64studios.design>";
 
-const MAX_LENGTHS = { name: 200, email: 320, make: 2000, brandHome: 500, message: 2000 } as const;
+const MAX_LENGTHS = { name: 200, email: 254, make: 2000, brandHome: 500, message: 2000 } as const;
 
 /**
  * Strips CR and LF before a value can reach a mail header.
@@ -55,6 +55,12 @@ export async function POST(request: Request) {
     return Response.json({ ok: true });
   }
 
+  // ponytail: hand-managed list, move to a provider past ~100 subscribers.
+  // Every subscription is an email to the studio inbox and nothing else —
+  // no database, no list service. Sorting them by hand stops being sane
+  // somewhere around a hundred, and unsubscribes have no mechanism at all
+  // beyond replying, which is the same ceiling.
+  //
   // Two things post here: the contact form and the journal's email capture.
   // They share this route rather than getting one each so that the rate
   // limit, the honeypot and the validation above cannot drift apart between
@@ -108,8 +114,10 @@ export async function POST(request: Request) {
       to: TO,
       replyTo: email,
       // The subject is the tag: an inbox filter or a search separates
-      // subscribers from enquiries without either needing its own address.
-      subject: isSubscribe ? "New subscriber — 64 Studios" : "Project enquiry — 64 Studios",
+      // subscribers from enquiries without either needing its own address,
+      // and carrying the address or the name means a full inbox is scannable
+      // without opening anything.
+      subject: isSubscribe ? `Subscriber — ${email}` : `Enquiry — ${name}`,
       text: lines.join("\n"),
     });
     if (error) {
