@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import TransitionLink from "./TransitionLink";
-import { prefersReducedMotion } from "@/lib/motion";
 
 const links = [
   { href: "/portfolio", label: "Work" },
@@ -16,12 +15,16 @@ const links = [
  * back. The header is chrome: it is worth its space when someone is looking
  * for it and not while they are reading past it.
  *
- * It never hides near the top, where there is nothing to get out of the way
- * of, and never under prefers-reduced-motion, where chrome appearing and
- * disappearing as the page moves is the effect being asked to stop.
+ * It never hides in the first 96px, where there is nothing to get out of the
+ * way of. The threshold is there so a trackpad's jitter, or the rubber-band at
+ * the end of a phone scroll, does not flicker it.
  *
- * The threshold is there so a trackpad's jitter, or the rubber-band at the
- * end of a phone scroll, does not flicker it.
+ * This runs for everyone, including under prefers-reduced-motion. It used to
+ * bail out on that setting, which meant a phone with Reduce Motion switched on
+ * — an ordinary thing to have on — never got the behaviour at all. The setting
+ * is honoured in the styles instead: reduced motion drops the slide and keeps
+ * the fade, because a fade travels no distance and is not the kind of movement
+ * that setting exists to stop.
  */
 const HIDE_BELOW = 96;
 const THRESHOLD = 8;
@@ -30,8 +33,6 @@ function useHideOnScrollDown() {
   const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
-    if (prefersReducedMotion()) return;
-
     let previous = window.scrollY;
     let frame = 0;
 
@@ -81,8 +82,10 @@ export default function CornerNav() {
        focus somewhere invisible. */
     <header
       data-corner-nav
-      className={`fixed inset-x-0 top-0 z-40 flex items-center justify-between px-3 py-1 transition-[transform,opacity] duration-300 ease-out focus-within:translate-y-0 focus-within:opacity-100 motion-reduce:transition-none md:px-4 md:py-2 ${
-        hidden ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100"
+      className={`fixed inset-x-0 top-0 z-40 flex items-center justify-between px-3 py-1 transition-[transform,opacity] duration-300 ease-out focus-within:pointer-events-auto focus-within:translate-y-0 focus-within:opacity-100 motion-reduce:transition-[opacity] motion-reduce:duration-200 md:px-4 md:py-2 ${
+        hidden
+          ? "pointer-events-none -translate-y-full opacity-0 motion-reduce:translate-y-0"
+          : "pointer-events-auto translate-y-0 opacity-100"
       }`}
     >
       <TransitionLink
