@@ -69,25 +69,23 @@ export default function StudioSections() {
             </h2>
           </div>
           <p data-reveal-item className="mt-8 max-w-[55ch] font-body text-lg leading-[1.7] text-ink">
-            64 Studios works slowly, on purpose. A few projects at a time, each taken from first
-            sketch to launch without shortcuts. The studio was built on a simple observation: the
-            web is crowded with sites that all look the same, because they were all made the same
-            way.
+            64 Studios works slowly, on purpose. Each project is taken from first sketch to launch
+            without shortcuts.
           </p>
           <p
             data-reveal-item
             className="mt-[2em] max-w-[55ch] font-body text-lg leading-[1.7] text-ink"
           >
             Every site is drawn from scratch and built by hand. No templates, no page builders. The
-            studio takes a few projects a year, which is what that standard allows.
+            web is crowded with sites that look alike because they were made alike, and that is the
+            thing worth avoiding.
           </p>
           <p
             data-reveal-item
             className="mt-[2em] max-w-[55ch] font-body text-lg leading-[1.7] text-ink"
           >
-            It makes for a slower business than most. It also means every project gets the attention
-            it was promised &mdash; and that there is always room to talk properly about the work
-            before it starts.
+            Working this way leaves room to talk properly about a project before it starts, and it
+            means nothing ships that the studio would not put its own name on.
           </p>
         </div>
       </section>
