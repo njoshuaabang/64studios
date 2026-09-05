@@ -25,7 +25,7 @@ export default function SiteButton({
   /** Overrides the visible label for assistive tech. */
   ariaLabel?: string;
 }) {
-  const styles = `inline-flex items-center justify-center border border-ink px-4 py-2 font-body text-xs font-medium uppercase tracking-[0.25em] text-ink transition-colors duration-400 ease-out hover:bg-ink hover:text-background ${className}`;
+  const styles = `inline-flex items-center justify-center border border-ink px-4 py-2 font-body text-xs uppercase tracking-[0.25em] text-ink transition-colors duration-400 ease-out hover:bg-ink hover:text-background ${className}`;
 
   if (newTab) {
     return (
