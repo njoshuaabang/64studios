@@ -57,6 +57,14 @@ export function middleware(request: NextRequest) {
       return new NextResponse("Not Found", { status: 404 });
     }
 
+    // llms.txt goes the same way as the sitemap and for the same reason. It
+    // describes 64 Studios and its work; a demo brand serving it would be
+    // handing a model a map of someone else's site under a hostname that is
+    // meant to read as its own, while every page beneath it says noindex.
+    if (pathname === "/llms.txt") {
+      return new NextResponse("Not Found", { status: 404 });
+    }
+
     // robots.txt is the opposite case from sitemap.xml: a MISSING robots.txt
     // means "assume allow all" by convention, so a 404 here would say the
     // wrong thing. A demo host has to affirmatively serve a disallow-all body
@@ -120,12 +128,12 @@ export function middleware(request: NextRequest) {
  * exist. Anything with a dot in its last segment is a file, so it is left
  * alone and served from public/ as it always was.
  *
- * /sitemap.xml and /robots.txt are the two paths with an extension that still
- * need to reach this function: both are generated Next.js routes, not static
- * files, and without the explicit extra patterns here they would bypass the
- * middleware entirely — every demo host would keep serving the main site's
- * sitemap and robots.txt exactly as they did before Phase 1.
+ * /sitemap.xml, /robots.txt and /llms.txt are the paths with an extension that
+ * still need to reach this function: all three are generated Next.js routes,
+ * not static files, and without the explicit extra patterns here they would
+ * bypass the middleware entirely — every demo host would keep serving the main
+ * site's versions exactly as they did before Phase 1.
  */
 export const config = {
-  matcher: ["/((?!_next/|api/|.*\\.[^/]+$).*)", "/sitemap.xml", "/robots.txt"],
+  matcher: ["/((?!_next/|api/|.*\\.[^/]+$).*)", "/sitemap.xml", "/robots.txt", "/llms.txt"],
 };
