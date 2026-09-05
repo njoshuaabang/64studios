@@ -65,7 +65,7 @@ export default function JournalPage() {
               </p>
               <time
                 dateTime={entry.published}
-                className="mt-3 block font-body text-sm text-ink/70"
+                className="mt-3 block font-body text-sm text-ink/80"
               >
                 {dateFormat.format(new Date(entry.published))}
               </time>

@@ -90,7 +90,7 @@ export default async function JournalEntryPage({ params }: PageParams) {
           <h1 className="mt-3 max-w-[26ch] font-display text-[clamp(1.5rem,2.6vw,2.25rem)] font-semibold leading-[1.3] text-ink">
             {entry.title}
           </h1>
-          <time dateTime={entry.published} className="mt-3 block font-body text-sm text-ink/70">
+          <time dateTime={entry.published} className="mt-3 block font-body text-sm text-ink/80">
             {dateFormat.format(new Date(entry.published))}
           </time>
         </header>

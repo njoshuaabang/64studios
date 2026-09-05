@@ -6,7 +6,7 @@ import { SITE_URL } from "@/lib/site";
 const PROSE = "max-w-[58ch] font-body text-base leading-[1.6] text-ink";
 const STAGE_NUMBER = "font-body text-[11px] uppercase tracking-[0.5em] text-ink";
 const STAGE_TITLE = "mt-2 font-display text-xl font-semibold leading-[1.3] text-ink";
-const WHEN = "mt-1 font-body text-sm text-ink/70";
+const WHEN = "mt-1 font-body text-sm text-ink/80";
 
 export const metadata: Metadata = {
   title: { absolute: "How a Project Runs — 64 Studios" },
