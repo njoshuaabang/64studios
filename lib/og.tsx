@@ -33,7 +33,31 @@ async function loadFonts() {
 
 type Caption =
   | { kind: "label"; text: string }
-  | { kind: "sentence"; lines: [string] | [string, string] };
+  | { kind: "sentence"; lines: [string] | [string, string] }
+  | { kind: "entry"; eyebrow: string; title: string };
+
+/**
+ * Splits a title across two lines at the word break nearest its middle.
+ *
+ * Satori does not implement text-wrap: balance, so a title left to wrap on its
+ * own gives the second line one orphaned word. This is that property done by
+ * hand: every break point is scored by how far it leaves the two halves from
+ * even, and the closest wins. A title short enough for one line is left on
+ * one line.
+ */
+function balance(title: string, charsPerLine: number): string[] {
+  if (title.length <= charsPerLine) return [title];
+
+  const words = title.split(" ");
+  let best = { at: 1, gap: Infinity };
+  for (let at = 1; at < words.length; at += 1) {
+    const first = words.slice(0, at).join(" ").length;
+    const second = words.slice(at).join(" ").length;
+    const gap = Math.abs(first - second);
+    if (gap < best.gap) best = { at, gap };
+  }
+  return [words.slice(0, best.at).join(" "), words.slice(best.at).join(" ")];
+}
 
 /**
  * Every card shares the lockup — 64. over a rule over letterspaced STUDIOS,
@@ -70,6 +94,10 @@ export async function renderOgImage(caption: Caption) {
           }}
         />
 
+        {/* The entry card's caption is a two-line title rather than one short
+            label, so it reaches roughly 210px further up the canvas. The
+            lockup is centred in what is left above it instead of in the whole
+            frame, which is what keeps STUDIOS clear of the eyebrow. */}
         <div
           style={{
             display: "flex",
@@ -78,6 +106,7 @@ export async function renderOgImage(caption: Caption) {
             justifyContent: "center",
             width: "100%",
             height: "100%",
+            paddingBottom: caption.kind === "entry" ? 210 : 0,
           }}
         >
           {/* ~30% of the 630px canvas height, optically centred by the flex column around it. */}
@@ -102,7 +131,51 @@ export async function renderOgImage(caption: Caption) {
           </div>
         </div>
 
-        {caption.kind === "label" ? (
+        {caption.kind === "entry" ? (
+          /* The one card where the caption carries the whole message. A
+             journal link posted anywhere should say what the piece is about,
+             so the title is set in the display face at a readable thumbnail
+             size, with the section as a small eyebrow above it. */
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              position: "absolute",
+              left: 80,
+              right: 80,
+              bottom: 64,
+              color: INK,
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                fontFamily: "General Sans",
+                fontWeight: 600,
+                fontSize: 20,
+                letterSpacing: "2.8px",
+                textTransform: "uppercase",
+                marginBottom: 16,
+              }}
+            >
+              {caption.eyebrow}
+            </div>
+            {balance(caption.title, 46).map((line) => (
+              <span
+                key={line}
+                style={{
+                  display: "block",
+                  fontFamily: "General Sans",
+                  fontWeight: 700,
+                  fontSize: 44,
+                  lineHeight: 1.25,
+                }}
+              >
+                {line}
+              </span>
+            ))}
+          </div>
+        ) : caption.kind === "label" ? (
           <div
             style={{
               display: "flex",
