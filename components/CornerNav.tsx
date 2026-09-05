@@ -1,6 +1,8 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import TransitionLink from "./TransitionLink";
+import { prefersReducedMotion } from "@/lib/motion";
 
 const links = [
   { href: "/portfolio", label: "Work" },
@@ -8,7 +10,59 @@ const links = [
   { href: "/contact", label: "Contact" },
 ];
 
+
+/**
+ * True while the reader is moving down the page, false as soon as they turn
+ * back. The header is chrome: it is worth its space when someone is looking
+ * for it and not while they are reading past it.
+ *
+ * It never hides near the top, where there is nothing to get out of the way
+ * of, and never under prefers-reduced-motion, where chrome appearing and
+ * disappearing as the page moves is the effect being asked to stop.
+ *
+ * The threshold is there so a trackpad's jitter, or the rubber-band at the
+ * end of a phone scroll, does not flicker it.
+ */
+const HIDE_BELOW = 96;
+const THRESHOLD = 8;
+
+function useHideOnScrollDown() {
+  const [hidden, setHidden] = useState(false);
+
+  useEffect(() => {
+    if (prefersReducedMotion()) return;
+
+    let previous = window.scrollY;
+    let frame = 0;
+
+    const read = () => {
+      frame = 0;
+      const y = window.scrollY;
+      const moved = y - previous;
+      if (Math.abs(moved) < THRESHOLD) return;
+      previous = y;
+      setHidden(moved > 0 && y > HIDE_BELOW);
+    };
+
+    // Scroll fires far more often than the page can paint, so the reading is
+    // deferred to the next frame and coalesced.
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(read);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  return hidden;
+}
+
 export default function CornerNav() {
+  const hidden = useHideOnScrollDown();
+
   return (
     /* The tracking is CSS, never literal spaces between letters: a screen
        reader must announce "Work", not "W O R K".
@@ -22,9 +76,14 @@ export default function CornerNav() {
        through. Halden and Nash Calloway already wrap their own navs this way.
        The mark sits in the header beside the nav rather than inside it: it is
        a way home, not one of the three sections. */
+    /* focus-within brings it straight back for a keyboard visitor: tabbing
+       into something that is translated off screen would otherwise move
+       focus somewhere invisible. */
     <header
       data-corner-nav
-      className="fixed inset-x-0 top-0 z-40 flex items-center justify-between px-3 py-1 md:px-4 md:py-2"
+      className={`fixed inset-x-0 top-0 z-40 flex items-center justify-between px-3 py-1 transition-[transform,opacity] duration-300 ease-out focus-within:translate-y-0 focus-within:opacity-100 motion-reduce:transition-none md:px-4 md:py-2 ${
+        hidden ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100"
+      }`}
     >
       <TransitionLink
         href="/"

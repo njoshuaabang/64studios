@@ -8,11 +8,16 @@ import SiteFooter from "./SiteFooter";
  * single non-scrollable viewport and cannot carry one without either forcing
  * a scroll or crowding the composition.
  *
- * The homepage gets a minimal one instead: the address, and nothing else. A
- * visitor who does not recognise the single link otherwise has no way to
- * reach the studio at all. It is positioned against the viewport rather than
- * in flow, so it costs the threshold no height, and it sits bottom-right to
- * balance the intro paragraph at bottom-left.
+ * The homepage gets a minimal one instead: the address, and nothing else. It
+ * is positioned against the viewport rather than in flow, so it costs the
+ * threshold no height, and it sits bottom-right to balance the intro
+ * paragraph at bottom-left.
+ *
+ * From md up only. On a phone the intro paragraph is in normal flow at the
+ * foot of the threshold and the two collide — reserving room for the address
+ * was not enough on a real handset, where the browser chrome eats into the
+ * viewport as it collapses. The address is the thing that gives way, because
+ * the nav's Contact link is still there and reaches the same inbox.
  *
  * A client component because the decision is made from the path, and the
  * layout above it stays a server component either way.
@@ -22,7 +27,7 @@ export default function FooterSlot() {
 
   if (pathname === "/") {
     return (
-      <footer className="pointer-events-none fixed inset-x-0 bottom-6 z-30 px-4 text-center md:px-6 md:text-right">
+      <footer className="pointer-events-none fixed inset-x-0 bottom-6 z-30 hidden px-4 text-center md:block md:px-6 md:text-right">
         <a
           href="mailto:studio@64studios.design"
           className="pointer-events-auto inline-block py-2 font-body text-[13px] text-ink underline decoration-ink/35 underline-offset-4 transition-colors duration-200 hover:decoration-ink focus-visible:decoration-ink motion-reduce:transition-none"

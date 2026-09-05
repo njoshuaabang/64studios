@@ -6,7 +6,13 @@ type WordmarkProps = {
 
 const SIZES = {
   hero: {
-    number: "text-[length:min(32vw,24dvh)] leading-[0.85] sm:text-[length:min(24vw,26dvh)] md:text-[length:min(16rem,30dvh)]",
+    // The dvh term is what stops the mark growing into the nav on a short
+    // handset: at 320x568 the vw term alone gave 102px, which put the "64."
+    // straight through the link row. Below 700px of viewport height the
+    // mark is sized off the height instead, since that is the axis that
+    // has run out.
+    number:
+      "text-[length:min(32vw,24dvh)] leading-[0.85] [@media(max-height:700px)]:text-[length:min(24vw,16dvh)] sm:text-[length:min(24vw,26dvh)] md:text-[length:min(16rem,30dvh)]",
     rule: "mt-2 h-px w-20 md:w-24",
     studios: "mt-3 text-xs sm:text-sm",
   },

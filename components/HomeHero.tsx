@@ -108,14 +108,14 @@ export default function HomeHero() {
     <main
       id="main-content" tabIndex={-1}
       ref={containerRef}
-      // The bottom padding reserves the room the address in the footer needs.
-      // It applies exactly while the intro paragraph is in normal flow, since
-      // that is when the two would otherwise occupy the same band; once the
-      // paragraph moves to its bottom-left corner the address is diagonally
-      // opposite it and nothing has to give.
+      // The bottom padding was added to reserve room for the address. The
+      // address is gone from phones now, but the padding stays, because
+      // measuring short handsets showed its other job is the load-bearing
+      // one: it keeps the intro paragraph off the bottom edge of a page that
+      // cannot scroll and clips what overflows.
       className="fixed inset-0 flex h-dvh w-full flex-col items-center justify-center overflow-hidden bg-background px-2 pt-9 pb-14 md:pt-10 [@media(min-width:768px)_and_(min-height:600px)]:pb-0"
     >
-      <div data-card className="flex w-full flex-col items-center justify-center px-2 py-4">
+      <div data-card className="flex w-full flex-col items-center justify-center px-2 py-4 [@media(max-height:700px)]:py-1">
         <Wordmark as="h1" size="hero" />
         {/*
           The positioning line, in the slot the category label used to hold.
@@ -126,11 +126,11 @@ export default function HomeHero() {
         */}
         <p
           data-tagline
-          className="mt-3 max-w-[30ch] text-balance px-2 text-center font-body text-base leading-[1.65] text-ink md:mt-8 md:max-w-none [@media(max-height:500px)]:mt-2"
+          className="mt-3 max-w-[30ch] text-balance px-2 text-center font-body text-base leading-[1.65] text-ink md:mt-8 md:max-w-none [@media(max-height:700px)]:mt-2"
         >
           Most good businesses are undersold by their websites.
         </p>
-        <div className="mt-6 md:mt-10 [@media(max-height:500px)]:mt-3">
+        <div className="mt-6 md:mt-10 [@media(max-height:700px)]:mt-3">
           <PortfolioButton />
         </div>
       </div>
@@ -147,7 +147,7 @@ export default function HomeHero() {
       */}
       <p
         data-home-note
-        className="mt-4 w-full max-w-[34ch] self-start px-2 text-left font-body text-base leading-[1.65] text-ink [@media(min-width:768px)_and_(min-height:600px)]:absolute [@media(min-width:768px)_and_(min-height:600px)]:bottom-6 [@media(min-width:768px)_and_(min-height:600px)]:left-6 [@media(min-width:768px)_and_(min-height:600px)]:mt-0 [@media(min-width:768px)_and_(min-height:600px)]:max-w-[34ch] [@media(min-width:768px)_and_(min-height:600px)]:px-0 [@media(max-height:500px)]:mt-3"
+        className="mt-4 w-full max-w-[34ch] self-start px-2 text-left font-body text-base leading-[1.65] text-ink [@media(min-width:768px)_and_(min-height:600px)]:absolute [@media(min-width:768px)_and_(min-height:600px)]:bottom-6 [@media(min-width:768px)_and_(min-height:600px)]:left-6 [@media(min-width:768px)_and_(min-height:600px)]:mt-0 [@media(min-width:768px)_and_(min-height:600px)]:max-w-[34ch] [@media(min-width:768px)_and_(min-height:600px)]:px-0 [@media(max-height:700px)]:mt-3"
       >
         64 Studios is a branding agency working across identity and the web. The studio designs
         brand marks and builds high-end websites for companies whose presence has fallen behind the
