@@ -63,8 +63,12 @@ export default function NewsletterSignup() {
         One email when there is something worth showing.
       </p>
 
+      {/* The row wraps rather than squeezing: at 375px the button leaves the
+          field 121px, which is not enough of an email address to see while
+          typing it. The minimum measure forces the button onto its own line
+          before that happens. */}
       <div className="mt-3 flex flex-wrap items-end gap-4">
-        <div className="flex flex-1 flex-col">
+        <div className="flex min-w-[15rem] flex-1 flex-col">
           <label htmlFor="subscribe-email" className="font-body text-sm text-ink">
             Your email
           </label>
