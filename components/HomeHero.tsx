@@ -58,7 +58,12 @@ export default function HomeHero() {
 
       let chars: Element[] = [];
       if (studiosEl) {
-        split = new SplitText(studiosEl, { type: "chars" });
+        // aria: "none" — SplitText's default adds aria-label to the element it
+        // splits, and this one is a <span>, where aria-label is prohibited
+        // without a role. The split leaves the text contiguous in the DOM, so
+        // the h1 still reads "64. Studios" from its own content; the tracking
+        // that separates the letters visually is CSS, never literal spaces.
+        split = new SplitText(studiosEl, { type: "chars", aria: "none" });
         chars = split.chars;
         gsap.set(chars, { opacity: 0, y: 8 });
       }
