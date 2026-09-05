@@ -6,6 +6,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { prefersReducedMotion } from "@/lib/motion";
 import TransitionLink from "./TransitionLink";
 
+const LABEL = "font-body text-[11px] uppercase tracking-[0.5em] text-ink";
+const PROSE = "max-w-[58ch] font-body text-base leading-[1.6] text-ink";
+
 export default function StudioSections() {
   const containerRef = useRef<HTMLElement>(null);
 
@@ -35,21 +38,24 @@ export default function StudioSections() {
 
   return (
     <main id="main-content" tabIndex={-1} ref={containerRef} className="mx-auto max-w-5xl px-4 md:px-6">
-      <h1 className="sr-only">Studio</h1>
+      {/*
+        Hidden rather than displayed: the page opens on the mission statement,
+        and a second heading above it would compete with the one line the page
+        exists to deliver. It still carries the route's strongest keyword
+        signal for anything reading the document rather than looking at it.
+      */}
+      <h1 className="sr-only">Brand identity and website design, made by hand in Sheffield</h1>
 
-      <section aria-labelledby="mission-label" data-reveal className="pb-[12vh] pt-[16vh]">
+      <section aria-labelledby="mission-label" data-reveal className="pb-[3vh] pt-[6vh]">
         <div data-reveal-item>
           <div aria-hidden="true" className="h-px w-12 bg-ink" />
-          <h2
-            id="mission-label"
-            className="mt-3 font-body text-[11px] uppercase tracking-[0.5em] text-ink"
-          >
+          <h2 id="mission-label" className={`mt-3 ${LABEL}`}>
             Mission
           </h2>
         </div>
         <p
           data-reveal-item
-          className="mt-8 max-w-[24ch] font-display text-[clamp(1.75rem,4vw,3rem)] font-semibold leading-[1.45] text-ink"
+          className="mt-4 max-w-[42ch] font-display text-[clamp(1.375rem,2.1vw,1.75rem)] font-semibold leading-[1.35] text-ink"
         >
           From first conversation to final build, the studio exists to make brands look the way
           they deserve to. Most good businesses are undersold by their websites. Closing that gap
@@ -57,52 +63,123 @@ export default function StudioSections() {
         </p>
       </section>
 
-      <section aria-labelledby="studio-label" data-reveal className="md:grid md:grid-cols-12">
-        <div className="md:col-span-7 md:col-start-6">
+      {/* The two shorter sections share a row from md up: stacked they cost a
+          screen each for a page that has to stay inside 1,400px. */}
+      <div className="md:grid md:grid-cols-12 md:gap-6">
+        <section aria-labelledby="studio-label" data-reveal className="pt-[2vh] md:col-span-6">
           <div data-reveal-item>
             <div aria-hidden="true" className="h-px w-12 bg-ink" />
-            <h2
-              id="studio-label"
-              className="mt-3 font-body text-[11px] uppercase tracking-[0.5em] text-ink"
-            >
+            <h2 id="studio-label" className={`mt-3 ${LABEL}`}>
               The Studio
             </h2>
           </div>
-          <p data-reveal-item className="mt-8 max-w-[55ch] font-body text-lg leading-[1.7] text-ink">
-            64 Studios works slowly, on purpose. Each project is taken from first sketch to launch
-            without shortcuts.
+          <p data-reveal-item className={`mt-4 ${PROSE}`}>
+            64 Studios runs one project at a time. Nothing else is open while it is, and nothing
+            waits in a queue behind it.
           </p>
-          <p
-            data-reveal-item
-            className="mt-[2em] max-w-[55ch] font-body text-lg leading-[1.7] text-ink"
-          >
+          <p data-reveal-item className={`mt-3 ${PROSE}`}>
+            That is why a project takes one to two weeks from first conversation to launch. The
+            work is not compressed to fit the window. It has undivided attention for the whole of
+            it, which is a different thing from being rushed.
+          </p>
+          <p data-reveal-item className={`mt-3 ${PROSE}`}>
             Every site is drawn from scratch and built by hand. No templates, no page builders. The
-            web is crowded with sites that look alike because they were made alike, and that is the
-            thing worth avoiding.
+            web is crowded with sites that look alike because they were made alike, and the way out
+            of that is to start from nothing each time.
           </p>
-          <p
-            data-reveal-item
-            className="mt-[2em] max-w-[55ch] font-body text-lg leading-[1.7] text-ink"
-          >
-            Working this way leaves room to talk properly about a project before it starts, and it
-            means nothing ships that the studio would not put its own name on.
+          <p data-reveal-item className={`mt-3 ${PROSE}`}>
+            Running projects one at a time is also why the studio takes only a few in a year. That
+            is the cost of the method, and it is the reason the method works.
+          </p>
+        </section>
+
+        <section
+          aria-labelledby="who-label"
+          data-reveal
+          className="pt-[2vh] md:col-span-5 md:col-start-8"
+        >
+          <div data-reveal-item>
+            <div aria-hidden="true" className="h-px w-12 bg-ink" />
+            <h2 id="who-label" className={`mt-3 ${LABEL}`}>
+              Who
+            </h2>
+          </div>
+          <p data-reveal-item className={`mt-4 ${PROSE}`}>
+            64 Studios was founded by Nkere Abang and works from Sheffield, in the United Kingdom.
+          </p>
+          <p data-reveal-item className={`mt-3 ${PROSE}`}>
+            Design and build are not treated as separate jobs here. A mark is drawn knowing how it
+            will behave at sixteen pixels in a browser tab, and the type is chosen knowing which
+            weights will actually load. Decisions made in the identity are the same decisions
+            carried into the code, rather than specified in one place and interpreted in another.
+          </p>
+          <p data-reveal-item className={`mt-3 ${PROSE}`}>
+            Sheffield is where the studio works from, not a limit on where it works. A project runs
+            over video and email as readily as it does in person, and the one-to-two-week window is
+            the same either way. Enquiries are answered within a day or two, whichever way they
+            arrive.
+          </p>
+        </section>
+      </div>
+
+      <section
+        aria-labelledby="how-label"
+        data-reveal
+        className="pt-[3vh] md:grid md:grid-cols-12 md:gap-6"
+      >
+        <div className="md:col-span-6">
+          <div data-reveal-item>
+            <div aria-hidden="true" className="h-px w-12 bg-ink" />
+            <h2 id="how-label" className={`mt-3 ${LABEL}`}>
+              How it runs
+            </h2>
+          </div>
+          <p data-reveal-item className={`mt-4 ${PROSE}`}>
+            A project runs one to two weeks, first conversation to launch.
+          </p>
+          <p data-reveal-item className={`mt-3 ${PROSE}`}>
+            The first days go to the identity &mdash; the mark, and the type it sits in. That work
+            is shown early and in full, rather than as directions to choose between, because a
+            studio that offers three has usually only believed in one.
+          </p>
+          <p data-reveal-item className={`mt-3 ${PROSE}`}>
+            The rest of the window goes to the site: drawn from the identity, built in Next.js,
+            deployed on Vercel. Motion is written by hand where it earns its place and left out
+            where it does not.
+          </p>
+          <p data-reveal-item className={`mt-3 ${PROSE}`}>
+            What launches is what was shown. Nothing is approved as a picture and then rebuilt
+            afterwards as an approximation of it.
+          </p>
+        </div>
+
+        <div className="md:col-span-5 md:col-start-8">
+          <p data-reveal-item className={`mt-3 md:mt-[2.75rem] ${PROSE}`}>
+            Launch sits inside the window, and so does the handover &mdash; the domain pointed and
+            the analytics connected, with the studio&rsquo;s notes on what was decided and why.
+          </p>
+          <p data-reveal-item className={`mt-3 ${PROSE}`}>
+            What is needed to start is small. Whatever exists already, and a conversation long
+            enough to hear what the thing actually is.
+          </p>
+          <p data-reveal-item className={`mt-3 ${PROSE}`}>
+            Prices are not published. What a project costs depends on what it turns out to need,
+            which is known after the first conversation rather than before it.
           </p>
         </div>
       </section>
 
-      <footer data-reveal className="pb-[12vh] pt-[14vh] md:grid md:grid-cols-12">
-        <div className="md:col-span-7 md:col-start-6">
-          <TransitionLink
-            href="/contact"
-            data-reveal-item
-            className="group inline-flex items-center py-2 font-body text-xs uppercase tracking-[0.25em] text-ink"
-          >
-            <span className="relative pb-1">
-              Begin a conversation
-              <span className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-ink transition-transform duration-400 ease-out group-hover:scale-x-100" />
-            </span>
-          </TransitionLink>
-        </div>
+      <footer data-reveal className="pb-[4vh] pt-[3vh]">
+        <TransitionLink
+          href="/contact"
+          data-reveal-item
+          className="group inline-flex items-center py-2 font-body text-xs uppercase tracking-[0.25em] text-ink"
+        >
+          <span className="relative pb-1">
+            Begin a conversation
+            <span className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-ink transition-transform duration-400 ease-out group-hover:scale-x-100" />
+          </span>
+        </TransitionLink>
       </footer>
     </main>
   );
