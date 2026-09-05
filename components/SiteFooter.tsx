@@ -11,6 +11,12 @@ import TransitionLink from "./TransitionLink";
  */
 // Exported so the Organization schema's `sameAs` (app/layout.tsx) reads these
 // same three URLs rather than a second, separately-maintained copy.
+const pages = [
+  { href: "/services", label: "Services" },
+  { href: "/process", label: "Process" },
+  { href: "/journal", label: "Journal" },
+];
+
 export const social = [
   { href: "https://www.instagram.com/sixtyfour.studios/", label: "Instagram" },
   { href: "https://www.behance.net/64studios", label: "Behance" },
@@ -26,6 +32,24 @@ export default function SiteFooter() {
       >
         64 Studios
       </TransitionLink>
+
+      {/* The pages that are not in the corner nav. Keeping the nav to three
+          items is a design decision; these still need to be reachable, and
+          from here every one of them is two clicks from the homepage. */}
+      <nav aria-label="More" className="mt-4">
+        <ul className="flex flex-wrap gap-x-4 gap-y-1 font-body text-sm text-ink">
+          {pages.map((page) => (
+            <li key={page.href}>
+              <TransitionLink
+                href={page.href}
+                className="inline-block py-1 underline decoration-transparent underline-offset-4 transition-colors duration-400 hover:decoration-ink"
+              >
+                {page.label}
+              </TransitionLink>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
       <p className="mt-4 font-body text-sm text-ink">
         <a

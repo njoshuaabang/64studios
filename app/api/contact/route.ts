@@ -44,12 +44,18 @@ export async function POST(request: Request) {
     return Response.json({ ok: true });
   }
 
+  // Two things post here: the contact form and the journal's email capture.
+  // They share this route rather than getting one each so that the rate
+  // limit, the honeypot and the validation above cannot drift apart between
+  // them. Only the required fields and the subject line differ.
+  const isSubscribe = body.kind === "subscribe";
+
   const name = typeof body.name === "string" ? body.name.trim() : "";
   const email = typeof body.email === "string" ? body.email.trim() : "";
   const make = typeof body.make === "string" ? body.make.trim() : "";
   const brandHome = typeof body.brandHome === "string" ? body.brandHome.trim() : "";
 
-  if (!name || name.length > MAX_LENGTHS.name) {
+  if (!isSubscribe && (!name || name.length > MAX_LENGTHS.name)) {
     return Response.json({ ok: false, error: "Please add your name." }, { status: 400 });
   }
   if (!email || email.length > MAX_LENGTHS.email || !EMAIL_RE.test(email)) {
@@ -65,12 +71,14 @@ export async function POST(request: Request) {
     return Response.json({ ok: false, error: "Something went wrong. Try again later." }, { status: 500 });
   }
 
-  const lines = [
-    `Name: ${name}`,
-    `Email: ${email}`,
-    make ? `What they make: ${make}` : null,
-    brandHome ? `Where their brand lives now: ${brandHome}` : null,
-  ].filter(Boolean);
+  const lines = isSubscribe
+    ? [`Email: ${email}`]
+    : [
+        `Name: ${name}`,
+        `Email: ${email}`,
+        make ? `What they make: ${make}` : null,
+        brandHome ? `Where their brand lives now: ${brandHome}` : null,
+      ].filter(Boolean);
 
   try {
     const resend = new Resend(apiKey);
@@ -78,7 +86,9 @@ export async function POST(request: Request) {
       from: FROM,
       to: TO,
       replyTo: email,
-      subject: "Project enquiry — 64 Studios",
+      // The subject is the tag: an inbox filter or a search separates
+      // subscribers from enquiries without either needing its own address.
+      subject: isSubscribe ? "New subscriber — 64 Studios" : "Project enquiry — 64 Studios",
       text: lines.join("\n"),
     });
     if (error) {

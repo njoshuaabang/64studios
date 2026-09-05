@@ -18,12 +18,12 @@ export const metadata: Metadata = {
   // because it is the exact string specified for this route.
   title: { absolute: "About 64 Studios — Brand Identity & Web Design Studio, Sheffield" },
   description:
-    "A branding agency that works slowly and by hand. Every website drawn from scratch — no templates, no page builders.",
+    "One project at a time, one to two weeks from first conversation to launch. Brand identity and websites drawn from scratch and built by hand — no templates, no page builders.",
   alternates: { canonical: "/studio" },
   openGraph: {
     title: "About 64 Studios — Brand Identity & Web Design Studio, Sheffield",
     description:
-      "A branding agency that works slowly and by hand. Every website drawn from scratch — no templates, no page builders.",
+      "One project at a time, one to two weeks from first conversation to launch. Brand identity and websites drawn from scratch and built by hand — no templates, no page builders.",
   },
 };
 

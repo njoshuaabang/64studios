@@ -149,8 +149,7 @@ export const projects: Project[] = [
   {
     slug: "aldern-voss",
     title: "Aldern & Voss",
-    subtitle:
-      "An independent watchmaker, built from one reference and a sideways walk through its parts.",
+    subtitle: "An independent watchmaker with a single reference",
     situationHeading: SITUATION_HEADING,
     situation:
       "An independent watchmaker with one reference and nothing around it — no variants, no colourways, no price list. There is almost nothing for a catalogue to list, and a conventional brand site would have had to talk around the watch rather than show it.",

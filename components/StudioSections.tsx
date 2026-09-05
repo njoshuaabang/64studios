@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { prefersReducedMotion } from "@/lib/motion";
 import TransitionLink from "./TransitionLink";
+import NewsletterSignup from "./NewsletterSignup";
 
 const LABEL = "font-body text-[11px] uppercase tracking-[0.5em] text-ink";
 const PROSE = "max-w-[58ch] font-body text-base leading-[1.6] text-ink";
@@ -46,7 +47,7 @@ export default function StudioSections() {
       */}
       <h1 className="sr-only">Brand identity and website design, made by hand in Sheffield</h1>
 
-      <section aria-labelledby="mission-label" data-reveal className="pb-[3vh] pt-[6vh]">
+      <section aria-labelledby="mission-label" data-reveal className="pb-[2vh] pt-[4vh]">
         <div data-reveal-item>
           <div aria-hidden="true" className="h-px w-12 bg-ink" />
           <h2 id="mission-label" className={`mt-3 ${LABEL}`}>
@@ -55,7 +56,7 @@ export default function StudioSections() {
         </div>
         <p
           data-reveal-item
-          className="mt-4 max-w-[42ch] font-display text-[clamp(1.375rem,2.1vw,1.75rem)] font-semibold leading-[1.35] text-ink"
+          className="mt-3 max-w-[42ch] font-display text-[clamp(1.375rem,2.1vw,1.75rem)] font-semibold leading-[1.35] text-ink"
         >
           From first conversation to final build, the studio exists to make brands look the way
           they deserve to. Most good businesses are undersold by their websites. Closing that gap
@@ -66,7 +67,7 @@ export default function StudioSections() {
       {/* The two shorter sections share a row from md up: stacked they cost a
           screen each for a page that has to stay inside 1,400px. */}
       <div className="md:grid md:grid-cols-12 md:gap-6">
-        <section aria-labelledby="studio-label" data-reveal className="pt-[2vh] md:col-span-6">
+        <section aria-labelledby="studio-label" data-reveal className="pt-[1vh] md:col-span-6">
           <div data-reveal-item>
             <div aria-hidden="true" className="h-px w-12 bg-ink" />
             <h2 id="studio-label" className={`mt-3 ${LABEL}`}>
@@ -96,7 +97,7 @@ export default function StudioSections() {
         <section
           aria-labelledby="who-label"
           data-reveal
-          className="pt-[2vh] md:col-span-5 md:col-start-8"
+          className="pt-[1vh] md:col-span-5 md:col-start-8"
         >
           <div data-reveal-item>
             <div aria-hidden="true" className="h-px w-12 bg-ink" />
@@ -125,7 +126,7 @@ export default function StudioSections() {
       <section
         aria-labelledby="how-label"
         data-reveal
-        className="pt-[3vh] md:grid md:grid-cols-12 md:gap-6"
+        className="pt-[2vh] md:grid md:grid-cols-12 md:gap-6"
       >
         <div className="md:col-span-6">
           <div data-reveal-item>
@@ -169,17 +170,24 @@ export default function StudioSections() {
         </div>
       </section>
 
-      <footer data-reveal className="pb-[4vh] pt-[3vh]">
-        <TransitionLink
-          href="/contact"
-          data-reveal-item
-          className="group inline-flex items-center py-2 font-body text-xs uppercase tracking-[0.25em] text-ink"
-        >
-          <span className="relative pb-1">
-            Begin a conversation
-            <span className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-ink transition-transform duration-400 ease-out group-hover:scale-x-100" />
-          </span>
-        </TransitionLink>
+      {/* The call to action and the email capture share a row: stacked, the
+          capture would push this page past the height it is held to. */}
+      <footer data-reveal className="pb-[3vh] pt-[2vh] md:grid md:grid-cols-12 md:gap-6">
+        <div className="md:col-span-4">
+          <TransitionLink
+            href="/contact"
+            data-reveal-item
+            className="group inline-flex items-center py-2 font-body text-xs uppercase tracking-[0.25em] text-ink"
+          >
+            <span className="relative pb-1">
+              Begin a conversation
+              <span className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-ink transition-transform duration-400 ease-out group-hover:scale-x-100" />
+            </span>
+          </TransitionLink>
+        </div>
+        <div data-reveal-item className="mt-6 md:col-span-7 md:col-start-6 md:mt-0">
+          <NewsletterSignup />
+        </div>
       </footer>
     </main>
   );

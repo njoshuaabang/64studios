@@ -1,16 +1,10 @@
 import type { MetadataRoute } from "next";
 import { projects } from "@/config/portfolio";
+import { entries } from "@/config/journal";
 import { SITE_URL } from "@/lib/site";
 
-/**
- * The main host's sitemap only. Halden, Nash Calloway and Aldern & Voss are
- * noindex demo brands living on their own subdomains (see lib/sites.ts and
- * middleware.ts) — they are deliberately absent here, and deliberately have
- * no sitemap of their own: a sitemap for a noindex site is a contradictory
- * signal, so demo hosts 404 on /sitemap.xml rather than serving one.
- */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const pages = ["", "/portfolio", "/studio", "/contact"];
+  const pages = ["", "/portfolio", "/services", "/process", "/studio", "/journal", "/contact"];
 
   return [
     ...pages.map((path) => ({
@@ -22,6 +16,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...projects.map((project) => ({
       url: `${SITE_URL}/portfolio/${project.slug}`,
       lastModified: new Date(),
+      changeFrequency: "yearly" as const,
+      priority: 0.6,
+    })),
+    // Journal entries carry their own published date rather than the build
+    // date: a crawler seeing lastModified move on every deploy learns nothing
+    // from it.
+    ...entries.map((entry) => ({
+      url: `${SITE_URL}/journal/${entry.slug}`,
+      lastModified: new Date(entry.published),
       changeFrequency: "yearly" as const,
       priority: 0.6,
     })),
