@@ -16,6 +16,12 @@ export type JournalEntry = {
   /** That project's case-study slug, so the entry can link to it in prose. */
   projectSlug: string;
   body: string[];
+  /**
+   * Screenshots of the thing being argued about, each placed after the body
+   * paragraph at `after`. All of them are existing case-study captures of the
+   * live demo sites rather than anything made for the journal.
+   */
+  images?: { src: string; alt: string; caption: string; after: number }[];
 };
 
 export const entries: JournalEntry[] = [
@@ -39,6 +45,20 @@ export const entries: JournalEntry[] = [
       "One detail worth stating plainly: the lock is applied in an effect rather than written into the markup, so a visitor arriving without JavaScript gets a page that scrolls normally. That is the correct way for this to fail, and it is worth checking rather than assuming.",
       "The rule that came out of it: a locked viewport earns its place only when scrolling would contradict the thing being sold. That is rare. It has been true once across three projects.",
     ],
+    images: [
+      {
+        src: "/portfolio/halden/site-03.jpg",
+        alt: "The Halden home page filling a single browser window: the name in white serif capitals over the word Marylebone, the line A private house in Marylebone, and an ENTER link with a thin gold rule under it, all centred on a dimmed photograph of the black front door of number 18 behind iron railings.",
+        caption: "The whole of the Halden home page, at the size it is meant to be seen. There is no second screen beneath this one.",
+        after: 0,
+      },
+      {
+        src: "/portfolio/halden/site-05.jpg",
+        alt: "The Halden house page at the top of its sequence: the title The House set in serif on cream, above a full-width photograph of the entrance hall where a stone staircase curves up past a tall window over a black and white chequerboard floor. No navigation bar sits above the title.",
+        caption: "The house page, one click past the threshold. Everything beyond the home page scrolls normally, which is what the release on unmount is protecting.",
+        after: 5,
+      },
+    ],
   },
   {
     slug: "why-the-aldern-voss-specifications-are-set-in-mono",
@@ -59,6 +79,20 @@ export const entries: JournalEntry[] = [
       "This one earns its place because it does something neither of the others can. It is not a second body face. It is a different kind of speech, and the site has two kinds of thing to say.",
       "There is one place the choice is measurably worse, and it is worth naming. A long string of letter-spaced uppercase set in a monospace face is slower to read for anyone reading rather than scanning, because the even advance width removes the word shapes a reader normally navigates by. That is exactly why it is confined here to labels and to figures, and never given a sentence to carry.",
       "The check worth applying before doing it again: name the job the third face does, in one sentence, without using the word accent. If that sentence will not come, the face is decoration and it should go.",
+    ],
+    images: [
+      {
+        src: "/portfolio/aldern-voss/site-01.jpg",
+        alt: "The Aldern & Voss threshold screen: a photograph of the watch standing upright on a pale surface, with the name beneath it set large in a geometric sans, two lines of body copy under that, and a BEGIN EXPERIENCE button and the line REF. 01 · CLERKENWELL & FLORENCE both set in small letter-spaced monospace capitals.",
+        caption: "All three faces on one screen. The name is the display face, the two lines of argument are the body sans, and the button and the reference line are the mono.",
+        after: 1,
+      },
+      {
+        src: "/portfolio/aldern-voss/site-02.jpg",
+        alt: "The Aldern & Voss reference page part-way through its sequence: a photograph of the watch worn on a wrist, with 07 WORN set beneath it in small letter-spaced monospace capitals and the sentence 38mm rests close to the wrist set larger in the body sans below that. The header carries ALDERN & VOSS, REF. 01 and CLERKENWELL & FLORENCE in the same monospace.",
+        caption: "The label above the sentence, one in mono and one in sans. A reader can tell which is pointing and which is talking before reading either.",
+        after: 4,
+      },
     ],
   },
 ];

@@ -1,4 +1,6 @@
+import { Fragment } from "react";
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import JsonLd from "@/components/JsonLd";
 import NewsletterSignup from "@/components/NewsletterSignup";
@@ -85,6 +87,11 @@ export default async function JournalEntryPage({ params }: PageParams) {
     author: { "@type": "Organization", name: "64 Studios", url: SITE_URL },
     publisher: { "@type": "Organization", name: "64 Studios", url: SITE_URL },
     mainEntityOfPage: url,
+    // Absolute, because a consumer reading the JSON-LD on its own has no base
+    // to resolve a root-relative path against.
+    ...(entry.images?.length
+      ? { image: entry.images.map((i) => `${SITE_URL}${i.src}`) }
+      : {}),
     about: entry.project,
   };
 
@@ -101,6 +108,7 @@ export default async function JournalEntryPage({ params }: PageParams) {
   // The first paragraph that names the project is the one that carries the
   // link. -1 when the body never names it, in which case nothing is linked.
   const linkParagraph = entry.body.findIndex((p) => p.includes(entry.project));
+  const images = entry.images ?? [];
 
   return (
     <main id="main-content" tabIndex={-1} className="mx-auto max-w-5xl px-4 md:px-6">
@@ -129,12 +137,37 @@ export default async function JournalEntryPage({ params }: PageParams) {
 
         <div className="mt-8">
           {entry.body.map((paragraph, index) => (
-            <p
-              key={paragraph.slice(0, 40)}
-              className="mt-4 max-w-[68ch] font-body text-base leading-[1.7] text-ink first:mt-0"
-            >
-              {index === linkParagraph ? withProjectLink(paragraph, entry) : paragraph}
-            </p>
+            <Fragment key={paragraph.slice(0, 40)}>
+              <p className="mt-4 max-w-[68ch] font-body text-base leading-[1.7] text-ink first:mt-0">
+                {index === linkParagraph ? withProjectLink(paragraph, entry) : paragraph}
+              </p>
+              {images
+                .filter((image) => image.after === index)
+                .map((image) => (
+                  <figure key={image.src} className="mt-8 max-w-[68ch]">
+                    <div className="relative aspect-[16/10] w-full overflow-hidden bg-bone">
+                      <Image
+                        src={image.src}
+                        alt={image.alt}
+                        fill
+                        // The figure is capped at the prose measure, which
+                        // renders 743px wide once the body face resolves; 640
+                        // here made the browser upscale a 640px source. Below
+                        // the md breakpoint the figure is the full column.
+                        sizes="(max-width: 768px) 100vw, 768px"
+                        // Only the first image, and only because it is above
+                        // the fold on both the desktop and phone widths this
+                        // was measured at. The second is well below it.
+                        priority={image === images[0]}
+                        className="object-cover"
+                      />
+                    </div>
+                    <figcaption className="mt-2 font-body text-[13px] leading-[1.6] text-ink/80">
+                      {image.caption}
+                    </figcaption>
+                  </figure>
+                ))}
+            </Fragment>
           ))}
         </div>
       </article>
