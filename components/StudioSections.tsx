@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { prefersReducedMotion } from "@/lib/motion";
+import { framesRunning } from "@/lib/frames";
 import TransitionLink from "./TransitionLink";
 import NewsletterSignup from "./NewsletterSignup";
 
@@ -19,6 +20,7 @@ export default function StudioSections() {
 
     gsap.registerPlugin(ScrollTrigger);
 
+    let cancelled = false;
     const ctx = gsap.context(() => {
       container.querySelectorAll<HTMLElement>("[data-reveal]").forEach((block) => {
         const items = block.querySelectorAll<HTMLElement>("[data-reveal-item]");
@@ -34,7 +36,19 @@ export default function StudioSections() {
       });
     }, container);
 
-    return () => ctx.revert();
+    // Same reasoning as Halden's Reveal: where no frame runs, ScrollTrigger
+    // never refreshes and every section on this page stays at autoAlpha 0,
+    // which also sets visibility hidden. This is the studio's own page, so
+    // that would hide the copy from anything rendering without a viewport.
+    framesRunning().then((running) => {
+      if (running || cancelled) return;
+      gsap.set(container.querySelectorAll("[data-reveal-item]"), { clearProps: "all" });
+    });
+
+    return () => {
+      cancelled = true;
+      ctx.revert();
+    };
   }, []);
 
   return (

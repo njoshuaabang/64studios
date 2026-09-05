@@ -7,6 +7,7 @@ import Wordmark from "./Wordmark";
 import TaglineLockup from "./TaglineLockup";
 import PortfolioButton from "./PortfolioButton";
 import { prefersReducedMotion } from "@/lib/motion";
+import { watchForStall } from "@/lib/frames";
 
 export default function HomeHero() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -47,6 +48,7 @@ export default function HomeHero() {
     gsap.registerPlugin(SplitText);
 
     let split: SplitText | undefined;
+    let cancelWatch = () => {};
     const ctx = gsap.context(() => {
       gsap.set(navEl, { opacity: 0 });
       gsap.set(cardEl, { opacity: 0 });
@@ -78,9 +80,26 @@ export default function HomeHero() {
         .to(taglineEl, { opacity: 1, duration: 0.8 }, "-=0.3")
         .to(buttonEl, { opacity: 1, duration: 0.8 }, "-=0.4")
         .to(noteEl, { opacity: 1, duration: 0.8 }, "-=0.3");
+
+      // Nothing on this page is readable until the timeline runs, so it cannot
+      // be allowed to strand. If two samples pass with no progress, the frame
+      // loop has stopped and the reveal is finished by hand instead: the split
+      // is reverted and the inline from-state is cleared, which returns every
+      // element to its CSS resting state. That state is opaque, because none
+      // of this content is hidden in CSS.
+      cancelWatch = watchForStall(
+        () => tl.progress(),
+        () => {
+          tl.kill();
+          split?.revert();
+          split = undefined;
+          gsap.set(targets, { clearProps: "all" });
+        },
+      );
     }, container);
 
     return () => {
+      cancelWatch();
       split?.revert();
       ctx.revert();
     };

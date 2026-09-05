@@ -6,6 +6,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import Wordmark from "./Wordmark";
 import { prefersReducedMotion } from "@/lib/halden/motion";
+import { watchForStall } from "@/lib/frames";
 import { useIsomorphicLayoutEffect } from "@/lib/halden/useIsomorphicLayoutEffect";
 import { useHaldenBase } from "./HaldenBase";
 import { asset, haldenPath } from "@/lib/halden/paths";
@@ -28,6 +29,7 @@ export default function Threshold() {
     if (!root || prefersReducedMotion()) return;
 
     let onVisible: (() => void) | undefined;
+    let cancelWatch = () => {};
 
     const ctx = gsap.context(() => {
       const image = root.querySelector<HTMLElement>("[data-threshold-image]");
@@ -45,23 +47,41 @@ export default function Threshold() {
         .to(text[2], { opacity: 1, y: 0, duration: 1 }, "-=0.75")
         .to(text[3], { opacity: 1, y: 0, duration: 1 }, "-=0.75");
 
+      // Once it is playing, it must not be allowed to strand. A headless
+      // renderer reports the document as visible, so the guard below lets the
+      // timeline start and the frame loop then stops partway — measured here
+      // at image 0.93, first line 0.44, the last two still at zero. The
+      // watcher finishes it by hand in that case, clearing the inline
+      // from-state back to the CSS resting state, which is opaque.
+      const play = () => {
+        tl.play();
+        cancelWatch = watchForStall(
+          () => tl.progress(),
+          () => {
+            tl.kill();
+            gsap.set([image, ...text], { clearProps: "all" });
+          },
+        );
+      };
+
       // Opened in a background tab, the frame loop is throttled and the
       // entrance would strand itself half-played on a near-black screen. Hold
       // it until someone is actually looking at the page.
       if (document.visibilityState === "visible") {
-        tl.play();
+        play();
       } else {
         onVisible = () => {
           if (document.visibilityState !== "visible") return;
           document.removeEventListener("visibilitychange", onVisible!);
           onVisible = undefined;
-          tl.play();
+          play();
         };
         document.addEventListener("visibilitychange", onVisible);
       }
     }, root);
 
     return () => {
+      cancelWatch();
       if (onVisible) document.removeEventListener("visibilitychange", onVisible);
       ctx.revert();
     };
