@@ -13,7 +13,7 @@ export default function PortfolioButton({ className = "" }: { className?: string
       className={`group inline-flex items-center py-2 font-body text-xs uppercase tracking-[0.25em] text-ink ${className}`}
     >
       <span className="relative pb-1">
-        View Portfolio
+        See the work
         <span className={UNDERLINE} />
       </span>
     </TransitionLink>

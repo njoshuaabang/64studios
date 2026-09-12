@@ -63,21 +63,20 @@ const organizationSchema = {
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "64 Studios — Branding Agency & Website Design",
+    default: "64 Studios — Websites for the people behind fine homes",
     // Routes that set a bare title get the suffix; routes that set their own
     // full title (Selected Work, The Studio, Contact) pass it through absolute.
     template: "%s — 64 Studios",
   },
   description:
-    "64 Studios is a branding agency designing brand identities and building high-end custom websites for hotels, makers, practices and founders.",
+    "Custom websites for interior designers, architects, builders and makers. Drawn from scratch and built by hand in Sheffield.",
   openGraph: {
-    title: "64 Studios — Branding Agency & Website Design",
+    title: "64 Studios — Websites for the people behind fine homes",
     description:
-      "64 Studios is a branding agency designing brand identities and building high-end custom websites for hotels, makers, practices and founders.",
+      "Custom websites for interior designers, architects, builders and makers. Drawn from scratch and built by hand in Sheffield.",
     url: SITE_URL,
     siteName: "64 Studios",
     type: "website",
-    images: [{ url: "/icon.svg", alt: "64 Studios" }],
   },
   icons: {
     icon: "/icon.svg",

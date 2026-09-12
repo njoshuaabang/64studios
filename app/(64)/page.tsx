@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
 import HomeHero from "@/components/HomeHero";
 
-// Title, description and OG all inherit from the root layout — the homepage
-// carries no override of its own, only the canonical it was missing.
 export const metadata: Metadata = {
+  // Absolute, so the "%s — 64 Studios" template does not append a second time.
+  title: { absolute: "64 Studios — Websites for the people behind fine homes" },
+  description:
+    "Custom websites for interior designers, architects, builders and makers. Drawn from scratch and built by hand in Sheffield.",
   alternates: { canonical: "/" },
+  openGraph: {
+    title: "64 Studios — Websites for the people behind fine homes",
+    description:
+      "Custom websites for interior designers, architects, builders and makers. Drawn from scratch and built by hand in Sheffield.",
+  },
 };
 
 export default function Home() {

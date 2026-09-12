@@ -6,6 +6,7 @@ import TransitionLink from "./TransitionLink";
 const links = [
   { href: "/portfolio", label: "Work" },
   { href: "/studio", label: "Studio" },
+  { href: "/process", label: "Process" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -96,23 +97,24 @@ export default function CornerNav() {
         64.
       </TransitionLink>
       <nav aria-label="Primary">
-        {/* The gap gives way before the tracking does, for the same reason the
-            tracking eases off below 640px: at 13px the three links closed to
-            3px of the 64. mark on a 320px screen. Narrowing the gap there buys
-            the clearance back without touching the letter-spaced character. */}
-        <ul className="flex items-center gap-2 sm:gap-4 md:gap-6">
+        {/* Four links need room three did not. Below 640px the size drops a
+            point, the tracking eases to 0.06em and the gap to 6px — enough to
+            clear the 64. mark at 320px, which is the narrowest screen this is
+            measured at. The letter-spaced character is kept everywhere; only
+            the amount gives way, and only where there is no room for it. */}
+        <ul className="flex items-center gap-[6px] sm:gap-4 md:gap-6">
           {links.map((link) => (
             <li key={link.href}>
               <TransitionLink
                 href={link.href}
-                className="group grid py-2 font-body text-[13px] uppercase text-ink"
+                className="group grid py-2 font-body text-[12px] uppercase text-ink sm:text-[13px]"
               >
                 {/* Invisible copy at hover tracking reserves the width, so one
                     link's hover never reflows its neighbours. */}
-                <span aria-hidden="true" className="invisible col-start-1 row-start-1 tracking-[0.26em] sm:tracking-[0.35em]">
+                <span aria-hidden="true" className="invisible col-start-1 row-start-1 tracking-[0.12em] sm:tracking-[0.35em]">
                   {link.label}
                 </span>
-                <span className="col-start-1 row-start-1 tracking-[0.16em] transition-[letter-spacing] duration-400 group-hover:tracking-[0.26em] sm:tracking-[0.25em] sm:group-hover:tracking-[0.35em]">
+                <span className="col-start-1 row-start-1 tracking-[0.06em] transition-[letter-spacing] duration-400 group-hover:tracking-[0.12em] sm:tracking-[0.25em] sm:group-hover:tracking-[0.35em]">
                   {link.label}
                 </span>
               </TransitionLink>
