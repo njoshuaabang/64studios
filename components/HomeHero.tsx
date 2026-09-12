@@ -48,12 +48,17 @@ export default function HomeHero() {
     let split: SplitText | undefined;
     let cancelWatch = () => {};
     const ctx = gsap.context(() => {
-      gsap.set(navEl, { opacity: 0 });
-      gsap.set(cardEl, { opacity: 0 });
-      gsap.set(numberEl, { opacity: 0, y: 24 });
-      gsap.set(ruleEl, { scaleX: 0 });
-      gsap.set(taglineEl, { opacity: 0 });
-      gsap.set(buttonEl, { opacity: 0 });
+      // Every from-state here is visible. The entrance used to start at
+      // opacity 0, which meant the threshold — the wordmark included — was a
+      // blank page until the timeline ran. It now starts legible at 0.3 of
+      // full ink and rises to 1, so the page reads from the first paint and
+      // the motion is a settling rather than an appearance.
+      gsap.set(navEl, { opacity: 0.3 });
+      gsap.set(cardEl, { opacity: 1 });
+      gsap.set(numberEl, { opacity: 0.3, y: 24 });
+      gsap.set(ruleEl, { scaleX: 0.12 });
+      gsap.set(taglineEl, { opacity: 0.3 });
+      gsap.set(buttonEl, { opacity: 0.3 });
 
       let chars: Element[] = [];
       if (studiosEl) {
@@ -64,14 +69,13 @@ export default function HomeHero() {
         // that separates the letters visually is CSS, never literal spaces.
         split = new SplitText(studiosEl, { type: "chars", aria: "none" });
         chars = split.chars;
-        gsap.set(chars, { opacity: 0, y: 8 });
+        gsap.set(chars, { opacity: 0.3, y: 8 });
       }
 
       const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
 
       tl.to(navEl, { opacity: 1, duration: 0.8, ease: "power2.out" })
-        .to(cardEl, { opacity: 1, duration: 0.8, ease: "power2.out" }, "-=0.5")
-        .to(numberEl, { opacity: 1, y: 0, duration: 1.1 }, "-=0.3")
+        .to(numberEl, { opacity: 1, y: 0, duration: 1.1 }, "-=0.5")
         .to(ruleEl, { scaleX: 1, duration: 0.9, ease: "power2.out" }, "-=0.6")
         .to(chars, { opacity: 1, y: 0, duration: 0.6, stagger: 0.03, ease: "power2.out" }, "-=0.5")
         .to(taglineEl, { opacity: 1, duration: 0.8 }, "-=0.3")
