@@ -8,13 +8,25 @@ const nextConfig: NextConfig = {
   },
 
   /**
-   * Permanent moves, so the old address stops being a second live URL for the
-   * same thing rather than only pointing at it. Services is folded into
-   * Process, which now carries how a project runs, who it is for and the fees
-   * on one page.
+   * Permanent moves, so an old address stops being a second live URL for the
+   * same thing rather than only pointing at it.
+   *
+   * Services is folded into Process, which now carries how a project runs, who
+   * it is for and the fees on one page. Aldern & Voss is off the site: the
+   * case study goes to the work, and the journal entry about its typography to
+   * the journal. The concept site itself stays up on its own subdomain,
+   * unlinked and noindexed, so those two URLs are the only ones that move.
    */
   async redirects() {
-    return [{ source: "/services", destination: "/process", permanent: true }];
+    return [
+      { source: "/services", destination: "/process", permanent: true },
+      { source: "/portfolio/aldern-voss", destination: "/portfolio", permanent: true },
+      {
+        source: "/journal/why-the-aldern-voss-specifications-are-set-in-mono",
+        destination: "/journal",
+        permanent: true,
+      },
+    ];
   },
 
   /**

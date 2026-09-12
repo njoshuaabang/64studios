@@ -67,9 +67,7 @@ export default async function CaseStudyPage({ params }: PageParams) {
     description: project.subtitle,
     about: project.subtitle,
     creator: { "@type": "Organization", name: "64 Studios", url: SITE_URL },
-    // By convention every project's specs array ends with its year — the one
-    // place that fact already lives, rather than a new field duplicating it.
-    dateCreated: project.specs.at(-1),
+    dateCreated: project.credits.year,
     image: project.cover ? `${SITE_URL}${project.cover.src}` : undefined,
   };
 

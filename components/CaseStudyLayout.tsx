@@ -6,11 +6,11 @@ import type { CaseStudyImage, Project } from "@/config/portfolio";
 
 /**
  * The only case-study layout. Every project renders through this and nothing
- * else, so section spacing, heading sizes, image widths and the specs block
+ * else, so section spacing, heading sizes, image widths and the credit block
  * cannot differ between one project and the next — there is no second
  * component in which they could drift.
  *
- * The rhythm is fixed: situation, its images, approach, its images, specs. A
+ * The rhythm is fixed: situation, its images, approach, its images, credits. A
  * project with no images simply skips those bands; the spacing either side
  * stays the same, because it belongs to the sections rather than to the
  * images.
@@ -135,12 +135,26 @@ export default function CaseStudyLayout({ project }: { project: Project }) {
         </section>
       ) : null}
 
-      <dl className={`${SHELL} ${SECTION} border-t border-bone pt-6`}>
-        <dt className="sr-only">Specification</dt>
-        {project.specs.map((spec) => (
-          <dd key={spec} className="font-body text-[13px] uppercase tracking-[0.2em] text-ink">
-            {spec}
-          </dd>
+      {/* The credit block, set like the title block on an architect's drawing:
+          bone hairlines, a two-column grid, labels in capitals above their
+          values. It is the one visual touch on the site that says "houses"
+          without adding a colour or a typeface.
+
+          Labels are 12px in ink rather than 11px in bone — bone is a
+          decorative tone and fails contrast as text, so it rules the lines
+          here and never carries a word. */}
+      <dl className={`${SHELL} ${SECTION} grid grid-cols-1 gap-x-10 border-t border-bone pt-6 sm:grid-cols-2`}>
+        {[
+          ["Project", project.title],
+          ["Location", project.credits.location],
+          ["Scope", project.credits.scope],
+          ["Year", project.credits.year],
+          ["Status", project.credits.status],
+        ].map(([label, value]) => (
+          <div key={label} className="border-b border-bone py-3 last:border-b-0 sm:last:border-b">
+            <dt className="font-body text-[12px] uppercase tracking-[0.2em] text-ink">{label}</dt>
+            <dd className="mt-1 font-body text-[14px] tabular-nums text-ink">{value}</dd>
+          </div>
         ))}
       </dl>
 
@@ -156,7 +170,6 @@ export default function CaseStudyLayout({ project }: { project: Project }) {
         .
       </p>
 
-      <p className={`${SHELL} mt-10 font-body text-[13px] text-ink`}>{project.attribution}</p>
     </article>
   );
 }
