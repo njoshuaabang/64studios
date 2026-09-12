@@ -8,6 +8,16 @@ const nextConfig: NextConfig = {
   },
 
   /**
+   * Permanent moves, so the old address stops being a second live URL for the
+   * same thing rather than only pointing at it. Services is folded into
+   * Process, which now carries how a project runs, who it is for and the fees
+   * on one page.
+   */
+  async redirects() {
+    return [{ source: "/services", destination: "/process", permanent: true }];
+  },
+
+  /**
    * Aldern & Voss is a Vite single-page app built to `public/aldern-voss/`, so
    * unlike Halden it is not a route group — it is static files plus a client
    * router. These run as `fallback`, which is checked only after the

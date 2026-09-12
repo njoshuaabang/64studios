@@ -1,24 +1,25 @@
 import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
 import TransitionLink from "@/components/TransitionLink";
+import { faqs } from "@/config/faq";
 import { SITE_URL } from "@/lib/site";
 import { UNDERLINE } from "@/lib/underline";
-import { faqs } from "@/config/faq";
 
 const PROSE = "max-w-[58ch] font-body text-base leading-[1.6] text-ink";
-const STAGE_NUMBER = "font-body text-[11px] uppercase tracking-[0.5em] text-ink";
+const STAGE_NUMBER = "font-body text-[12px] uppercase tracking-[0.5em] text-ink";
 const STAGE_TITLE = "mt-2 font-display text-xl font-semibold leading-[1.3] text-ink";
-const WHEN = "mt-1 font-body text-sm text-ink/80";
+const SECTION_HEADING = "font-display text-[clamp(1.25rem,2vw,1.75rem)] font-semibold leading-[1.3] text-ink";
+const OFFER_HEADING = "font-display text-lg font-semibold leading-[1.35] text-ink";
 
 export const metadata: Metadata = {
-  title: { absolute: "How a Project Runs — 64 Studios" },
+  title: { absolute: "How a website project runs, and what it costs — 64 Studios" },
   description:
-    "The one-to-two-week engagement, stage by stage: what happens, what is needed from you, and what you get at handover.",
+    "How a project runs and what it costs: the Website Week at £7,000, or a website from £3,000. For interior designers, architects and builders.",
   alternates: { canonical: "/process" },
   openGraph: {
-    title: "How a Project Runs — 64 Studios",
+    title: "How a website project runs, and what it costs — 64 Studios",
     description:
-      "The one-to-two-week engagement, stage by stage: what happens, what is needed from you, and what you get at handover.",
+      "How a project runs and what it costs: the Website Week at £7,000, or a website from £3,000. For interior designers, architects and builders.",
   },
 };
 
@@ -31,6 +32,7 @@ const breadcrumb = {
   ],
 };
 
+/** Built from the same array that renders the questions, so the two cannot drift. */
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -42,18 +44,16 @@ const faqSchema = {
 };
 
 /**
- * The stages are genuinely sequential and dated, so numbering them is
- * information rather than decoration — which is the only reason it is here.
+ * The six stages are sequential, so numbering them is information rather than
+ * decoration — which is the only reason it is here.
  */
 function Stage({
   number,
   title,
-  when,
   children,
 }: {
   number: string;
   title: string;
-  when: string;
   children: React.ReactNode;
 }) {
   const id = `stage-${number}`;
@@ -61,15 +61,38 @@ function Stage({
     <section aria-labelledby={id} className="pt-[4vh] md:grid md:grid-cols-12 md:gap-6">
       <div className="md:col-span-3">
         <p className={STAGE_NUMBER}>{number}</p>
-        <h2 id={id} className={STAGE_TITLE}>
+        <h3 id={id} className={STAGE_TITLE}>
           {title}
-        </h2>
-        <p className={WHEN}>{when}</p>
+        </h3>
       </div>
       <div className="mt-4 md:col-span-8 md:col-start-5 md:mt-0">{children}</div>
     </section>
   );
 }
+
+/** The two offers a visitor can act on, each with its own next step. */
+function OfferLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <TransitionLink
+      href={href}
+      className="group mt-4 inline-flex items-center py-2 font-body text-xs uppercase tracking-[0.25em] text-ink"
+    >
+      <span className="relative pb-1">
+        {children}
+        <span className={UNDERLINE} />
+      </span>
+    </TransitionLink>
+  );
+}
+
+const worksFor = [
+  "Interior designers",
+  "Architects",
+  "Builders and design-and-build firms",
+  "Kitchen, joinery and furniture makers",
+  "Garden and landscape designers",
+  "Developers of small residential schemes",
+];
 
 export default function ProcessPage() {
   return (
@@ -78,118 +101,156 @@ export default function ProcessPage() {
       <JsonLd data={faqSchema} />
 
       <div className="pb-[2vh] pt-[6vh]">
-        <div aria-hidden="true" className="h-px w-12 bg-ink" />
+        <div aria-hidden="true" className="h-px w-12 bg-bone" />
         <h1 className="mt-3 max-w-[22ch] font-display text-[clamp(1.5rem,2.6vw,2.25rem)] font-semibold leading-[1.3] text-ink">
           How a project runs, start to finish
         </h1>
         <p className={`mt-6 ${PROSE}`}>
-          A project takes one to two weeks from first conversation to launch. That is possible
-          because the studio runs one project at a time, not because a stage is skipped. What
-          follows is what actually happens in that window, in the order it happens, and what is
-          needed from you at each point.
+          Every project follows the same six stages. The Website Week, described below, fits the
+          build into five fixed days.
         </p>
       </div>
 
-      <Stage number="00" title="Before the clock starts" when="A conversation, then a start date">
+      <Stage number="00" title="The conversation">
         <p className={PROSE}>
-          Nothing begins with a brief document. It begins with a conversation long enough to hear
-          what the business actually is and who it is losing to. That conversation is free, and it
-          is where most of the useful decisions get made.
-        </p>
-        <p className={`mt-3 ${PROSE}`}>
-          What is needed before the window opens is small: whatever already exists of the brand,
-          and access to the domain. If there is photography worth keeping, it helps to see it
-          early. If there is none, that is an ordinary starting point and is dealt with in stage
-          two.
+          Free, and where most of the decisions get made: what the business does, and which projects
+          it wants to be known for.
         </p>
       </Stage>
 
-      <Stage number="01" title="The identity" when="Days one to three">
+      <Stage number="01" title="The content">
         <p className={PROSE}>
-          The mark is drawn first, then the type it sits in, then the palette that has to hold its
-          contrast at small sizes. It is shown once, in full, applied to real surfaces rather than
-          floating on a white board.
-        </p>
-        <p className={`mt-3 ${PROSE}`}>
-          One direction is shown, not three. A studio that offers three has usually only believed
-          in one, and asking a client to pick between two it does not believe in is a way of moving
-          the decision rather than making it.
-        </p>
-        <p className={`mt-3 ${PROSE}`}>
-          What is needed from you here is a decision, and where something is wrong, a specific
-          reason. &ldquo;Make it pop&rdquo; costs a day. &ldquo;The mark disappears against our
-          packaging&rdquo; costs an hour.
+          Photographs of your best projects with a line or two about each, and access to the domain.
+          The studio sends a short list of exactly what is needed. Nothing starts until it is in,
+          because a site built around missing photographs gets built twice.
         </p>
       </Stage>
 
-      <Stage number="02" title="The site, drawn" when="Days three to five">
+      <Stage number="02" title="The direction">
         <p className={PROSE}>
-          The site is drawn from the identity rather than designed separately and matched to it
-          afterwards. Layout and the behaviour of every state are decided here: what a page does on
-          a phone, what a link does on hover, what the page looks like while an image is still
-          loading.
-        </p>
-        <p className={`mt-3 ${PROSE}`}>
-          Nothing is drawn that cannot be built. That is the advantage of drawing and building
-          inside one studio, with no stage where a design goes over a wall and comes back as an
-          approximation of itself.
+          One design direction, shown on your own projects rather than placeholder images, and
+          agreed before any code is written.
         </p>
       </Stage>
 
-      <Stage number="03" title="The build" when="Days five to nine">
+      <Stage number="03" title="The build">
         <p className={PROSE}>
-          The front end is written in Next.js. Motion is added in GSAP where it earns its place and
-          left out everywhere else. Images are compressed and sized properly, because a site that
-          loads slowly on a phone has already lost the visitor it was built for.
-        </p>
-        <p className={`mt-3 ${PROSE}`}>
-          You watch it on a real URL while it is being built, not in a slideshow. Feedback is
-          cheapest at this stage: changing a decision in the second week costs more than changing
-          it in the first.
+          Next.js, on a live link you can open at any point. Images are sized for phones, because
+          most of your clients will see the site on one first.
         </p>
       </Stage>
 
-      <Stage number="04" title="Launch" when="Day nine or ten">
+      <Stage number="04" title="Launch">
         <p className={PROSE}>
-          The domain is pointed, the analytics are connected, and the site goes live. Launch sits
-          inside the window rather than after it, which is the part most quoted timelines quietly
-          leave out.
-        </p>
-        <p className={`mt-3 ${PROSE}`}>
-          What you get at handover is the live site and the identity files in the formats they are
-          actually used in. There is also a short written note on what was decided and why. That
-          note matters more than it sounds: it is what stops the next person who touches the site
-          from undoing a decision without knowing it was one.
+          The site goes live on your domain, with analytics connected. A Website Week site also
+          comes with a short recorded walkthrough of the editor.
         </p>
       </Stage>
 
-      <Stage number="05" title="After launch" when="The first month, and after it">
+      <Stage number="05" title="After launch">
         <p className={PROSE}>
-          The site is yours, on your own Vercel account if you would rather it lived there. Nothing
-          is held hostage. There is no proprietary builder to keep paying for and no licence to
-          expire.
-        </p>
-        <p className={`mt-3 ${PROSE}`}>
-          Small changes in the first month are part of the project rather than a new one. After
-          that, work is quoted as it comes.
-        </p>
-        <p className={`mt-3 ${PROSE}`}>
-          The studio does not sell a retainer by default. Most sites of this kind need very little
-          in their first year, and a retainer sold against work that is not needed is a
-          subscription rather than a service.
+          Small changes in the first month are included. After that, the care plan covers hosting
+          and updates. The site is yours either way, and can move to your own account at any point.
         </p>
       </Stage>
 
-      {/* Set as prose, not as an accordion: there are eight of these and
-          nothing is gained by hiding seven of them behind a control. The
-          questions are h3 under one h2, which is also the shape the schema
-          above describes. */}
-      <section aria-labelledby="faq-label" className="pt-[6vh]">
-        <h2 id="faq-label" className={STAGE_NUMBER}>
-          Questions
-        </h2>
-        <div className="mt-6 md:grid md:grid-cols-12 md:gap-6">
-          <dl className="md:col-span-8 md:col-start-5">
+      <section aria-labelledby="who" className="pt-[7vh] md:grid md:grid-cols-12 md:gap-6">
+        <div className="md:col-span-3">
+          <h2 id="who" className={SECTION_HEADING}>
+            Who the studio works for
+          </h2>
+        </div>
+        <div className="mt-4 md:col-span-8 md:col-start-5 md:mt-0">
+          <ul className="flex flex-col gap-3">
+            {worksFor.map((item) => (
+              <li key={item} className="flex max-w-[58ch] gap-3 font-body text-base leading-[1.6] text-ink">
+                <span aria-hidden="true" className="mt-[0.7em] h-px w-3 shrink-0 bg-bone" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+          <p className={`mt-6 ${PROSE}`}>
+            The studio does not build online shops, or sites that depend on a team publishing every
+            week.
+          </p>
+        </div>
+      </section>
+
+      {/* The id the spec asks for, so /process#fees can be linked to directly. */}
+      <section aria-labelledby="fees-heading" id="fees" className="scroll-mt-24 pt-[7vh]">
+        <div className="md:grid md:grid-cols-12 md:gap-6">
+          <div className="md:col-span-3">
+            <h2 id="fees-heading" className={SECTION_HEADING}>
+              Websites, and what they cost
+            </h2>
+          </div>
+          <div className="mt-4 md:col-span-8 md:col-start-5 md:mt-0">
+            <p className={PROSE}>
+              The studio makes websites and nothing else. Every site is drawn from scratch and built
+              by hand.
+            </p>
+
+            {/* The Week leads. It is the larger commitment, and reading it first
+                is what makes the £3,000 option read as the smaller one. */}
+            <div className="mt-10 border-t border-bone pt-6">
+              <h3 className={OFFER_HEADING}>The Website Week — £7,000</h3>
+              <p className={`mt-3 ${PROSE}`}>
+                One fixed week, Monday to Friday, booked in advance. The studio takes on nothing
+                else that week.
+              </p>
+              <p className={`mt-3 ${PROSE}`}>
+                The week before, the design direction is agreed and your photographs and project
+                list come in. The build starts on Monday, and each evening you get a short video of
+                the day&rsquo;s progress.
+              </p>
+              <p className={`mt-3 ${PROSE}`}>
+                Up to ten pages, with the copy written together. It comes with an editor, so you can
+                add new projects yourself. With everything in the week before, the site is live by
+                Friday, or the second half of the fee is waived.
+              </p>
+              <OfferLink href="/contact?option=week">Book a Website Week</OfferLink>
+            </div>
+
+            <div className="mt-10 border-t border-bone pt-6">
+              <h3 className={OFFER_HEADING}>A website — £3,000</h3>
+              <p className={`mt-3 ${PROSE}`}>
+                The first three commissions are £3,000. After that, £5,000.
+              </p>
+              <p className={`mt-3 ${PROSE}`}>
+                Up to six pages, drawn and coded from scratch, set up for phones and for search. Two
+                rounds of revisions. About three weeks from receiving your photographs to launch.
+                New projects are added by the studio through the care plan.
+              </p>
+              <OfferLink href="/contact?option=website">Start a website</OfferLink>
+            </div>
+
+            <div className="mt-10 border-t border-bone pt-6">
+              <h3 className={OFFER_HEADING}>Care — £200 a month</h3>
+              <p className={`mt-3 ${PROSE}`}>
+                Hosting, updates, backups and up to two new projects added for you each month.
+                Cancel with 30 days&rsquo; notice.
+              </p>
+            </div>
+
+            <p className={`mt-10 ${PROSE}`}>
+              Additional pages are £200 each. Half the fee secures a start date, and the rest is due
+              before launch. No VAT is added.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Prose, not an accordion: there are five of these and nothing is gained
+          by hiding four behind a control. Every answer stays visible, for
+          readers and for the engines that quote them. */}
+      <section aria-labelledby="questions" className="pt-[7vh]">
+        <div className="md:grid md:grid-cols-12 md:gap-6">
+          <div className="md:col-span-3">
+            <h2 id="questions" className={SECTION_HEADING}>
+              Questions
+            </h2>
+          </div>
+          <dl className="mt-4 md:col-span-8 md:col-start-5 md:mt-0">
             {faqs.map((item) => (
               <div key={item.q} className="mt-8 first:mt-0">
                 <dt>
@@ -204,7 +265,7 @@ export default function ProcessPage() {
         </div>
       </section>
 
-      <div className="pb-[6vh] pt-[5vh]">
+      <div className="pb-[6vh] pt-[7vh]">
         <TransitionLink
           href="/contact"
           className="group inline-flex items-center py-2 font-body text-xs uppercase tracking-[0.25em] text-ink"
