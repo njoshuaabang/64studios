@@ -28,7 +28,7 @@ const founder = {
   "@type": "Person",
   name: "Nkere Abang",
   jobTitle: "Founder",
-  worksFor: { "@id": `${SITE_URL}/#organization` },
+  worksFor: { "@id": `${SITE_URL}/#studio` },
   address: {
     "@type": "PostalAddress",
     addressLocality: "Sheffield",
