@@ -118,9 +118,8 @@ export const projects: Project[] = [
     ],
     approachHeading: APPROACH_HEADING,
     approach: [
-      "Most private clubs sell themselves in the language of a hotel. Halden is a house in Marylebone that behaves like one — a black door, six stools at the bar, twelve places at one table. The identity and the site were built to withhold rather than persuade.",
+      "Most private clubs sell themselves in the language of a hotel. Halden is a house in Marylebone that behaves like one — a black door, six stools at the bar, twelve places at one table. The site was built to withhold rather than persuade.",
       "Nothing on the site explains what a private house is, because a visitor who needs that explained is not the visitor. It shows the rooms and states the terms, then stops.",
-      "The identity follows the building rather than the category. Zodiak, a high-contrast transitional serif, is the period voice for a house built in 1794, and Switzer carries everything functional underneath it. The palette is limewash and deep green taken off the walls themselves, with brass reserved for the things that have to be found rather than read.",
     ],
     decisions: [
       {
@@ -142,7 +141,6 @@ export const projects: Project[] = [
     ],
     shipped: [
       "Four pages: the threshold, the house, membership and the enquiry.",
-      "A wordmark set in Zodiak with its own letter-spacing, and a palette of five. The type scale stops at 40px so that no heading can outgrow the mark by accident.",
       "Nine room plates and three detail shots, art-directed and sequenced rather than gathered.",
       "A three-field enquiry form, the shortest the house could ask for and still reply properly.",
       "Built in Next.js and deployed on Vercel, with GSAP for the threshold sequence and the reveals. Every animation is gated on prefers-reduced-motion.",
