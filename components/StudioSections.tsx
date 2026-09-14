@@ -42,8 +42,8 @@ export default function StudioSections() {
   }, []);
 
   return (
-    <main id="main-content" tabIndex={-1} ref={containerRef} className="mx-auto max-w-5xl px-4 md:px-6">
-      <section aria-labelledby="mission" data-reveal className="pb-[2vh] pt-[6vh]">
+    <main id="main-content" tabIndex={-1} ref={containerRef} className="mx-auto max-w-5xl px-4 pt-16 md:px-6 md:pt-20">
+      <section aria-labelledby="mission" data-reveal className="pb-[2vh]">
         <div data-reveal-item aria-hidden="true" className="h-px w-12 bg-bone" />
         <h1
           id="mission"
