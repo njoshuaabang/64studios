@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import TransitionLink from "./TransitionLink";
 
 const links = [
@@ -32,32 +33,54 @@ const THRESHOLD = 8;
 
 function useHideOnScrollDown() {
   const [hidden, setHidden] = useState(false);
+  // A client-side navigation leaves the last page's scroll position behind.
+  // Re-running the effect per route resets the baseline, so the first scroll
+  // on the new page is measured from where that page actually starts.
+  const pathname = usePathname();
 
   useEffect(() => {
     let previous = window.scrollY;
-    let frame = 0;
 
-    const read = () => {
-      frame = 0;
+    const onScroll = () => {
       const y = window.scrollY;
       const moved = y - previous;
+      // Small moves accumulate rather than resetting the baseline, so a
+      // trackpad's jitter and the rubber-band at the end of a phone scroll
+      // do not flicker it.
       if (Math.abs(moved) < THRESHOLD) return;
       previous = y;
       setHidden(moved > 0 && y > HIDE_BELOW);
     };
 
-    // Scroll fires far more often than the page can paint, so the reading is
-    // deferred to the next frame and coalesced.
-    const onScroll = () => {
-      if (!frame) frame = window.requestAnimationFrame(read);
-    };
-
+    // The reading used to be deferred to the next animation frame and latched
+    // behind the pending handle. That handle was the bug: a frame scheduled
+    // and then dropped rather than run — which is what a phone does when it
+    // locks, when the tab goes to the background, or when a page comes back
+    // out of the back/forward cache — left the latch set for good, and the
+    // listener never scheduled another read. The behaviour worked exactly
+    // once per page load and then died until the next full reload.
+    //
+    // Reading window.scrollY straight out of a passive listener cannot get
+    // stuck. It costs a cached property read per event, and React drops a
+    // state update that does not change the value, so the re-render count is
+    // the same as before.
     window.addEventListener("scroll", onScroll, { passive: true });
+
+    // Coming back from a lock, an app switch or the back/forward cache, the
+    // baseline is stale and the first delta would be meaningless. Both of
+    // these resync it against where the page actually is.
+    const resync = () => {
+      previous = window.scrollY;
+    };
+    window.addEventListener("pageshow", resync);
+    document.addEventListener("visibilitychange", resync);
+
     return () => {
       window.removeEventListener("scroll", onScroll);
-      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("pageshow", resync);
+      document.removeEventListener("visibilitychange", resync);
     };
-  }, []);
+  }, [pathname]);
 
   return hidden;
 }
