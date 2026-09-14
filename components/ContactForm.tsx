@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { useSearchParams } from "next/navigation";
 import { track } from "@vercel/analytics";
 import { UNDERLINE } from "@/lib/underline";
 
@@ -8,38 +9,74 @@ import { UNDERLINE } from "@/lib/underline";
 // who is told to write directly reaches the same inbox the form does.
 const email = "studio@64studios.design";
 
-type FieldName = "name" | "email" | "make" | "brandHome";
+type FieldName = "name" | "email" | "business" | "website";
 
 const fields: {
   name: FieldName;
   label: string;
-  type: "text" | "email";
+  type: "text" | "email" | "url";
   required: boolean;
   /** The autofill token a browser matches this field against. */
   autoComplete: string;
+  /** An example, never a stand-in for the label. */
+  placeholder?: string;
   error?: string;
 }[] = [
   { name: "name", label: "Your name", type: "text", required: true, autoComplete: "name", error: "Please add your name." },
   { name: "email", label: "Your email", type: "email", required: true, autoComplete: "email", error: "Please add a valid email." },
-  // Not blocking. The approved copy supplies exactly two empty-field
-  // messages, for name and email, and inventing more would be writing copy
-  // that was never approved. Left open pending a line for it.
-  { name: "make", label: "What you make", type: "text", required: false, autoComplete: "organization" },
-  { name: "brandHome", label: "Where your brand lives now — optional", type: "text", required: false, autoComplete: "url" },
+  {
+    name: "business",
+    label: "Your business",
+    type: "text",
+    required: true,
+    autoComplete: "organization",
+    placeholder: "Interior design studio, Harrogate",
+    error: "Please add your business.",
+  },
+  {
+    name: "website",
+    label: "Your current website — optional",
+    type: "url",
+    required: false,
+    autoComplete: "url",
+  },
 ];
+
+/**
+ * The four things a visitor might be after. The value is what the address bar
+ * carries and what the mail subject prints; the label is what is on screen.
+ *
+ * /process links here with ?option=week and ?option=website, so someone who
+ * has just read an offer arrives with it already chosen and one fewer thing
+ * to do.
+ */
+const options = [
+  { value: "week", label: "The Website Week" },
+  { value: "website", label: "A website" },
+  { value: "development", label: "A site for a development" },
+  { value: "unsure", label: "Not sure yet" },
+] as const;
 
 /** Matches MAX_LENGTHS.message in app/api/contact/route.ts. */
 const MESSAGE_MAX = 2000;
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+const FIELD =
+  "mt-1 w-full rounded-none border-0 border-b border-bone bg-transparent py-1 font-body text-base text-ink transition-colors duration-400 focus:border-ink";
+
 export default function ContactForm() {
+  const params = useSearchParams();
+  const preselected = params.get("option");
   const [values, setValues] = useState<Record<FieldName, string>>({
     name: "",
     email: "",
-    make: "",
-    brandHome: "",
+    business: "",
+    website: "",
   });
+  const [option, setOption] = useState(
+    options.some((o) => o.value === preselected) ? (preselected as string) : "",
+  );
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState<Partial<Record<FieldName, string>>>({});
   const [status, setStatus] = useState<"idle" | "submitting" | "sent" | "failed">("idle");
@@ -53,6 +90,7 @@ export default function ContactForm() {
     if (!values.email.trim() || !EMAIL_RE.test(values.email.trim())) {
       nextErrors.email = "Please add a valid email.";
     }
+    if (!values.business.trim()) nextErrors.business = "Please add your business.";
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
 
@@ -67,8 +105,9 @@ export default function ContactForm() {
         body: JSON.stringify({
           name: values.name.trim(),
           email: values.email.trim(),
-          make: values.make.trim(),
-          brandHome: values.brandHome.trim(),
+          business: values.business.trim(),
+          website: values.website.trim(),
+          option: options.find((o) => o.value === option)?.label ?? "",
           message: message.trim(),
           company: honeypot,
         }),
@@ -93,7 +132,7 @@ export default function ContactForm() {
 
   return (
     <form noValidate onSubmit={handleSubmit} className="mt-10 flex flex-col gap-6">
-      {fields.map(({ name, label, type, required, autoComplete }) => (
+      {fields.map(({ name, label, type, required, autoComplete, placeholder }) => (
         <div key={name} className="flex flex-col">
           <label htmlFor={`contact-${name}`} className="font-body text-sm text-ink">
             {label}
@@ -105,13 +144,14 @@ export default function ContactForm() {
             value={values[name]}
             required={required}
             autoComplete={autoComplete}
+            placeholder={placeholder}
             aria-invalid={errors[name] ? true : undefined}
             aria-describedby={errors[name] ? `contact-${name}-error` : undefined}
             onChange={(event) => {
               setValues((prev) => ({ ...prev, [name]: event.target.value }));
               setErrors((prev) => ({ ...prev, [name]: undefined }));
             }}
-            className="mt-1 w-full rounded-none border-0 border-b border-bone bg-transparent py-1 font-body text-base text-ink transition-colors duration-400 focus:border-ink"
+            className={`${FIELD} placeholder:text-ink/40`}
           />
           {errors[name] ? (
             <p id={`contact-${name}-error`} className="mt-1 font-body text-sm text-ink">
@@ -121,10 +161,35 @@ export default function ContactForm() {
         </div>
       ))}
 
-      {/* The one field for saying what the project actually is. Optional,
-          because an enquiry that only leaves a name and an address is still
-          worth having, and asking for a paragraph before a conversation has
-          started is a good way not to get one. */}
+      {/* A fieldset with a legend rather than four loose inputs: a screen
+          reader announces the question once and then each answer within it,
+          which a group of checkboxes wearing a paragraph for a label cannot
+          do. Four radios rather than a select, because all four choices are
+          worth seeing without opening anything. */}
+      <fieldset className="flex flex-col border-0 p-0">
+        <legend className="font-body text-sm text-ink">Which suits you — optional</legend>
+        <div className="mt-2 flex flex-col gap-2">
+          {options.map((item) => (
+            <label
+              key={item.value}
+              htmlFor={`contact-option-${item.value}`}
+              className="flex cursor-pointer items-center gap-3 font-body text-base text-ink"
+            >
+              <input
+                id={`contact-option-${item.value}`}
+                type="radio"
+                name="option"
+                value={item.value}
+                checked={option === item.value}
+                onChange={() => setOption(item.value)}
+                className="h-4 w-4 shrink-0 accent-ink"
+              />
+              {item.label}
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
       <div className="flex flex-col">
         <label htmlFor="contact-message" className="font-body text-sm text-ink">
           Anything else
@@ -136,7 +201,7 @@ export default function ContactForm() {
           maxLength={MESSAGE_MAX}
           value={message}
           onChange={(event) => setMessage(event.target.value)}
-          className="mt-1 w-full resize-y rounded-none border-0 border-b border-bone bg-transparent py-1 font-body text-base text-ink transition-colors duration-400 focus:border-ink"
+          className={`${FIELD} resize-y`}
         />
       </div>
 
@@ -160,7 +225,7 @@ export default function ContactForm() {
 
       {status === "sent" ? (
         <p role="status" className="font-body text-sm leading-relaxed text-ink">
-          {"Thank you \u2014 that's arrived safely. You'll hear back within a day or two."}
+          {"Thank you — that's arrived safely. You'll hear back within a day or two."}
         </p>
       ) : null}
 

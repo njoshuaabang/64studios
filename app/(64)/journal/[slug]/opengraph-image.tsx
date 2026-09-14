@@ -1,7 +1,7 @@
 import { renderOgImage, OG_SIZE } from "@/lib/og";
 import { entries, getEntry } from "@/config/journal";
 
-export const alt = "64 Studios";
+export const alt = "64 Studios — Websites for the people behind fine homes";
 export const size = OG_SIZE;
 export const contentType = "image/png";
 
@@ -19,7 +19,9 @@ export default async function Image({ params }: { params: Promise<{ slug: string
 
   // A slug with no entry never renders a page either, so the card falls back
   // to the section label rather than inventing a title for it.
-  if (!entry) return renderOgImage({ kind: "label", text: "Journal" });
+  // No entry means the slug is not one of ours; the card falls back to the
+  // studio line rather than naming a piece that does not exist.
+  if (!entry) return renderOgImage();
 
-  return renderOgImage({ kind: "entry", eyebrow: "Journal", title: entry.title });
+  return renderOgImage(entry.title);
 }

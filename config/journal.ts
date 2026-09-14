@@ -60,41 +60,6 @@ export const entries: JournalEntry[] = [
       },
     ],
   },
-  {
-    slug: "why-the-aldern-voss-specifications-are-set-in-mono",
-    title: "Why the Aldern & Voss specifications are set in mono",
-    summary:
-      "A monospace face is the wrong choice for almost everything on a website, and the right one for a column of measurements.",
-    published: "2026-09-05",
-    project: "Aldern & Voss",
-    projectSlug: "aldern-voss",
-    body: [
-      "Aldern & Voss sells one watch. There is no catalogue, no colourway and no second reference to compare against. What the site has in place of range is precision: case diameter, movement, water resistance, lug width, the figures a person buying this kind of object actually reads before anything else.",
-      "Those figures are set in IBM Plex Mono. The rest of the site runs on Space Grotesk for display and IBM Plex Sans for body copy, so the monospace face is doing one job and only one.",
-      "The obvious argument for it is alignment. In a proportional face the digit 1 is narrower than the digit 8, so a column of figures does not line up down its right edge. There is a proper fix for that, font-variant-numeric: tabular-nums, and on a text-heavier site it would be the better answer, because it keeps the body face throughout and changes only the digits.",
-      "Mono was chosen anyway, and the reason is register rather than metrics. A specification is not prose. It is an instrument reading, and it should look like one. A monospace face carries that association honestly: it is the face of the technical document and the movement stamp. Set in the same face as the paragraph above them, the specs would read as a claim. Set in mono, they read as a measurement.",
-      "The same face carries the eyebrows and the navigation, at eleven and ten pixels with heavy letter-spacing. That is not decoration either. It marks everything on the page that is a label rather than a sentence, so a reader can tell at a glance which text is talking and which is pointing.",
-      "There is a loading cost and it is smaller than it looks. The mono appears only at label sizes and in short strings of figures, so it needs one weight and a Latin subset. That is a few kilobytes on a page whose hero is a photograph of a watch.",
-      "The real cost is a third typeface, which breaks a rule most identities should hold to. Two faces is the discipline. Three is usually a failure to decide, and the third one is usually there because someone wanted variety rather than because a job needed doing.",
-      "This one earns its place because it does something neither of the others can. It is not a second body face. It is a different kind of speech, and the site has two kinds of thing to say.",
-      "There is one place the choice is measurably worse, and it is worth naming. A long string of letter-spaced uppercase set in a monospace face is slower to read for anyone reading rather than scanning, because the even advance width removes the word shapes a reader normally navigates by. That is exactly why it is confined here to labels and to figures, and never given a sentence to carry.",
-      "The check worth applying before doing it again: name the job the third face does, in one sentence, without using the word accent. If that sentence will not come, the face is decoration and it should go.",
-    ],
-    images: [
-      {
-        src: "/portfolio/aldern-voss/site-01.jpg",
-        alt: "The Aldern & Voss threshold screen: a photograph of the watch standing upright on a pale surface, with the name beneath it set large in a geometric sans, two lines of body copy under that, and a BEGIN EXPERIENCE button and the line REF. 01 · CLERKENWELL & FLORENCE both set in small letter-spaced monospace capitals.",
-        caption: "All three faces on one screen. The name is the display face, the two lines of argument are the body sans, and the button and the reference line are the mono.",
-        after: 1,
-      },
-      {
-        src: "/portfolio/aldern-voss/site-02.jpg",
-        alt: "The Aldern & Voss reference page part-way through its sequence: a photograph of the watch worn on a wrist, with 07 WORN set beneath it in small letter-spaced monospace capitals and the sentence 38mm rests close to the wrist set larger in the body sans below that. The header carries ALDERN & VOSS, REF. 01 and CLERKENWELL & FLORENCE in the same monospace.",
-        caption: "The label above the sentence, one in mono and one in sans. A reader can tell which is pointing and which is talking before reading either.",
-        after: 4,
-      },
-    ],
-  },
 ];
 
 export function getEntry(slug: string) {

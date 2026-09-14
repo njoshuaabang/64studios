@@ -9,7 +9,7 @@ const breadcrumb = {
   "@type": "BreadcrumbList",
   itemListElement: [
     { "@type": "ListItem", position: 1, name: "64 Studios", item: SITE_URL },
-    { "@type": "ListItem", position: 2, name: "The Studio", item: `${SITE_URL}/studio` },
+    { "@type": "ListItem", position: 2, name: "Studio", item: `${SITE_URL}/studio` },
   ],
 };
 
@@ -28,28 +28,26 @@ const founder = {
   "@type": "Person",
   name: "Nkere Abang",
   jobTitle: "Founder",
-  worksFor: { "@id": `${SITE_URL}/#organization` },
+  worksFor: { "@id": `${SITE_URL}/#studio` },
   address: {
     "@type": "PostalAddress",
     addressLocality: "Sheffield",
     addressCountry: "GB",
   },
-  knowsAbout: ["brand identity", "web design", "front-end development"],
+  knowsAbout: ["Web design for interior designers", "Web design for architects", "Websites for builders", "Next.js"],
   sameAs: social.filter((item) => item.label === "LinkedIn").map((item) => item.href),
 };
 
 export const metadata: Metadata = {
   // Absolute, so the "%s — 64 Studios" template does not append a second time.
-  // 64 characters — 4 over the "under 60 where possible" guideline, kept
-  // because it is the exact string specified for this route.
-  title: { absolute: "About 64 Studios — Brand Identity & Web Design Studio, Sheffield" },
+  title: { absolute: "About 64 Studios — a web studio in Sheffield" },
   description:
-    "One project at a time, one to two weeks from first conversation to launch. Brand identity and websites drawn from scratch and built by hand — no templates, no page builders.",
+    "64 Studios designs and builds websites for interior designers, architects, builders and makers. Founded by Nkere Abang in Sheffield.",
   alternates: { canonical: "/studio" },
   openGraph: {
-    title: "About 64 Studios — Brand Identity & Web Design Studio, Sheffield",
+    title: "About 64 Studios — a web studio in Sheffield",
     description:
-      "One project at a time, one to two weeks from first conversation to launch. Brand identity and websites drawn from scratch and built by hand — no templates, no page builders.",
+      "64 Studios designs and builds websites for interior designers, architects, builders and makers. Founded by Nkere Abang in Sheffield.",
   },
 };
 

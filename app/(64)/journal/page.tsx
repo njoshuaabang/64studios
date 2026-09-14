@@ -35,10 +35,10 @@ const dateFormat = new Intl.DateTimeFormat("en-GB", {
 
 export default function JournalPage() {
   return (
-    <main id="main-content" tabIndex={-1} className="mx-auto max-w-5xl px-4 md:px-6">
+    <main id="main-content" tabIndex={-1} className="mx-auto max-w-5xl px-4 pt-16 md:px-6 md:pt-20">
       <JsonLd data={breadcrumb} />
 
-      <div className="pb-[2vh] pt-[6vh]">
+      <div className="pb-[2vh]">
         <div aria-hidden="true" className="h-px w-12 bg-ink" />
         <h1 className="mt-3 max-w-[22ch] font-display text-[clamp(1.5rem,2.6vw,2.25rem)] font-semibold leading-[1.3] text-ink">
           Notes on the work

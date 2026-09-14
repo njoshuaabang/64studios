@@ -3,7 +3,7 @@ import { Resend } from "resend";
 const TO = "studio@64studios.design";
 const FROM = "64 Studios <studio@64studios.design>";
 
-const MAX_LENGTHS = { name: 200, email: 254, make: 2000, brandHome: 500, message: 2000 } as const;
+const MAX_LENGTHS = { name: 200, email: 254, business: 200, website: 500, option: 60, message: 2000 } as const;
 
 /**
  * Strips CR and LF before a value can reach a mail header.
@@ -69,8 +69,10 @@ export async function POST(request: Request) {
 
   const name = typeof body.name === "string" ? stripBreaks(body.name) : "";
   const email = typeof body.email === "string" ? stripBreaks(body.email) : "";
-  const make = typeof body.make === "string" ? stripBreaks(body.make) : "";
-  const brandHome = typeof body.brandHome === "string" ? stripBreaks(body.brandHome) : "";
+  const business = typeof body.business === "string" ? stripBreaks(body.business) : "";
+  const website = typeof body.website === "string" ? stripBreaks(body.website) : "";
+  // Reaches the subject line, so it is stripped like the rest and capped.
+  const option = typeof body.option === "string" ? stripBreaks(body.option) : "";
   // The message keeps its line breaks: it is the one field that is prose and
   // it only ever reaches the body of the mail, never a header.
   const message = typeof body.message === "string" ? body.message.trim() : "";
@@ -81,7 +83,14 @@ export async function POST(request: Request) {
   if (!email || email.length > MAX_LENGTHS.email || !EMAIL_RE.test(email)) {
     return Response.json({ ok: false, error: "Please add a valid email." }, { status: 400 });
   }
-  if (make.length > MAX_LENGTHS.make || brandHome.length > MAX_LENGTHS.brandHome) {
+  if (!isSubscribe && !business) {
+    return Response.json({ ok: false, error: "Please add your business." }, { status: 400 });
+  }
+  if (
+    business.length > MAX_LENGTHS.business ||
+    website.length > MAX_LENGTHS.website ||
+    option.length > MAX_LENGTHS.option
+  ) {
     return Response.json({ ok: false, error: "That's too long." }, { status: 400 });
   }
   if (message.length > MAX_LENGTHS.message) {
@@ -102,8 +111,9 @@ export async function POST(request: Request) {
     : [
         `Name: ${name}`,
         `Email: ${email}`,
-        make ? `What they make: ${make}` : null,
-        brandHome ? `Where their brand lives now: ${brandHome}` : null,
+        `Business: ${business}`,
+        website ? `Current website: ${website}` : null,
+        option ? `Which suits them: ${option}` : null,
         message ? `\nAnything else:\n${message}` : null,
       ].filter(Boolean);
 
@@ -114,10 +124,14 @@ export async function POST(request: Request) {
       to: TO,
       replyTo: email,
       // The subject is the tag: an inbox filter or a search separates
-      // subscribers from enquiries without either needing its own address,
-      // and carrying the address or the name means a full inbox is scannable
-      // without opening anything.
-      subject: isSubscribe ? `Subscriber — ${email}` : `Enquiry — ${name}`,
+      // subscribers from enquiries without either needing its own address.
+      // An enquiry carries the option and the business, so a full inbox sorts
+      // itself by what was asked for and who asked, without opening anything.
+      // The option is dropped when nobody picked one rather than printing an
+      // empty pair of dashes.
+      subject: isSubscribe
+        ? `Subscriber — ${email}`
+        : [`Enquiry`, option, business].filter(Boolean).join(" — "),
       text: lines.join("\n"),
     });
     if (error) {

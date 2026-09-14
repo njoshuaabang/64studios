@@ -41,8 +41,12 @@ export type Project = {
   situationExtra?: string[];
   approachHeading: string;
   approach: string[];
-  /** Small strings: services, stack, metrics. */
-  specs: string[];
+  /**
+   * The credit block, set like an architect's drawing title block. Held as
+   * named fields rather than loose strings so every case study prints the
+   * same five, in the same order, with nothing optional to forget.
+   */
+  credits: { location: string; scope: string; year: string; status: string };
   /**
    * The two deeper sections. Optional because only the one case study the
    * brief asked to take further carries them — the other two keep the short
@@ -50,7 +54,6 @@ export type Project = {
    */
   decisions?: { title: string; body: string }[];
   shipped?: string[];
-  attribution: string;
   images: CaseStudyImage[];
   cover?: ProjectImage;
   url?: string;
@@ -71,8 +74,12 @@ export const projects: Project[] = [
     approach: [
       "A results-led register: nine projects, each shown as photography and a short factual note on the one move that mattered. The portfolio does the persuading, so the copy does not.",
     ],
-    specs: ["Brand identity · Art direction · Website", "2026"],
-    attribution: "Self-initiated concept.",
+    credits: {
+      location: "Los Angeles and London",
+      scope: "Website, 13 pages",
+      year: "2026",
+      status: "Self-initiated concept",
+    },
     images: [
       {
         src: "/portfolio/nash-calloway/site-01.jpg",
@@ -111,9 +118,8 @@ export const projects: Project[] = [
     ],
     approachHeading: APPROACH_HEADING,
     approach: [
-      "Most private clubs sell themselves in the language of a hotel. Halden is a house in Marylebone that behaves like one — a black door, six stools at the bar, twelve places at one table. The identity and the site were built to withhold rather than persuade.",
+      "Most private clubs sell themselves in the language of a hotel. Halden is a house in Marylebone that behaves like one — a black door, six stools at the bar, twelve places at one table. The site was built to withhold rather than persuade.",
       "Nothing on the site explains what a private house is, because a visitor who needs that explained is not the visitor. It shows the rooms and states the terms, then stops.",
-      "The identity follows the building rather than the category. Zodiak, a high-contrast transitional serif, is the period voice for a house built in 1794, and Switzer carries everything functional underneath it. The palette is limewash and deep green taken off the walls themselves, with brass reserved for the things that have to be found rather than read.",
     ],
     decisions: [
       {
@@ -135,18 +141,17 @@ export const projects: Project[] = [
     ],
     shipped: [
       "Four pages: the threshold, the house, membership and the enquiry.",
-      "A wordmark set in Zodiak with its own letter-spacing, and a palette of five. The type scale stops at 40px so that no heading can outgrow the mark by accident.",
       "Nine room plates and three detail shots, art-directed and sequenced rather than gathered.",
       "A three-field enquiry form, the shortest the house could ask for and still reply properly.",
       "Built in Next.js and deployed on Vercel, with GSAP for the threshold sequence and the reveals. Every animation is gated on prefers-reduced-motion.",
       "The whole brand is scoped under one CSS class, so it shares a single stylesheet with two other brands without either reaching into the other's type.",
     ],
-    specs: [
-      "Brand identity · Art direction · Photography · Website",
-      "Next.js · GSAP · Vercel",
-      "2026",
-    ],
-    attribution: "Self-initiated concept.",
+    credits: {
+      location: "Marylebone, London",
+      scope: "Website, 4 pages",
+      year: "2026",
+      status: "Self-initiated concept",
+    },
     images: [
       {
         src: "/portfolio/halden/site-01.jpg",
@@ -195,45 +200,6 @@ export const projects: Project[] = [
       width: 2560,
       height: 1911,
       alt: "The black front door of number 18, with a brass knocker and letterplate, set behind black iron railings on a Marylebone street.",
-    },
-  },
-  {
-    slug: "aldern-voss",
-    title: "Aldern & Voss",
-    subtitle: "An independent watchmaker with a single reference",
-    situationHeading: SITUATION_HEADING,
-    situation:
-      "An independent watchmaker with one reference and nothing around it — no variants, no colourways, no price list. There is almost nothing for a catalogue to list, and a conventional brand site would have had to talk around the watch rather than show it.",
-    approachHeading: APPROACH_HEADING,
-    approach: [
-      "The site opens on the watch itself, taken apart and drawn back together once before the name appears. Nothing is claimed while that is happening.",
-      "The reference is then walked through sideways: seven components, the page scrolling down while the watch travels across, each part held long enough to read one line about it. Case, dial, movement, crown, strap, case back, and the watch worn.",
-    ],
-    specs: ["Brand identity · Art direction · Photography · Website", "2026"],
-    attribution: "Self-initiated concept.",
-    images: [
-      {
-        src: "/portfolio/aldern-voss/site-01.jpg",
-        alt: "The Aldern & Voss threshold: the watch held on screen in the upper zone, with the wordmark, the positioning line and a Begin Experience button on solid bone beneath it.",
-        placement: "situation",
-      },
-      {
-        src: "/portfolio/aldern-voss/site-02.jpg",
-        alt: "The Aldern & Voss reference page part-way through its horizontal sequence: the watch worn on a wrist, captioned 07 Worn beneath the photograph.",
-        placement: "approach",
-      },
-      {
-        src: "/portfolio/aldern-voss/site-03.jpg",
-        alt: "The Aldern & Voss workshop page: the founding line set large above a photograph of a leather worker cutting a strap blank by hand, with the Why Florence text beside it.",
-        placement: "approach",
-      },
-    ],
-    url: "/aldern-voss",
-    cover: {
-      src: "/portfolio/aldern-voss/cover.jpg",
-      width: 2560,
-      height: 1440,
-      alt: "A wristwatch standing upright on a pale surface: a steel case with a silver-grey dial, blued hands and applied baton indices, on a tan leather strap.",
     },
   },
 ];

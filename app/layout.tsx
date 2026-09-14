@@ -7,50 +7,98 @@ import JsonLd from "@/components/JsonLd";
 import { social } from "@/config/social";
 
 /**
- * The one Organization block for the whole site — every page inherits it
- * from here rather than each brand declaring its own copy. Demo-brand pages
- * carry it too: they already disclose "a self-initiated concept by 64
- * Studios" in their own footer, so the same attribution in structured data
- * is consistent with that, not a second signal invented for this.
+ * The one studio block for the whole site — every page inherits it from here
+ * rather than each brand declaring its own copy. Demo-brand pages carry it
+ * too: they already disclose "a self-initiated concept by 64 Studios" in
+ * their own footer, so the same attribution in structured data is consistent
+ * with that, not a second signal invented for this.
  *
  * `sameAs` is read from config/social.ts, the same list the footer renders
  * and the outbound-click tracking reads, so none of the three can drift.
  *
- * Two facts here are not yet stated as prose anywhere, but both are already
- * live and real rather than invented: "Sheffield" is in the /studio title
- * tag (Phase 2.4), and the founder's name is the slug of the LinkedIn URL
- * already in the footer today (.../in/nkere-abang-.../). Everything else —
- * a founding date, a phone number, an employee count, a price range, a
- * rating — has no such backing anywhere on the site and is left out.
+ * The offer catalogue is the one place outside /process that carries the
+ * prices. When the website price rises to £5,000 it changes here, on that
+ * page, in that page's meta description, and in llms.txt — four places, and
+ * nothing else holds the number.
  */
-const organizationSchema = {
+const studioSchema = {
   "@context": "https://schema.org",
-  "@type": ["Organization", "ProfessionalService"],
+  "@type": "ProfessionalService",
   // The stable identifier other blocks point at — the Person on /studio uses
   // it for worksFor — so the founder and the business are one linked entity
   // rather than two names that happen to match.
-  "@id": `${SITE_URL}/#organization`,
+  "@id": `${SITE_URL}/#studio`,
   name: "64 Studios",
   url: SITE_URL,
   logo: `${SITE_URL}/logo.png`,
+  slogan: "Websites for the people behind fine homes.",
+  description: "Web design studio for interior designers, architects, builders and makers.",
   email: "studio@64studios.design",
-  founder: {
-    "@type": "Person",
-    name: "Nkere Abang",
-  },
+  founder: { "@type": "Person", name: "Nkere Abang" },
   address: {
     "@type": "PostalAddress",
     addressLocality: "Sheffield",
     addressCountry: "GB",
   },
-  areaServed: ["GB", "Worldwide"],
-  knowsAbout: ["brand identity", "web design", "art direction", "front-end development"],
+  areaServed: "GB",
+  priceRange: "£3,000–£7,000",
+  knowsAbout: [
+    "Web design for interior designers",
+    "Web design for architects",
+    "Websites for builders",
+    "Next.js",
+  ],
   sameAs: social.map((item) => item.href),
-  // The exact sentence already on /studio's mission paragraph, not a new line
-  // written for this field.
-  slogan: "Most good businesses are undersold by their websites.",
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Websites, and what they cost",
+    itemListElement: [
+      {
+        "@type": "Offer",
+        name: "The Website Week",
+        price: "7000",
+        priceCurrency: "GBP",
+        url: `${SITE_URL}/process#fees`,
+        itemOffered: {
+          "@type": "Service",
+          name: "The Website Week",
+          description:
+            "A website of up to ten pages, designed and built in one fixed week, Monday to Friday, with an editor for adding projects.",
+        },
+      },
+      {
+        "@type": "Offer",
+        name: "A website",
+        price: "3000",
+        priceCurrency: "GBP",
+        url: `${SITE_URL}/process#fees`,
+        itemOffered: {
+          "@type": "Service",
+          name: "A website",
+          description:
+            "A website of up to six pages, about three weeks from content to launch.",
+        },
+      },
+      {
+        "@type": "Offer",
+        name: "Care",
+        priceSpecification: {
+          "@type": "UnitPriceSpecification",
+          price: "200",
+          priceCurrency: "GBP",
+          unitCode: "MON",
+        },
+        url: `${SITE_URL}/process#fees`,
+        itemOffered: {
+          "@type": "Service",
+          name: "Care",
+          description:
+            "Hosting, updates, backups and up to two new projects added each month.",
+        },
+      },
+    ],
+  },
 };
-
 /**
  * Shell only — no chrome, no fonts. 64 Studios gets its nav, page transition
  * and its two font variables from app/(64)/layout.tsx, Halden its own from
@@ -63,21 +111,20 @@ const organizationSchema = {
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "64 Studios — Branding Agency & Website Design",
+    default: "64 Studios — Websites for the people behind fine homes",
     // Routes that set a bare title get the suffix; routes that set their own
     // full title (Selected Work, The Studio, Contact) pass it through absolute.
     template: "%s — 64 Studios",
   },
   description:
-    "64 Studios is a branding agency designing brand identities and building high-end custom websites for hotels, makers, practices and founders.",
+    "Custom websites for interior designers, architects, builders and makers. Drawn from scratch and built by hand in Sheffield.",
   openGraph: {
-    title: "64 Studios — Branding Agency & Website Design",
+    title: "64 Studios — Websites for the people behind fine homes",
     description:
-      "64 Studios is a branding agency designing brand identities and building high-end custom websites for hotels, makers, practices and founders.",
+      "Custom websites for interior designers, architects, builders and makers. Drawn from scratch and built by hand in Sheffield.",
     url: SITE_URL,
     siteName: "64 Studios",
     type: "website",
-    images: [{ url: "/icon.svg", alt: "64 Studios" }],
   },
   icons: {
     icon: "/icon.svg",
@@ -106,7 +153,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to content
         </a>
-        <JsonLd data={organizationSchema} />
+        <JsonLd data={studioSchema} />
         {/*
           Runs as the parser reaches it — before the entrance markup below is
           parsed and before first paint — so the panels are either present from

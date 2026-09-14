@@ -45,12 +45,16 @@ export function framesRunning(withinMs = 1000): Promise<boolean> {
  * begins. Two consecutive samples with no movement means no frames ran between
  * them.
  *
+ * Two samples of 500ms put the worst case at one second, which is the rule
+ * the rebrand spec sets: content shows within a second whatever happens to
+ * the animation.
+ *
  * Returns a cancel function. Call it on unmount so nothing fires afterwards.
  */
 export function watchForStall(
   progress: () => number,
   onStall: () => void,
-  stepMs = 600,
+  stepMs = 500,
 ): () => void {
   if (typeof window === "undefined") return () => {};
 
