@@ -16,7 +16,10 @@ export default function NotFound() {
       tabIndex={-1}
       className={`${display.variable} ${body.variable} flex min-h-dvh flex-col items-center justify-center bg-background px-4 text-center`}
     >
-      <p className="max-w-[42ch] font-body text-base leading-relaxed text-ink">
+      {/* Every page carries one, this one included: a document with no
+          heading gives a screen reader nothing to land on. */}
+      <h1 className="font-display text-2xl font-semibold text-ink">Not found</h1>
+      <p className="mt-4 max-w-[42ch] font-body text-base leading-relaxed text-ink">
         This page has moved or never existed. Have a look at the work instead.
       </p>
       <Link
@@ -24,7 +27,7 @@ export default function NotFound() {
         className="group mt-8 font-body text-xs uppercase tracking-[0.25em] text-ink"
       >
         <span className="relative pb-1">
-          View Portfolio
+          See the work
           <span className={UNDERLINE} />
         </span>
       </Link>
