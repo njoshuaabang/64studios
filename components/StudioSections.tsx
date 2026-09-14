@@ -59,23 +59,6 @@ export default function StudioSections() {
         </p>
       </section>
 
-      {/* TODO: photograph to come. The desk mid-project — printed page proofs
-          next to a material sample, stone or timber or a paint card. Natural
-          light, no screen glow, no face needed. 4:5, the full width of the
-          text column. Drop the file in /public/studio/desk.jpg, give it alt
-          text describing what is actually on the desk, and delete the
-          placeholder branch below. */}
-      <section aria-label="The studio at work" data-reveal className="pt-[2vh]">
-        <div
-          data-reveal-item
-          className="relative aspect-[4/5] w-full max-w-[58ch] overflow-hidden border border-bone bg-background"
-        >
-          <p className="absolute inset-0 flex items-center justify-center px-6 text-center font-body text-[12px] uppercase tracking-[0.25em] text-ink/40">
-            Photograph to come
-          </p>
-        </div>
-      </section>
-
       <section aria-labelledby="who-it-is-for" data-reveal className="pt-[6vh]">
         <div data-reveal-item aria-hidden="true" className="h-px w-12 bg-bone" />
         <h2 id="who-it-is-for" data-reveal-item className={`mt-3 ${LABEL}`}>
