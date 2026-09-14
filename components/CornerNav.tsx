@@ -101,12 +101,20 @@ export default function CornerNav() {
        through. Halden and Nash Calloway already wrap their own navs this way.
        The mark sits in the header beside the nav rather than inside it: it is
        a way home, not one of the three sections. */
-    /* focus-within brings it straight back for a keyboard visitor: tabbing
-       into something that is translated off screen would otherwise move
-       focus somewhere invisible. */
+    /* has-[:focus-visible] brings it straight back for a keyboard visitor:
+       tabbing into something translated off screen would otherwise move focus
+       somewhere invisible.
+
+       Not focus-within, which was the bug. Tapping a nav link leaves focus on
+       that link, inside this header, and focus-within then pinned the whole
+       bar visible — on that page and on every page after it, because a
+       client-side navigation does not move focus. It read as the behaviour
+       working until you first used the nav and then never again.
+       :focus-visible matches keyboard focus and not a tap, which is exactly
+       the distinction wanted here. */
     <header
       data-corner-nav
-      className={`fixed inset-x-0 top-0 z-40 flex items-center justify-between px-3 py-1 transition-[transform,opacity] duration-300 ease-out focus-within:pointer-events-auto focus-within:translate-y-0 focus-within:opacity-100 motion-reduce:transition-[opacity] motion-reduce:duration-200 md:px-4 md:py-2 ${
+      className={`fixed inset-x-0 top-0 z-40 flex items-center justify-between px-3 py-1 transition-[transform,opacity] duration-300 ease-out has-[:focus-visible]:pointer-events-auto has-[:focus-visible]:translate-y-0 has-[:focus-visible]:opacity-100 motion-reduce:transition-[opacity] motion-reduce:duration-200 md:px-4 md:py-2 ${
         hidden
           ? "pointer-events-none -translate-y-full opacity-0 motion-reduce:translate-y-0"
           : "pointer-events-auto translate-y-0 opacity-100"
