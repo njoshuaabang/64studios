@@ -1,44 +1,33 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import Image from "next/image";
 import Link from "next/link";
 import EnquireForm from "@/components/halden/EnquireForm";
 import Reveal from "@/components/halden/Reveal";
-import { asset } from "@/lib/halden/paths";
 import { studioUrl } from "@/lib/sites";
 
 export const metadata: Metadata = {
-  title: "Enquire",
-  description: "The house replies to every enquiry.",
+  // Absolute: the metadata table sets the whole string, so the
+  // "%s — Halden" template must not append to it.
+  title: { absolute: "Enquire | Halden, Marylebone W1" },
+  description:
+    "Arrange a viewing of Halden, a restored Georgian townhouse in Marylebone. By appointment, through the selling agent.",
 };
 
 export default async function EnquirePage() {
   const back = studioUrl((await headers()).get("host"), "/portfolio/halden");
 
+  // One column. The corridor that used to fill the left half has moved to
+  // /the-restoration, where it belongs to the account of the work rather than
+  // standing behind a form.
   return (
-    <main id="main-content" tabIndex={-1} className="relative flex min-h-[640px] flex-1 lg:grid lg:grid-cols-2">
-      {/*
-        Desktop: the corridor is the left half of the page. Below that it sits
-        behind the form instead, quiet enough to read straight through.
-      */}
-      <div className="absolute inset-0 opacity-15 lg:relative lg:inset-auto lg:opacity-100">
-        <Image
-          src={asset("/images/corridor.jpg")}
-          alt="An upstairs corridor lined with dark green panelled doors, one of them standing open to the light."
-          fill
-          preload
-          quality={82}
-          sizes="(max-width: 1023px) 100vw, 50vw"
-          className="object-cover"
-        />
-      </div>
-
-      <div className="relative flex items-center px-[var(--gutter)] py-16 lg:py-24">
-        <div className="w-full max-w-[420px]">
+    <main id="main-content" tabIndex={-1} className="flex min-h-[640px] flex-1 items-center px-[var(--gutter)] py-16 lg:py-24">
+      <div className="mx-auto w-full max-w-[420px]">
+        <div>
           <Reveal>
             <h1 className="font-halden-display text-halden-display font-light">Enquire.</h1>
-            <p className="max-w-[34ch] pt-4 text-halden-base">
-              The house replies to every enquiry.
+            <p className="max-w-[38ch] pt-4 text-halden-base">
+              Viewings are by appointment, accompanied, and arranged through the selling agent.
+              Proof of funds is requested before a second viewing.
             </p>
           </Reveal>
 

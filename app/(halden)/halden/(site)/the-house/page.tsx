@@ -1,35 +1,30 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Reveal from "@/components/halden/Reveal";
-import { houseSequence, type HouseBlock } from "@/lib/halden/house";
+import Particulars from "@/components/halden/Particulars";
+import { houseSections, houseIntro, type HouseSection } from "@/lib/halden/house";
 import { asset } from "@/lib/halden/paths";
 
 export const metadata: Metadata = {
-  title: "The House",
+  // Absolute: the metadata table sets the whole string, so the
+  // "%s — Halden" template must not append to it.
+  title: { absolute: "The House | Halden, Marylebone Townhouse for Sale" },
   description:
-    "Nine rooms of a Georgian townhouse in Marylebone: the hall, the bar, one dining table, the library, six bedrooms and a garden at the back.",
+    "Room by room through 5,240 sq ft across five floors — hall, bar, dining room, library, six bedrooms and a south-facing walled garden.",
 };
 
 /*
- * Each plate is a centred column: image, then room label, then the note. The
- * measurements come from the `.house` custom properties in globals.css, which
- * hold the whole breakpoint table.
+ * Each section is a centred column: image, then room label, then the note.
+ * The measurements come from the `.house` custom properties in globals.css,
+ * which hold the whole breakpoint table.
  */
 
 const PLATE_SIZES =
   "(min-width: 1440px) 1120px, (min-width: 1200px) 1000px, (min-width: 900px) 840px, 100vw";
 
-const DETAIL_SIZES = "(min-width: 900px) 33vw, 100vw";
-
-function Plate({
-  block,
-  priority,
-}: {
-  block: Extract<HouseBlock, { kind: "plate" }>;
-  priority: boolean;
-}) {
+function Plate({ block, priority }: { block: HouseSection; priority: boolean }) {
   return (
-    <section className="house-plate">
+    <section className={`house-plate${block.bleed ? " house-plate-bleed" : ""}`}>
       <Reveal className="house-figure">
         <Image
           src={asset(block.src)}
@@ -60,43 +55,24 @@ function Plate({
 }
 
 export default function TheHousePage() {
-  const plates = houseSequence.filter(
-    (b): b is Extract<HouseBlock, { kind: "plate" }> => b.kind === "plate"
-  );
-  const details = houseSequence.filter(
-    (b): b is Extract<HouseBlock, { kind: "inset" }> => b.kind === "inset"
-  );
-
   return (
     <main id="main-content" tabIndex={-1} className="house flex flex-col gap-[var(--space-section)] pt-[var(--space-section)]">
-      {/* Was visually hidden; now the page's own centred title. */}
       <Reveal className="house-title">
         <h1 className="font-halden-display text-halden-display font-light">The House.</h1>
       </Reveal>
 
-      {plates.map((block, i) => (
+      {/* The intro sits in the rail rather than under the title: it is the
+          particulars in prose, and belongs to the sequence below it rather
+          than to the heading above. */}
+      <Reveal className="house-rail house-intro">
+        <p className="house-copy text-halden-note text-halden-ink/80">{houseIntro}</p>
+      </Reveal>
+
+      {houseSections.map((block, i) => (
         <Plate key={block.src} block={block} priority={i === 0} />
       ))}
 
-      {/*
-        The detail shots, gathered out of the sequence into one closing row.
-        All three sources are 3:4, so the row lines up on their own ratio and
-        nothing is cropped. `align` on the data is unused while they sit here.
-      */}
-      <section className="house-details">
-        {details.map((block) => (
-          <Reveal key={block.src} className="house-details-figure">
-            <Image
-              src={asset(block.src)}
-              alt={block.alt}
-              fill
-              quality={82}
-              sizes={DETAIL_SIZES}
-              className="object-cover"
-            />
-          </Reveal>
-        ))}
-      </section>
+      <Particulars />
     </main>
   );
 }

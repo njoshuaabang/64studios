@@ -12,7 +12,7 @@ const navItem = "whitespace-nowrap py-2 text-halden-micro uppercase tracking-hal
 
 const sections = [
   { path: "/the-house", label: "The House" },
-  { path: "/membership", label: "Membership" },
+  { path: "/the-restoration", label: "The Restoration" },
   { path: "/enquire", label: "Enquire" },
 ];
 
