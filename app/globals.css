@@ -215,6 +215,15 @@ body.threshold-lock {
   height: calc(var(--image-h) + 12vh);
 }
 
+/* The intro sits directly under the title rather than inside a plate, so it
+   misses the padding and the centring the plates give their rails — and its
+   note landed 160px left of every note below it. Same gutter, same centred
+   measure, so the column reads as one from the title down. */
+.halden .house-intro {
+  padding-inline: var(--gutter);
+  margin-inline: auto;
+}
+
 .halden .house-copy {
   /* Runs wide across the plate, still centred and still short of its edges. */
   max-width: 86ch;
