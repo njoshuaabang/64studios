@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Threshold from "@/components/halden/Threshold";
+import { meta } from "@/lib/halden/copy";
 
 /**
  * `absolute` so the root layout's "%s — 64 Studios" template does not append
@@ -7,7 +8,7 @@ import Threshold from "@/components/halden/Threshold";
  * "%s — Halden" template from the nearest layout instead.
  */
 export const metadata: Metadata = {
-  title: { absolute: "Halden | Restored Georgian Townhouse for Sale, Marylebone W1" },
+  title: { absolute: meta.site.title },
 };
 
 export default function ThresholdPage() {

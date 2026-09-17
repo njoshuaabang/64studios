@@ -4,13 +4,13 @@ import Link from "next/link";
 import EnquireForm from "@/components/halden/EnquireForm";
 import Reveal from "@/components/halden/Reveal";
 import { studioUrl } from "@/lib/sites";
+import { enquire, meta } from "@/lib/halden/copy";
 
 export const metadata: Metadata = {
   // Absolute: the metadata table sets the whole string, so the
   // "%s — Halden" template must not append to it.
-  title: { absolute: "Enquire | Halden, Marylebone W1" },
-  description:
-    "Arrange a viewing of Halden, a restored Georgian townhouse in Marylebone. By appointment, through the selling agent.",
+  title: { absolute: meta.enquire.title },
+  description: meta.enquire.description,
 };
 
 export default async function EnquirePage() {
@@ -24,10 +24,9 @@ export default async function EnquirePage() {
       <div className="mx-auto w-full max-w-[420px]">
         <div>
           <Reveal>
-            <h1 className="font-halden-display text-halden-display font-light">Enquire.</h1>
+            <h1 className="font-halden-display text-halden-display font-light">{enquire.title}</h1>
             <p className="max-w-[38ch] pt-4 text-halden-base">
-              Viewings are by appointment, accompanied, and arranged through the selling agent.
-              Proof of funds is requested before a second viewing.
+              {enquire.intro}
             </p>
           </Reveal>
 
@@ -60,7 +59,7 @@ export default async function EnquirePage() {
               href={back}
               className="inline-block border border-halden-brass-deep/70 px-3 py-2 text-halden-micro uppercase tracking-halden-label text-halden-brass-deep transition-colors duration-300 hover:border-halden-ink hover:text-halden-ink"
             >
-              Back to 64 Studios
+              {enquire.back}
             </Link>
           </Reveal>
         </div>

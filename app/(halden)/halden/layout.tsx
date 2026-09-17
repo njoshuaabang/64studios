@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { HaldenBaseProvider } from "@/components/halden/HaldenBase";
 import { HALDEN_BASE } from "@/lib/halden/paths";
 import { haldenBase } from "@/lib/halden/server";
+import { meta } from "@/lib/halden/copy";
 import { haldenDisplay, haldenBody } from "@/lib/halden/fonts";
 import ResidenceSchema from "@/components/halden/ResidenceSchema";
 
@@ -12,18 +13,17 @@ import ResidenceSchema from "@/components/halden/ResidenceSchema";
  */
 export const metadata: Metadata = {
   title: {
-    default: "Halden | Restored Georgian Townhouse for Sale, Marylebone W1",
+    default: meta.site.title,
     template: "%s — Halden",
   },
-  description:
-    "A Grade II listed 1794 townhouse in Marylebone, restored 2026. Six bedrooms, four reception rooms and a walled garden. Guide price £9,750,000, freehold.",
+  description: meta.site.description,
   // A self-initiated concept, not a real listing — kept out of the index and
   // its links unfollowed. Set once here for the whole brand tree rather than
   // page by page.
   robots: { index: false, follow: false },
   openGraph: {
     title: "Halden",
-    description: "A restored Georgian townhouse for sale in Marylebone, London W1.",
+    description: meta.site.ogDescription,
     url: HALDEN_BASE,
     siteName: "Halden",
     locale: "en_GB",

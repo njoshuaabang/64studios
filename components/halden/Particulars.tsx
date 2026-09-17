@@ -1,4 +1,4 @@
-import { particulars, guidePrice } from "@/lib/halden/particulars";
+import { particulars, guidePrice, particularsHeading } from "@/lib/halden/copy";
 
 /**
  * A definition list, never a table. These are twelve terms and their values,
@@ -22,7 +22,7 @@ export default function Particulars() {
           id="particulars-heading"
           className="font-halden-display text-halden-micro uppercase tracking-halden-label text-halden-brass"
         >
-          Particulars
+          {particularsHeading}
         </h2>
 
         <dl className="particulars-list pt-10">

@@ -7,14 +7,10 @@ import Wordmark from "./Wordmark";
 import { useReducedMotion } from "@/lib/halden/useReducedMotion";
 import { useHaldenBase } from "./HaldenBase";
 import { haldenPath } from "@/lib/halden/paths";
+import { nav as sections } from "@/lib/halden/copy";
 
 const navItem = "whitespace-nowrap py-2 text-halden-micro uppercase tracking-halden-nav";
 
-const sections = [
-  { path: "/the-house", label: "The House" },
-  { path: "/the-restoration", label: "The Restoration" },
-  { path: "/enquire", label: "Enquire" },
-];
 
 /**
  * On the long image sequence the nav stays out of the way until the reader has

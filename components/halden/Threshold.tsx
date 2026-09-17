@@ -10,6 +10,9 @@ import { watchForStall } from "@/lib/frames";
 import { useIsomorphicLayoutEffect } from "@/lib/halden/useIsomorphicLayoutEffect";
 import { useHaldenBase } from "./HaldenBase";
 import { asset, haldenPath } from "@/lib/halden/paths";
+// Aliased: the component is Threshold and the copy is threshold, which is one
+// capital letter apart and a trap for anyone reading quickly.
+import { threshold as copy } from "@/lib/halden/copy";
 
 export default function Threshold() {
   const base = useHaldenBase();
@@ -97,7 +100,7 @@ export default function Threshold() {
       <div data-threshold-image className="absolute inset-0">
         <Image
           src={asset("/images/threshold.jpg")}
-          alt="The front elevation of 18 Marylebone: a black Georgian door in pale Portland stone, set between tall sash windows behind the original iron railings."
+          alt={copy.imageAlt}
           fill
           preload
           quality={82}
@@ -117,11 +120,11 @@ export default function Threshold() {
           data-threshold-step
           className="pt-5 text-halden-micro uppercase tracking-halden-label"
         >
-          Marylebone, London W1
+          {copy.location}
         </p>
 
         <p data-threshold-step className="pt-8 font-halden-display text-halden-lead font-light">
-          A restored Georgian townhouse. Six bedrooms, a walled garden, 1794.
+          {copy.lead}
         </p>
 
         <div data-threshold-step className="pt-10">
@@ -129,7 +132,7 @@ export default function Threshold() {
             href={haldenPath(base, "/the-house")}
             className="inline-block border-b border-halden-brass px-1 pb-1 text-halden-micro uppercase tracking-halden-label text-halden-limewash transition-colors duration-300 hover:border-halden-limewash focus-visible:bg-halden-ink"
           >
-            Enter
+            {copy.enter}
           </Link>
         </div>
       </div>

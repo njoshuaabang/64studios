@@ -6,6 +6,7 @@ import {
   initialEnquiryState,
   type EnquiryState,
 } from "@/app/(halden)/halden/(site)/enquire/state";
+import { enquire } from "@/lib/halden/copy";
 
 const fieldClass =
   "w-full border-0 border-b border-halden-brass/70 bg-transparent pb-1 text-halden-base text-halden-ink outline-none transition-colors duration-300 focus:border-halden-brass";
@@ -64,23 +65,23 @@ export default function EnquireForm() {
   if (state.status === "sent") {
     return (
       <p role="status" className="max-w-[38ch] text-halden-base">
-        Thank you. The selling agent will be in touch.
+        {enquire.sent}
       </p>
     );
   }
 
   return (
     <form action={formAction}>
-      <Field name="name" label="Name" required autoComplete="name" />
+      <Field name="name" label={enquire.fields.name} required autoComplete="name" />
       <Field
         name="email"
-        label="Email"
+        label={enquire.fields.email}
         type="email"
         required
         autoComplete="email"
       />
-      <Field name="telephone" label="Telephone" type="tel" autoComplete="tel" />
-      <Field name="message" label="Message" rows={4} />
+      <Field name="telephone" label={enquire.fields.telephone} type="tel" autoComplete="tel" />
+      <Field name="message" label={enquire.fields.message} rows={4} />
 
       {state.status === "error" && (
         <p role="alert" className="pb-6 text-halden-small text-halden-ink">
@@ -93,7 +94,7 @@ export default function EnquireForm() {
         disabled={pending}
         className="border border-halden-ink px-3 py-2 text-halden-micro uppercase tracking-halden-label text-halden-ink transition-colors duration-300 hover:bg-halden-ink hover:text-halden-limewash disabled:opacity-50"
       >
-        {pending ? "Sending" : "Send"}
+        {pending ? enquire.submitting : enquire.submit}
       </button>
     </form>
   );

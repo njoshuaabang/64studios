@@ -1,5 +1,6 @@
 import { headers } from "next/headers";
 import { studioUrl } from "@/lib/sites";
+import { footer } from "@/lib/halden/copy";
 
 const linkStyle =
   "text-halden-brass underline-offset-4 transition-colors duration-300 hover:underline";
@@ -21,23 +22,23 @@ export default async function Footer() {
     <footer className="w-full px-[var(--gutter)] pb-6 pt-[var(--space-section)]">
       <div className="border-t border-halden-brass/70 pt-4">
         <address className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 text-halden-small not-italic">
-          <span>18 Marylebone, London W1</span>
-          <a href="mailto:enquiries@halden.london" className={linkStyle}>
-            enquiries@halden.london
+          <span>{footer.address}</span>
+          <a href={`mailto:${footer.email}`} className={linkStyle}>
+            {footer.email}
           </a>
           {/* The particulars as a printed document. No file yet, so the link
               is a placeholder rather than a dead download. */}
           <a href="#" className={linkStyle}>
-            Particulars (PDF)
+            {footer.particulars}
           </a>
         </address>
 
-        <p className="pt-10 text-halden-micro text-halden-ink/70">A Colebrook restoration.</p>
+        <p className="pt-10 text-halden-micro text-halden-ink/70">{footer.developer}</p>
 
         <p className="pt-2 text-halden-nano text-halden-ink/60">
-          Self-initiated concept.{" "}
+          {footer.credit}{" "}
           <a href={back} className={linkStyle}>
-            64 Studios
+            {footer.studio}
           </a>
           .
         </p>

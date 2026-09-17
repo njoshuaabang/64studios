@@ -2,15 +2,14 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Reveal from "@/components/halden/Reveal";
 import Particulars from "@/components/halden/Particulars";
-import { houseSections, houseIntro, type HouseSection } from "@/lib/halden/house";
+import { houseSections, houseIntro, houseTitle, meta, type HouseSection } from "@/lib/halden/copy";
 import { asset } from "@/lib/halden/paths";
 
 export const metadata: Metadata = {
   // Absolute: the metadata table sets the whole string, so the
   // "%s — Halden" template must not append to it.
-  title: { absolute: "The House | Halden, Marylebone Townhouse for Sale" },
-  description:
-    "Room by room through 5,240 sq ft across five floors — hall, bar, dining room, library, six bedrooms and a south-facing walled garden.",
+  title: { absolute: meta.house.title },
+  description: meta.house.description,
 };
 
 /*
@@ -58,7 +57,7 @@ export default function TheHousePage() {
   return (
     <main id="main-content" tabIndex={-1} className="house flex flex-col gap-[var(--space-section)] pt-[var(--space-section)]">
       <Reveal className="house-title">
-        <h1 className="font-halden-display text-halden-display font-light">The House.</h1>
+        <h1 className="font-halden-display text-halden-display font-light">{houseTitle}</h1>
       </Reveal>
 
       {/* The intro sits in the rail rather than under the title: it is the

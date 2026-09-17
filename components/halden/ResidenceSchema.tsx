@@ -1,4 +1,4 @@
-import { guidePriceValue } from "@/lib/halden/particulars";
+import { guidePriceValue, residenceDescription } from "@/lib/halden/copy";
 
 /**
  * The house as structured data, rendered on every Halden page.
@@ -14,8 +14,7 @@ const residence = {
   "@context": "https://schema.org",
   "@type": "SingleFamilyResidence",
   name: "Halden",
-  description:
-    "A Grade II listed Georgian townhouse at 18 Marylebone, London W1, built in 1794 and restored in 2026.",
+  description: residenceDescription,
   address: {
     "@type": "PostalAddress",
     streetAddress: "18 Marylebone",

@@ -1,6 +1,7 @@
 "use server";
 
 import type { EnquiryState } from "./state";
+import { enquire } from "@/lib/halden/copy";
 
 /**
  * Stub handler. A real house would put this on a desk somewhere; here it is
@@ -16,7 +17,7 @@ export async function submitEnquiry(
   const message = String(formData.get("message") ?? "").trim();
 
   if (!name || !email) {
-    return { status: "error", message: "A name and an email address, please." };
+    return { status: "error", message: enquire.error };
   }
 
   console.log("[halden] enquiry", {
