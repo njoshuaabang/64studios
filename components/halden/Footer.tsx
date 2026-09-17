@@ -25,22 +25,21 @@ export default async function Footer() {
           <a href="mailto:enquiries@halden.london" className={linkStyle}>
             enquiries@halden.london
           </a>
-          <a
-            href="https://www.instagram.com/halden.london"
-            target="_blank"
-            rel="noreferrer"
-            className={linkStyle}
-          >
-            Instagram
+          {/* The particulars as a printed document. No file yet, so the link
+              is a placeholder rather than a dead download. */}
+          <a href="#" className={linkStyle}>
+            Particulars (PDF)
           </a>
         </address>
 
-        <p className="pt-10 text-halden-micro text-halden-ink/70">
-          A self-initiated concept by{" "}
+        <p className="pt-10 text-halden-micro text-halden-ink/70">A Colebrook restoration.</p>
+
+        <p className="pt-2 text-halden-nano text-halden-ink/60">
+          Self-initiated concept.{" "}
           <a href={back} className={linkStyle}>
             64 Studios
           </a>
-          . Not a real business.
+          .
         </p>
       </div>
     </footer>

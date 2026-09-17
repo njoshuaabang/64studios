@@ -18,26 +18,39 @@ function Field({
   type = "text",
   required = false,
   autoComplete,
+  rows,
 }: {
   name: string;
   label: string;
   type?: string;
   required?: boolean;
   autoComplete?: string;
+  /** Present for the message, which is the one field that needs room. */
+  rows?: number;
 }) {
   return (
     <div className="pb-8">
       <label htmlFor={name} className={labelClass}>
         {label}
       </label>
-      <input
-        id={name}
-        name={name}
-        type={type}
-        required={required}
-        autoComplete={autoComplete}
-        className={fieldClass}
-      />
+      {rows ? (
+        <textarea
+          id={name}
+          name={name}
+          rows={rows}
+          required={required}
+          className={`${fieldClass} resize-y`}
+        />
+      ) : (
+        <input
+          id={name}
+          name={name}
+          type={type}
+          required={required}
+          autoComplete={autoComplete}
+          className={fieldClass}
+        />
+      )}
     </div>
   );
 }
@@ -51,7 +64,7 @@ export default function EnquireForm() {
   if (state.status === "sent") {
     return (
       <p role="status" className="max-w-[38ch] text-halden-base">
-        Thank you. The house has your enquiry, and will reply.
+        Thank you. The selling agent will be in touch.
       </p>
     );
   }
@@ -66,7 +79,8 @@ export default function EnquireForm() {
         required
         autoComplete="email"
       />
-      <Field name="proposedBy" label="Proposed by (optional)" />
+      <Field name="telephone" label="Telephone" type="tel" autoComplete="tel" />
+      <Field name="message" label="Message" rows={4} />
 
       {state.status === "error" && (
         <p role="alert" className="pb-6 text-halden-small text-halden-ink">

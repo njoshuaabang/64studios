@@ -7,7 +7,7 @@ import Threshold from "@/components/halden/Threshold";
  * "%s — Halden" template from the nearest layout instead.
  */
 export const metadata: Metadata = {
-  title: { absolute: "Halden — A private house in Marylebone" },
+  title: { absolute: "Halden | Restored Georgian Townhouse for Sale, Marylebone W1" },
 };
 
 export default function ThresholdPage() {

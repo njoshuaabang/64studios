@@ -12,7 +12,8 @@ export async function submitEnquiry(
 ): Promise<EnquiryState> {
   const name = String(formData.get("name") ?? "").trim();
   const email = String(formData.get("email") ?? "").trim();
-  const proposedBy = String(formData.get("proposedBy") ?? "").trim();
+  const telephone = String(formData.get("telephone") ?? "").trim();
+  const message = String(formData.get("message") ?? "").trim();
 
   if (!name || !email) {
     return { status: "error", message: "A name and an email address, please." };
@@ -21,7 +22,8 @@ export async function submitEnquiry(
   console.log("[halden] enquiry", {
     name,
     email,
-    proposedBy: proposedBy || null,
+    telephone: telephone || null,
+    message: message || null,
     receivedAt: new Date().toISOString(),
   });
 

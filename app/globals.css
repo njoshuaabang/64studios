@@ -196,27 +196,23 @@ body.threshold-lock {
   text-align: center;
 }
 
-/* Detail shots: one row at the foot of the sequence, inside the gutter. */
-.halden .house-details {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-copy-image);
-  padding-inline: var(--gutter);
-}
+/* One break in the sequence, and only one. Six sections of identical height
+   read as a list rather than a walk through a house; this section steps out
+   of the column to full width and a taller frame, so the garden arrives as
+   somewhere else. Reinstating an alternating pattern would trade the
+   monotony for a rhythm the copy does not have.
 
-@media (min-width: 900px) {
-  .halden .house-details {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* The sources are 3:4, so the row keeps their ratio rather than cropping.
-   Also the positioned ancestor the fill images size themselves against. */
-.halden .house-details-figure {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 3 / 4;
-  overflow: hidden;
+   The bleed cancels the plate's own gutter rather than measuring the
+   viewport: 100vw includes the scrollbar and would push the right edge into
+   overflow. */
+.halden .house-plate-bleed .house-figure {
+  max-width: none;
+  /* The section's content box plus the gutter it is padded by, so the figure
+     spans the full document width. `width: auto` collapses here — the only
+     child is absolutely positioned, so there is no content to size to. */
+  width: calc(100% + var(--gutter) * 2);
+  margin-inline: calc(var(--gutter) * -1);
+  height: calc(var(--image-h) + 12vh);
 }
 
 .halden .house-copy {
@@ -229,6 +225,87 @@ body.threshold-lock {
 /* Written as a compound so it outranks the rule above whatever the order. */
 .halden .house-copy.house-copy-narrow {
   max-width: 72ch;
+}
+
+/* ──────────────────────────────────────────────────────────────────────
+   The particulars. A printed specification page, not a data table: the
+   rows are a definition list, the rules are hairlines, and the leading is
+   deliberately loose so the eye reads down the column rather than across
+   the rows.
+
+   The list is held to a comfortable measure and sits flush with the left
+   edge of the plate column above it — the same centred max-width the
+   images and their notes use — so the whole page reads off one grid.
+   ────────────────────────────────────────────────────────────────────── */
+.halden .particulars {
+  display: flex;
+  min-height: 100dvh;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: var(--space-section);
+  padding-inline: var(--gutter);
+}
+
+.halden .particulars-inner {
+  width: 100%;
+  max-width: var(--plate-w);
+  margin-inline: auto;
+}
+
+.halden .particulars-list {
+  width: 100%;
+  /* The measure. Wider than prose because a row is a short pair, not a
+     sentence; narrower than the plate so the values never drift far from
+     the labels they belong to. */
+  max-width: 720px;
+}
+
+.halden .particulars-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 32px;
+  padding-block: 18px;
+  border-bottom: 1px solid rgb(154 123 79 / 0.4);
+}
+
+/* The last row before the gap closes the block; the price rule below is a
+   heavier line of its own and does not want a hairline sitting on it. */
+.halden .particulars-row:last-of-type {
+  border-bottom: 0;
+}
+
+/* Below the stated breakpoint the pair stacks, label above value, and the
+   rule runs under the pair rather than between the two halves. */
+@media (max-width: 899px) {
+  .halden .particulars-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding-block: 14px;
+  }
+}
+
+/* Three times the row spacing above it, and a heavier rule. This is the one
+   figure anyone scrolls to find, and the gap is what says so. */
+.halden .particulars-price {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 32px;
+  margin-top: 54px;
+  padding-top: 26px;
+  border-top: 2px solid rgb(154 123 79 / 0.85);
+}
+
+@media (max-width: 899px) {
+  .halden .particulars-price {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    margin-top: 42px;
+    padding-top: 20px;
+  }
 }
 
 /* ══════════════════════════════════════════════════════════════════════

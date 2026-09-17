@@ -97,7 +97,7 @@ export default function Threshold() {
       <div data-threshold-image className="absolute inset-0">
         <Image
           src={asset("/images/threshold.jpg")}
-          alt="The front of the house on a Marylebone street: a black Georgian door numbered 18, set in pale stone between tall sash windows behind iron railings."
+          alt="The front elevation of 18 Marylebone: a black Georgian door in pale Portland stone, set between tall sash windows behind the original iron railings."
           fill
           preload
           quality={82}
@@ -117,11 +117,11 @@ export default function Threshold() {
           data-threshold-step
           className="pt-5 text-halden-micro uppercase tracking-halden-label"
         >
-          Marylebone
+          Marylebone, London W1
         </p>
 
         <p data-threshold-step className="pt-8 font-halden-display text-halden-lead font-light">
-          A private house in Marylebone.
+          A restored Georgian townhouse. Six bedrooms, a walled garden, 1794.
         </p>
 
         <div data-threshold-step className="pt-10">

@@ -1,94 +1,78 @@
 /**
- * The sequence for /the-house, in order. `plate` is a large image carrying a
- * note in the margin beside it; `inset` is a smaller image, offset and silent.
+ * The six rooms of /the-house, in the order a viewer walks them: the hall,
+ * the two reception rooms at the front and back of the ground floor, the
+ * library, the bedrooms above, and the garden.
+ *
+ * Every section is primary now. The three detail shots that used to gather
+ * into a row at the foot are gone — two deleted as hospitality styling that
+ * no longer fits a house for sale, one moved to /the-restoration — so the
+ * block type they needed went with them.
+ *
+ * Measurements carry non-breaking spaces between figure and unit, so a
+ * narrow measure can never leave "10ft" on one line and "4in" on the next.
  */
-export type HouseBlock =
-  | {
-      kind: "plate";
-      src: string;
-      alt: string;
-      /** Room label above the copy. Stored in sentence case, uppercased in CSS. */
-      eyebrow: string;
-      copy: string;
-      /** Set where a portrait source has to be cropped hard to a landscape slot. */
-      objectPosition?: string;
-      /**
-       * Holds this section's note at the tighter measure. The garden copy is
-       * the shortest of the six; run to the full width it strands its last
-       * line on its own.
-       */
-      narrowCopy?: boolean;
-    }
-  | { kind: "inset"; src: string; alt: string; align: "left" | "right" };
+export type HouseSection = {
+  src: string;
+  alt: string;
+  /** Room label above the copy. Stored in sentence case, uppercased in CSS. */
+  eyebrow: string;
+  copy: string;
+  /** Set where a portrait source has to be cropped hard to a landscape slot. */
+  objectPosition?: string;
+  /** Holds this section's note at the tighter measure. */
+  narrowCopy?: boolean;
+  /** The one section that steps out of the column to full width. */
+  bleed?: boolean;
+};
 
-export const houseSequence: HouseBlock[] = [
+export const houseIntro =
+  "Eighteen is a Grade\u00A0II listed townhouse built in 1794, restored over two years and completed in 2026. Five thousand two hundred and forty square feet across five floors, six bedrooms, four reception rooms and a walled garden of six hundred and forty square feet — which in this part of Marylebone is the rarest thing in the particulars.";
+
+export const houseSections: HouseSection[] = [
   {
-    kind: "plate",
     src: "/images/hall.jpg",
-    alt: "The entrance hall, where a stone staircase curves up past a tall window above a chequered marble floor.",
+    alt: "The entrance hall, looking the depth of the house to the original cantilevered stone staircase, above a chequered marble floor laid to the 1794 pattern.",
     eyebrow: "The Hall",
     copy:
-      "Eighteen was built in 1794 and has been a house, a legation, a solicitor’s chambers and, for eleven regrettable years, a bank. The stone stair is original. Everything else has been put back the way it should have been left.",
+      "The entrance hall runs the depth of the house to the original cantilevered stone staircase, which survives intact and has been cleaned rather than replaced. The chequered marble is new, laid to the 1794 pattern recorded in the survey drawings. Cornicing throughout this floor is original.",
   },
   {
-    kind: "plate",
     src: "/images/bar.jpg",
-    alt: "The bar in the front room: dark green walls, a marble-topped walnut counter and red leather stools beneath tall sash windows.",
+    alt: "The front room, facing north-east onto the street through three floor-to-ceiling sash windows with their original shutters, fitted as a bar in walnut and Carrara marble.",
     eyebrow: "The Bar",
     copy:
-      "The bar takes the front room, where the windows run floor to ceiling and the afternoon light lasts longest. Walnut, Carrara, a brass rail worn thin at one end. Six stools, which is fewer than the room could hold and about right for the conversation. It opens at four and closes when it closes.",
+      "The front room, 22ft\u00A0by\u00A016ft, facing north-east onto the street through three floor-to-ceiling sash windows with their original shutters. Fitted as a bar in walnut and Carrara marble, with a brass rail and mirrored back shelving. The fittings are bespoke and included in the sale.",
   },
   {
-    kind: "inset",
-    src: "/images/bar-detail.jpg",
-    alt: "A cut crystal tumbler and a folded linen napkin on the marble bar top.",
-    align: "right",
-  },
-  {
-    kind: "plate",
     src: "/images/dining.jpg",
-    alt: "The dining room, laid with one long walnut table, twelve red leather chairs and plain white plates.",
+    alt: "The dining room at the back of the ground floor, with two south-facing sash windows, restored ceiling plasterwork and the chimneypiece original to the house.",
     eyebrow: "The Dining Room",
     copy:
-      "One table, twelve places, laid the same way every day. The kitchen sends out four things at lunch and six at dinner, and will make something else if asked properly. Members dine together or not at all, which sounds severe until you have done it.",
+      "A formal dining room seating twelve, 24ft\u00A0by\u00A015ft, with two south-facing sashes and restored plasterwork to the ceiling. The chimneypiece is original to the house. Serving access runs directly from the kitchen below by the original back stair.",
     objectPosition: "center 58%",
   },
   {
-    kind: "inset",
-    src: "/images/linen-cups.jpg",
-    alt: "Two white cups stacked on a brass tray beside a linen cloth, on a small table next to a worn leather armchair.",
-    align: "left",
-  },
-  {
-    kind: "plate",
     src: "/images/library.jpg",
-    alt: "The library, with full-height walnut shelves of old books, a brass reading lamp and a red leather armchair.",
+    alt: "The library, with two walls of fitted walnut shelving, a working fireplace and a west-facing window onto the garden, above the original boards lifted and relaid.",
     eyebrow: "The Library",
     copy:
-      "Three thousand volumes, most of them unread and a few of them irreplaceable. The chair by the window has been sat in since 1962 and shows it. Quiet here is a matter of convention rather than rule, which has proved more reliable.",
+      "Two walls of fitted walnut shelving, made for the house and included in the sale, with a working fireplace and a west-facing window onto the garden. The floor here is the original board, lifted, repaired and relaid during the restoration.",
     objectPosition: "center 64%",
   },
   {
-    kind: "inset",
-    src: "/images/door-handle.jpg",
-    alt: "A worn brass lever handle and keyhole plate on a dark green panelled door.",
-    align: "right",
-  },
-  {
-    kind: "plate",
     src: "/images/bedroom.jpg",
-    alt: "One of the bedrooms upstairs: a walnut bed dressed in white linen and a green wool blanket, beside a curtained sash window.",
-    eyebrow: "The Rooms",
+    alt: "A second-floor bedroom under a 10ft\u00A04in ceiling, with an original sash window draught-sealed and double-glazed to conservation specification.",
+    eyebrow: "The Bedrooms",
     copy:
-      "Six rooms on the upper floors, for members who find themselves in town, or who would rather not go home. Linen, wool, a walnut bed, a window that opens. Nothing else, deliberately. Breakfast is at eight and is not negotiable.",
+      "Six bedrooms across the second and third floors, including a principal suite with dressing room and bathroom. Every room retains its original sash windows, draught-sealed and double-glazed to conservation specification. Ceiling heights are 10ft\u00A04in on the second floor and 9ft\u00A02in on the third.",
   },
   {
-    kind: "plate",
     src: "/images/courtyard.jpg",
-    alt: "The garden at the back: a teak bench against an old brick wall, flanked by clipped box in terracotta pots.",
+    alt: "The south-facing walled garden, laid in York stone with mature jasmine trained to the original brick boundary walls, repointed in lime mortar.",
     eyebrow: "The Garden",
     narrowCopy: true,
+    bleed: true,
     copy:
-      "A walled garden at the back — York stone, jasmine on old brick, a bench that has been rained on for thirty years. It is not large. On this street, that it exists at all is the point.",
+      "A south-facing walled garden of 640\u00A0sq\u00A0ft, laid in York stone with mature jasmine trained to the brick. The walls are original boundary walls, repointed in lime mortar. Outside space of this size is exceptional for a Marylebone townhouse, and is not replicable.",
   },
 ];

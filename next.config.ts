@@ -26,6 +26,11 @@ const nextConfig: NextConfig = {
         destination: "/journal",
         permanent: true,
       },
+      // Halden's membership page is now the restoration. Both doors need it:
+      // /halden/membership on the main host, and /membership at the root of
+      // the subdomain, where the edge has already stripped the prefix.
+      { source: "/halden/membership", destination: "/halden/the-restoration", permanent: true },
+      { source: "/membership", destination: "/the-restoration", permanent: true },
     ];
   },
 
