@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import { useSearchParams } from "next/navigation";
 import { track } from "@vercel/analytics";
 import { UNDERLINE } from "@/lib/underline";
+import { FIELD, LABEL } from "@/lib/form";
 
 // The address the footer and the failure message both print, so a visitor
 // who is told to write directly reaches the same inbox the form does.
@@ -62,8 +63,6 @@ const MESSAGE_MAX = 2000;
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const FIELD =
-  "mt-1 w-full rounded-none border-0 border-b border-bone bg-transparent py-1 font-body text-base text-ink transition-colors duration-400 focus:border-ink";
 
 export default function ContactForm() {
   const params = useSearchParams();
@@ -134,7 +133,7 @@ export default function ContactForm() {
     <form noValidate onSubmit={handleSubmit} className="mt-10 flex flex-col gap-6">
       {fields.map(({ name, label, type, required, autoComplete, placeholder }) => (
         <div key={name} className="flex flex-col">
-          <label htmlFor={`contact-${name}`} className="font-body text-sm text-ink">
+          <label htmlFor={`contact-${name}`} className={LABEL}>
             {label}
           </label>
           <input

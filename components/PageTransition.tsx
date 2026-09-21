@@ -71,6 +71,7 @@ export default function PageTransition({ children }: { children: React.ReactNode
     <TransitionContext.Provider value={{ navigate }}>
       <div
         ref={overlayRef}
+        data-page-transition
         aria-hidden="true"
         className="pointer-events-none fixed inset-0 z-50 bg-ink"
         style={{ opacity: 0, visibility: "hidden" }}

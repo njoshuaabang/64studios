@@ -4,7 +4,7 @@ import { entries } from "@/config/journal";
 import { SITE_URL } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const pages = ["", "/portfolio", "/process", "/studio", "/journal", "/contact"];
+  const pages = ["", "/portfolio", "/process", "/studio", "/journal", "/contact", "/checklist"];
 
   return [
     ...pages.map((path) => ({

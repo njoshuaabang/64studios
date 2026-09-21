@@ -20,7 +20,7 @@ const LINK =
 
 export default function SiteFooter() {
   return (
-    <footer className="mx-auto max-w-6xl px-4 pb-10 pt-[12vh] md:px-6">
+    <footer data-site-footer className="mx-auto max-w-6xl px-4 pb-10 pt-[12vh] md:px-6">
       <p className="font-body text-sm text-ink">
         <TransitionLink
           href="/"

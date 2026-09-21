@@ -1,44 +1,12 @@
 import { Resend } from "resend";
+import { EMAIL_RE, FROM, STUDIO_INBOX, clientIp, rateLimited, stripBreaks } from "@/lib/mail";
 
-const TO = "studio@64studios.design";
-const FROM = "64 Studios <studio@64studios.design>";
+const TO = STUDIO_INBOX;
 
 const MAX_LENGTHS = { name: 200, email: 254, business: 200, website: 500, option: 60, message: 2000 } as const;
 
-/**
- * Strips CR and LF before a value can reach a mail header.
- *
- * The brief called for "the same CR/LF stripping as the existing fields" and
- * there was none: every field was only trimmed. It happened not to matter,
- * because the one value that reaches a header is replyTo and EMAIL_RE already
- * forbids whitespace in it. This makes that explicit rather than incidental,
- * so a later field added to a header does not quietly inherit the gap.
- */
-const stripBreaks = (value: string) => value.replace(/[\r\n]+/g, " ").trim();
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-// ponytail: rate limit state lives in this instance's memory, so it resets on
-// every cold start and isn't shared across concurrent instances or regions.
-// Fine for deterring a script hammering one function instance; upgrade to
-// Vercel KV or Upstash if real abuse shows up in the logs.
-const WINDOW_MS = 10 * 60 * 1000;
-const MAX_PER_WINDOW = 5;
-const hits = new Map<string, { count: number; resetAt: number }>();
-
-function rateLimited(ip: string): boolean {
-  const now = Date.now();
-  const entry = hits.get(ip);
-  if (!entry || now > entry.resetAt) {
-    hits.set(ip, { count: 1, resetAt: now + WINDOW_MS });
-    return false;
-  }
-  entry.count += 1;
-  return entry.count > MAX_PER_WINDOW;
-}
-
 export async function POST(request: Request) {
-  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
-  if (rateLimited(ip)) {
+  if (rateLimited(clientIp(request), "contact")) {
     return Response.json({ ok: false, error: "Too many requests. Try again later." }, { status: 429 });
   }
 
