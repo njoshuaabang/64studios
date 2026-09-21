@@ -35,6 +35,9 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# The example holds names and comments, never values, and is how a new
+# variable gets documented for whoever sets up the next environment.
+!.env.example
 
 # vercel
 .vercel
