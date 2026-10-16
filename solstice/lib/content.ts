@@ -70,3 +70,15 @@ export const holding = {
   process: { title: "How it runs" },
   about: { title: "About" },
 };
+
+// Site B only.
+export const scrollCue = "Scroll";
+
+export const trust = {
+  eyebrow: "Why Solstice",
+  heading: "One family, every trade, start to finish.",
+  body: trustBody,
+};
+
+// "Company no." is marked (confirm) in content.md, so it stays out until Solstice approves it.
+export const footer = { company: "Solstice Construction Ltd", place: "Amesbury, Wiltshire" };

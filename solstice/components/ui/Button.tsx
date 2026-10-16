@@ -7,6 +7,8 @@ type Props = {
   variant?: "primary" | "ghost";
   /** nav: the ghost button drawn 40px tall inside a 44px tap area. */
   size?: "default" | "nav";
+  /** dark: on photos and Ink (default). light: on Limestone, with the colours inverted. */
+  tone?: "dark" | "light";
   className?: string;
   onClick?: MouseEventHandler<HTMLAnchorElement>;
 };
@@ -18,18 +20,24 @@ const face =
   "transition-[color,border-color] duration-0 group-hover:delay-150";
 
 const variants = {
-  primary: "bg-limestone text-ink before:bg-ink group-hover:text-limestone",
-  ghost: "text-limestone border border-limestone/60 group-hover:border-limestone group-hover:delay-0 before:bg-limestone/10",
+  dark: {
+    primary: "bg-limestone text-ink before:bg-ink group-hover:text-limestone",
+    ghost: "text-limestone border border-limestone/60 group-hover:border-limestone group-hover:delay-0 before:bg-limestone/10",
+  },
+  light: {
+    primary: "bg-ink text-limestone before:bg-limestone group-hover:text-ink border border-ink",
+    ghost: "text-ink border border-ink/60 group-hover:border-ink group-hover:delay-0 before:bg-ink/10",
+  },
 };
 
-export function Button({ href, children, variant = "primary", size = "default", className = "", onClick }: Props) {
+export function Button({ href, children, variant = "primary", size = "default", tone = "dark", className = "", onClick }: Props) {
   return (
     <TransitionLink
       href={href}
       onClick={onClick}
       className={`group inline-flex items-center rounded-[2px] ${size === "nav" ? "h-11" : "h-12"} ${className}`}
     >
-      <span className={`${face} ${variants[variant]} ${size === "nav" ? "h-10" : "h-12"}`}>
+      <span className={`${face} ${variants[tone][variant]} ${size === "nav" ? "h-10" : "h-12"}`}>
         <span className="relative">{children}</span>
       </span>
     </TransitionLink>

@@ -155,3 +155,36 @@ html:not(.js) [data-intro-panel] {
 .intro-logo [data-logo-wordmark] {
   opacity: 0;
 }
+
+/* Site B: trust content and frame lines start hidden; ScrollMotion brings them in. */
+.js [data-trust] > * {
+  opacity: 0;
+}
+.scroll-tick {
+  animation: scroll-tick 2s var(--ease-reveal) infinite;
+}
+@keyframes scroll-tick {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(400%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-tick {
+    animation: none;
+  }
+}
+
+/* The parts of lenis/dist/lenis.css that Site B uses; inlined so Site A loads no extra stylesheet. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}

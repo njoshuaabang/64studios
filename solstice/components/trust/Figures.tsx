@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { figures } from "@/lib/content";
 import { gsap, reducedMotion, useGSAP } from "@/lib/motion";
 import { useIntroPhase } from "../intro/Intro";
@@ -8,13 +8,31 @@ import { useIntroPhase } from "../intro/Intro";
 type Props = {
   /** compact: Site A's bottom band. full: Site B's trust section. */
   layout?: "compact" | "full";
+  /** intro: count up as the intro finishes (Site A). view: when the figures are half in view (Site B). */
+  countOn?: "intro" | "view";
   className?: string;
 };
 
-/** The four trust figures. Numeric values count up once, over 1.2s, when the intro finishes. */
-export function Figures({ layout = "compact", className = "" }: Props) {
+/** The four trust figures. Numeric values count up once, over 1.2s. */
+export function Figures({ layout = "compact", countOn = "intro", className = "" }: Props) {
   const scope = useRef<HTMLDListElement>(null);
-  const play = useIntroPhase() === "done";
+  const introDone = useIntroPhase() === "done";
+  const [inView, setInView] = useState(false);
+  const play = countOn === "intro" ? introDone : inView;
+
+  useEffect(() => {
+    if (countOn !== "view") return;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (!e.isIntersecting) return;
+        setInView(true);
+        io.disconnect();
+      },
+      { threshold: 0.5 },
+    );
+    io.observe(scope.current!);
+    return () => io.disconnect();
+  }, [countOn]);
 
   useGSAP(
     () => {
@@ -41,7 +59,7 @@ export function Figures({ layout = "compact", className = "" }: Props) {
   const grid =
     layout === "compact"
       ? "grid grid-cols-2 gap-x-6 gap-y-4 md:grid-cols-4"
-      : "grid grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-4";
+      : "grid grid-cols-2 gap-x-6 gap-y-8";
 
   return (
     <dl ref={scope} className={`${grid} ${className}`}>
