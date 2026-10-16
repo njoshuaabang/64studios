@@ -17,9 +17,9 @@ const slots = {
     alt: "Open-plan kitchen-diner in a Newbury extension, with full-height glazing onto the garden",
     position: "35% 55%",
   },
-  "hero-garden-room": { alt: "Cedar-clad garden room with floor-to-ceiling glazing", position: "60% 50%" },
+  "hero-island-kitchen": { alt: "White kitchen with a lit island and a walnut breakfast bar", position: "40% 60%" },
   "hero-walnut-kitchen": { alt: "Kitchen with a walnut-fronted island and herringbone floor", position: "45% 60%" },
-  "hero-roof-frame-sunset": { alt: "New timber roof frame against an evening sky", position: "50% 40%" },
+  "hero-roof-frame-sunset": { alt: "New timber roof frame against a blue sky", position: "50% 55%" },
   "newbury-rear": { alt: "The finished Newbury extension, seen from the garden", position: "50% 50%" },
   "newbury-frame": {
     alt: "The Newbury extension's roof frame going up",
@@ -46,5 +46,5 @@ export function photo(name: SlotName): PhotoSlot {
 /** The Newbury kitchen leads when present; otherwise the roof frame stands in for it. */
 export function heroSet(): PhotoSlot[] {
   const first = photo("hero-newbury-kitchen");
-  return [first.exists ? first : photo("hero-roof-frame-sunset"), photo("hero-garden-room"), photo("hero-walnut-kitchen")];
+  return [first.exists ? first : photo("hero-roof-frame-sunset"), photo("hero-island-kitchen"), photo("hero-walnut-kitchen")];
 }

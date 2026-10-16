@@ -82,8 +82,8 @@ Each has the nav, an H1, one short paragraph and a "Back home" link. The page tr
 | Photo slot | Alt text |
 | --- | --- |
 | hero-newbury-kitchen | Open-plan kitchen-diner in a Newbury extension, with full-height glazing onto the garden |
-| hero-garden-room | Cedar-clad garden room with floor-to-ceiling glazing |
+| hero-island-kitchen | White kitchen with a lit island and a walnut breakfast bar |
 | hero-walnut-kitchen | Kitchen with a walnut-fronted island and herringbone floor |
-| hero-roof-frame-sunset | New timber roof frame against an evening sky |
+| hero-roof-frame-sunset | New timber roof frame against a blue sky |
 | newbury-rear | The finished Newbury extension, seen from the garden |
 | newbury-frame | The Newbury extension's roof frame going up |

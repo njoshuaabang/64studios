@@ -12,7 +12,7 @@ const base = "https://www.solsticeconstruction.co.uk/wp-content/uploads/2025/12/
 
 const slots = {
   "hero-newbury-kitchen": null, // Instagram only: manual
-  "hero-garden-room": "WhatsApp-Image-2025-12-09-at-09.32.53-9.jpeg",
+  "hero-island-kitchen": null, // supplied by hand
   "hero-walnut-kitchen": "WhatsApp-Image-2025-12-09-at-09.32.53-2-scaled.jpeg",
   "hero-roof-frame-sunset": "WhatsApp-Image-2025-11-30-at-19.40.48.jpeg",
   "newbury-rear": "1-after.jpeg",
