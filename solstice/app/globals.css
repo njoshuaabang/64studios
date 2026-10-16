@@ -1,0 +1,157 @@
+@import "tailwindcss";
+
+/* Tokens: handoff/reference/design-tokens.md. Components use these, never raw hex. */
+:root {
+  --ink: #151617;
+  --limestone: #f2f0eb;
+  --concrete: #cfcbc4;
+  --slate: #5e6a73;
+  --amber: #c9733a;
+
+  --scrim: color-mix(in srgb, var(--ink) 35%, transparent);
+  --grade: color-mix(in srgb, var(--amber) 6%, transparent);
+  --rule-on-photo: color-mix(in srgb, var(--limestone) 30%, transparent);
+  --bottom-gradient: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--ink) 60%, transparent));
+
+  --size-hero: clamp(3rem, 8vw, 7.5rem);
+  --size-section: clamp(2rem, 4vw, 3.5rem);
+  --size-figure: clamp(1.5rem, 2.6vw, 2.5rem);
+  --size-body: clamp(1rem, 1.2vw, 1.125rem);
+  --size-small: 0.875rem;
+  --size-label: 0.75rem;
+
+  --unit: 8px;
+  --gutter: clamp(16px, 4vw, 56px);
+  --section-pad: clamp(64px, 10vw, 144px);
+  --content-max: 1440px;
+  --grid-gap: 24px;
+
+  --ease-reveal: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-panel: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-limestone: var(--limestone);
+  --color-concrete: var(--concrete);
+  --color-slate: var(--slate);
+  --color-amber: var(--amber);
+
+  --font-display: var(--font-archivo), system-ui, sans-serif;
+  --font-body: var(--font-hanken), system-ui, sans-serif;
+
+  --text-hero: var(--size-hero);
+  --text-hero--line-height: 0.95;
+  --text-hero--letter-spacing: -0.03em;
+  --text-hero--font-weight: 500;
+  --text-section: var(--size-section);
+  --text-section--line-height: 1.05;
+  --text-section--letter-spacing: -0.02em;
+  --text-section--font-weight: 500;
+  --text-figure: var(--size-figure);
+  --text-figure--line-height: 1;
+  --text-figure--letter-spacing: -0.02em;
+  --text-figure--font-weight: 500;
+  --text-body: var(--size-body);
+  --text-body--line-height: 1.55;
+  --text-small: var(--size-small);
+  --text-small--line-height: 1.45;
+  --text-label: var(--size-label);
+  --text-label--line-height: 1.3;
+  --text-label--letter-spacing: 0.14em;
+  --text-label--font-weight: 500;
+
+  --spacing-gutter: var(--gutter);
+  --container-content: var(--content-max);
+  --ease-reveal: var(--ease-reveal);
+  --ease-panel: var(--ease-panel);
+}
+
+@layer base {
+  body {
+    background: var(--ink);
+    color: var(--limestone);
+    font-family: var(--font-body);
+    font-size: var(--size-body);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* Archivo at width 112 for every display role. */
+  .font-display {
+    font-stretch: 112%;
+  }
+  :focus-visible {
+    outline: 2px solid var(--amber);
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  .shell {
+    width: 100%;
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  .skip-link {
+    position: fixed;
+    left: var(--gutter);
+    top: 8px;
+    z-index: 100;
+    transform: translateY(-200%);
+    background: var(--limestone);
+    color: var(--ink);
+    padding: 12px 16px;
+  }
+  .skip-link:focus-visible {
+    transform: none;
+  }
+
+  /* Underline draws left to right on hover (250ms). */
+  .text-link {
+    position: relative;
+    text-decoration: none;
+  }
+  .text-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 250ms var(--ease-reveal);
+  }
+  /* Lifts the tap target to 44px without changing the line height. */
+  .text-link::before {
+    content: "";
+    position: absolute;
+    inset: -12px -4px;
+  }
+  .text-link:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+/* Reveal targets start hidden only when JS runs, so the page still reads without it. */
+.js [data-reveal],
+.js [data-rise] {
+  opacity: 0;
+}
+html[data-intro="skip"] [data-intro-panel] {
+  display: none;
+}
+html:not(.js) [data-intro-panel] {
+  display: none;
+}
+.intro-logo [data-logo-ray],
+.intro-logo [data-logo-horizon] {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.intro-logo [data-logo-wordmark] {
+  opacity: 0;
+}

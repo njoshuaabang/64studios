@@ -15,6 +15,8 @@ const eslintConfig = defineConfig([
     ".claude/**",
     // Self-contained concept build with its own toolchain.
     "halden/**",
+    // Solstice proposal: its own Next.js app with its own toolchain.
+    "solstice/**",
     // Aldern & Voss ships as a pre-built bundle, not source.
     "public/**",
   ]),
